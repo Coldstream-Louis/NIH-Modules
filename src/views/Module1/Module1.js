@@ -1,7 +1,11 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import './Styles.css';
+import sirBlue from "assets/img/module1/blue_tiles.svg";
+import SPath from "assets/img/module1/S-path.svg";
+import IPath from "assets/img/module1/I-path.svg";
+import RPath from "assets/img/module1/R-path.svg";
 
 export default function Module1(props) {
   const header = React.createRef();
@@ -16,6 +20,8 @@ export default function Module1(props) {
   const textS = "S: The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
   const textI = "I: The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
   const textR = "R: the number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
+
+  const [stepSIR, setSIR] = useState(sirBlue);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -58,8 +64,8 @@ export default function Module1(props) {
         pin: true,
         markers: true,
       },
-      x:540,
-      y:200,
+      x:450,
+      y:260,
       //duration:1,
       ease: "none"
     });
@@ -73,8 +79,8 @@ export default function Module1(props) {
         pin: true,
         markers: true,
       },
-      x:540,
-      y:200,
+      x:450,
+      y:260,
       ease: "none"
     });
 
@@ -90,32 +96,19 @@ export default function Module1(props) {
           const step_2 = document.querySelector("#step_i");
           const step_3 = document.querySelector("#step_r");
           if(currScroll > step_1.offsetTop && currScroll < step_2.offsetTop) {
-            document.querySelector("#step-1").setAttribute("opacity", "1");
-            document.querySelector("#step-2").setAttribute("opacity", "0.4");
-            document.querySelector("#step-3").setAttribute("opacity", "0.4");
-            document.querySelector("#t2").setAttribute("fill", "#97ABF3");
-            document.querySelector("#t3").setAttribute("fill", "#97ABF3");
+            setSIR(SPath);
             document.querySelector("#scrollText").textContent = textS;
           }
           else if(currScroll > step_2.offsetTop && currScroll < step_3.offsetTop) {
-            document.querySelector("#step-1").setAttribute("opacity", "0.4");
-            document.querySelector("#step-2").setAttribute("opacity", "1");
-            document.querySelector("#step-3").setAttribute("opacity", "0.4");
-            document.querySelector("#t2").setAttribute("fill", "#F5B434");
-            document.querySelector("#t3").setAttribute("fill", "#F5B434");
+            setSIR(IPath);
             document.querySelector("#scrollText").textContent = textI;
           }
           else if(currScroll > step_3.offsetTop) {
-            document.querySelector("#step-1").setAttribute("opacity", "0.4");
-            document.querySelector("#step-2").setAttribute("opacity", "0.4");
-            document.querySelector("#step-3").setAttribute("opacity", "1");
-            document.querySelector("#t3").setAttribute("fill", "#6CC575");
+            setSIR(RPath);
             document.querySelector("#scrollText").textContent = textR;
           }
           else if(currScroll < step_1.offsetTop) {
-            document.querySelector("#step-1").setAttribute("opacity", "0.4");
-            document.querySelector("#step-2").setAttribute("opacity", "0.4");
-            document.querySelector("#step-3").setAttribute("opacity", "0.4");
+            setSIR(sirBlue);
           }
         },
         scrub: true,
@@ -150,24 +143,10 @@ export default function Module1(props) {
     </div>
     <div className={placeholder}>
 
-      <svg id="module1-1" width={600} height={300} viewBox="0 0 2000 1600">
-        <svg width="1843" height="726" x="150" y="800">
-          <g opacity="0.4" id="step-1">
-            <rect id="t1" y="-0.992034" width="516.082" height="465.049" transform="matrix(-0.943744 0.330678 0.943744 0.330678 491.541 1.33601)" fill="#97ABF3" stroke="white" strokeWidth="3"/>
-            <rect x="-2.3624" y="3.31797" width="521.532" height="77.3364" transform="matrix(-0.944959 0.327188 3.6735e-08 1 927.83 149.759)" fill="#958989" stroke="white" strokeWidth="5"/>
-            <rect x="2.35646" y="-1.66509" width="459.997" height="77.1928" transform="matrix(-0.942586 -0.333964 -3.58992e-08 1 439.451 327.5)" fill="#F4EDED" stroke="white" strokeWidth="5"/>
-          </g>
-          <g opacity="0.4" id="step-2">
-            <rect id="t2" y="-0.992034" width="516.082" height="465.049" transform="matrix(-0.943744 0.330678 0.943744 0.330678 947.541 160.336)" fill="#97ABF3" stroke="white" strokeWidth="3"/>
-            <rect x="-2.3624" y="3.31797" width="521.532" height="77.3364" transform="matrix(-0.944959 0.327188 3.6735e-08 1 1383.83 308.759)" fill="#958989" stroke="white" strokeWidth="5"/>
-            <rect x="2.35646" y="-1.66509" width="459.997" height="77.1928" transform="matrix(-0.942586 -0.333964 -3.58992e-08 1 895.451 486.499)" fill="#F4EDED" stroke="white" strokeWidth="5"/>
-          </g>
-          <g opacity="0.4" id="step-3">
-            <rect id="t3" y="-0.992034" width="516.082" height="465.049" transform="matrix(-0.943744 0.330678 0.943744 0.330678 1402.12 321.467)" fill="#97ABF3" stroke="white" strokeWidth="3"/>
-            <rect x="-2.3624" y="3.31797" width="521.532" height="77.3364" transform="matrix(-0.944959 0.327188 3.6735e-08 1 1838.41 469.889)" fill="#958989" stroke="white" strokeWidth="5"/>
-            <rect x="2.35646" y="-1.66509" width="459.997" height="77.1928" transform="matrix(-0.942586 -0.333964 -3.58992e-08 1 1350.03 647.631)" fill="#F4EDED" stroke="white" strokeWidth="5"/>
-          </g>
-        </svg>
+      <svg id="module1-1" width={600} height={400} viewBox="0 0 2000 1600">
+
+
+        <image x="-60" y="800" width="1900" height="800" href={stepSIR}></image>
 
         <g id="Layer_2_2_">
           <g className="full_person">
