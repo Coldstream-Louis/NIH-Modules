@@ -8,15 +8,8 @@ import IPath from "assets/img/module1/I-path.svg";
 import RPath from "assets/img/module1/R-path.svg";
 
 export default function Module1(props) {
-  const header = React.createRef();
-  const boxRef = useRef(null);
-  const box = "box";
-  const pinSpacer = "pinSpacer";
-  const placeholder = "placeholder";
-  const textContainer = "text-container";
-  const markers = "markers";
-  const marker = "marker";
-  const scrollTextContainer = "scrollTextContainer";
+
+
   const textS = "S: The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
   const textI = "I: The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
   const textR = "R: the number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
@@ -51,30 +44,15 @@ export default function Module1(props) {
     var master_tl = gsap.timeline();
     //master_tl.add(legs_walking_tl);
 
-    gsap.to('.full_person', { 
+    gsap.to('.full_person', {
       scrollTrigger: {
         trigger: "#module1-1",
         start: "top 180",
-        end: "+=300",
+        end: "+=2000",
         onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl);},
         onLeave: ()=>{legs_walking_tl.pause();},
         onEnterBack: ()=>{legs_walking_tl.play();},
         onLeaveBack: ()=>{legs_walking_tl.pause();},
-        scrub: true,
-        pin: true,
-        markers: true,
-      },
-      x:450,
-      y:260,
-      //duration:1,
-      ease: "none"
-    });
-
-    gsap.to('#character', {
-      scrollTrigger: {
-        trigger: "#module1-1",
-        start: "top 180",
-        end: "+=300",
         scrub: true,
         pin: true,
         markers: true,
@@ -88,8 +66,7 @@ export default function Module1(props) {
       scrollTrigger: {
         trigger: "#module1-1",
         start: "top 180",
-        end: "+=300",
-
+        end: "+=2000",
         onUpdate: () => {
           const currScroll = window.scrollY + 160;
           const step_1 = document.querySelector("#step_s");
@@ -117,31 +94,18 @@ export default function Module1(props) {
         //pinSpacing: false
       },
     });
-    gsap.to(".scrollTextContainer", {
-      scrollTrigger: {
-        trigger: ".scrollTextContainer",
-        start: "top 180",
-        end: "+=300",
-        scrub: true,
-        pin: true,
-        markers: true,
-        //pinSpacing: false
-      },
-    });
+    
   }, []);
 
   return (<>
-    <h1 ref={header}>
+    <h1 >
       Hello GSAP World!
     </h1>
-    <div className={placeholder}>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-    </div>
-    <div className={textContainer}>
+    <div className={"textContainer"}>
       <p>We will begin this section by learning how to break up a disease’s natural history into discrete steps. </p>
       <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments:- </p>
     </div>
-    <div className={placeholder}>
+    <div className={"placeholder"}>
 
       <svg id="module1-1" width={600} height={400} viewBox="0 0 2000 1600">
 
@@ -150,6 +114,8 @@ export default function Module1(props) {
 
         <g id="Layer_2_2_">
           <g className="full_person">
+          <image href="https://raw.githubusercontent.com/Coldstream-Louis/homework8/master/spotlight.png" height="200" width="200" x="-60" y="-100"/>
+
             <polyline className="st0 right_arm" points="75.4,87.9 93.6,116.2 106.8,135.5 		"/>
 
             <g className="left_leg_group">
@@ -180,24 +146,20 @@ export default function Module1(props) {
                         c1.3,0.3,4.2-9.1,5.8-8.8s0.5,11.1,1.6,11.2c0.8,0.1,2.3-4.4,3.1-7.9c0.9-3.9,0.8-6.1,1.6-6.2c1.5-0.3,2.8,7,5.3,7
                         c3,0.1,3.5-11,8.8-12.3c2.5-0.6,3.2,1.7,8.8,2.9c1.9,0.4,6.9,1.5,11.7-0.6c4.4-1.9,4.4-4.6,7-4.7c5.6-0.2,9.8,12.2,11.2,11.7
                         C78.9,29.9,78.5,24.8,76.3,20z"/>
+
           </g>
-          <image id="character" href="https://raw.githubusercontent.com/Coldstream-Louis/homework8/master/spotlight.png" height="200" width="200" x="-60" y="-100"/>
         </g>
       </svg>
-      <div className={scrollTextContainer}>
+      <div className={"scrollTextContainer"}>
         <p id="scrollText">{textS}</p>
       </div>
 
-      <div className={markers}>
-        <div className={marker} id="step_s"></div>
-        <div className={marker} id="step_i"></div>
-        <div className={marker} id="step_r"></div>
+      <div className={"markers"} style={{height: "200vh"}}>
+        <div className={"marker"} id="step_s" style={{height: "75vh"}}></div>
+        <div className={"marker"} id="step_i" style={{height: "75vh"}}></div>
+        <div className={"marker"} id="step_r" style={{height: "75vh"}}></div>
       </div>
 
-    </div>
-    <div className={placeholder}></div>
-    <div className={placeholder}>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
     </div>
   </>);
 }
