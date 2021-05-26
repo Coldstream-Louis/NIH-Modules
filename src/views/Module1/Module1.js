@@ -8,38 +8,39 @@ import IPath from "assets/img/module1/I-path.svg";
 import RPath from "assets/img/module1/R-path.svg";
 
 export default function Module1(props) {
-
-
-  const textS = "S: The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
-  const textI = "I: The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
-  const textR = "R: the number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
+  const headerS = "S: Susceptible";
+  const headerI = "I: Infectious";
+  const headerR = "R: Removed";
+  const textS = "The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
+  const textI = "The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
+  const textR = "the number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
 
   const [stepSIR, setSIR] = useState(sirBlue);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(CSSPlugin);
-    gsap.to("#Layer_2_2_", {scaleX: 2.6, scaleY: 2.6, x:40, y: 150});
+    gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 150});
 
     var legs_walking_tl = gsap.timeline({repeat: -1});
     legs_walking_tl.pause();
     legs_walking_tl.addLabel("move_legs_1")
-      .to(".left_leg_group", {duration:1, rotation:15}, "move_legs_1")
-      .to(".right_leg_group", {duration:1, rotation:-15}, "move_legs_1")
-      .to(".left_arm", {duration:1, rotation:10}, "move_legs_1")
-      .to(".right_arm", {duration:1, rotation:-10}, "move_legs_1");
+      .to(".left_leg_group", {duration:0.5, rotation:15}, "move_legs_1")
+      .to(".right_leg_group", {duration:0.5, rotation:-15}, "move_legs_1")
+      .to(".left_arm", {duration:0.5, rotation:10}, "move_legs_1")
+      .to(".right_arm", {duration:0.5, rotation:-10}, "move_legs_1");
 
     legs_walking_tl.addLabel("move_legs_2")
-      .to(".left_leg_group", {duration:1, rotation:-15}, "move_legs2")
-      .to(".right_leg_group", {duration:1, rotation:15 }, "move_legs2")
-      .to(".left_arm", {duration:1, rotation:-10}, "move_legs_2")
-      .to(".right_arm", {duration:1, rotation:10}, "move_legs_2");
+      .to(".left_leg_group", {duration:0.5, rotation:-15}, "move_legs2")
+      .to(".right_leg_group", {duration:0.5, rotation:15 }, "move_legs2")
+      .to(".left_arm", {duration:0.5, rotation:-10}, "move_legs_2")
+      .to(".right_arm", {duration:0.5, rotation:10}, "move_legs_2");
 
     legs_walking_tl.addLabel("move_legs_0")
-      .to(".left_leg_group", {duration:0.3, rotation:0, ease: "none"}, "move_legs_0")
-      .to(".right_leg_group", {duration:0.3, rotation:0, ease: "none"}, "move_legs_0")
-      .to(".left_arm", {duration:0.3, rotation:0, ease: "none"}, "move_legs_0")
-      .to(".right_arm", {duration:0.3, rotation:0, ease: "none"}, "move_legs_0");
+      .to(".left_leg_group", {duration:0.15, rotation:0, ease: "none"}, "move_legs_0")
+      .to(".right_leg_group", {duration:0.15, rotation:0, ease: "none"}, "move_legs_0")
+      .to(".left_arm", {duration:0.15, rotation:0, ease: "none"}, "move_legs_0")
+      .to(".right_arm", {duration:0.15, rotation:0, ease: "none"}, "move_legs_0");
 
     var master_tl = gsap.timeline();
     //master_tl.add(legs_walking_tl);
@@ -72,20 +73,28 @@ export default function Module1(props) {
           const step_1 = document.querySelector("#step_s");
           const step_2 = document.querySelector("#step_i");
           const step_3 = document.querySelector("#step_r");
+          legs_walking_tl.play();
           if(currScroll > step_1.offsetTop && currScroll < step_2.offsetTop) {
             setSIR(SPath);
             document.querySelector("#scrollText").textContent = textS;
+            document.querySelector("#scrollHeader").textContent = headerS;
+            legs_walking_tl.pause();
           }
           else if(currScroll > step_2.offsetTop && currScroll < step_3.offsetTop) {
             setSIR(IPath);
             document.querySelector("#scrollText").textContent = textI;
+            document.querySelector("#scrollHeader").textContent = headerI;
+            legs_walking_tl.pause();
           }
           else if(currScroll > step_3.offsetTop) {
             setSIR(RPath);
             document.querySelector("#scrollText").textContent = textR;
+            document.querySelector("#scrollHeader").textContent = headerR;
+            legs_walking_tl.pause();
           }
           else if(currScroll < step_1.offsetTop) {
             setSIR(sirBlue);
+            legs_walking_tl.pause();
           }
         },
         scrub: true,
@@ -98,21 +107,19 @@ export default function Module1(props) {
   }, []);
 
   return (<>
-    <h1 >
-      Hello GSAP World!
+  <div class="mainContainer">
+    <h1>
+      Module 1: What is SIR?
     </h1>
-    <div className={"textContainer"}>
+    <div className="textContainer">
       <p>We will begin this section by learning how to break up a disease’s natural history into discrete steps. </p>
-      <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments:- </p>
+      <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments: </p>
     </div>
-    <div className={"placeholder"}>
-
+    <div className="scrollingContainer">
       <svg id="module1-1" width={600} height={400} viewBox="0 0 2000 1600">
-
-
         <image x="-60" y="800" width="1900" height="800" href={stepSIR}></image>
 
-        <g id="Layer_2_2_">
+        <g id="init_scene">
           <g className="full_person">
           <image href="https://raw.githubusercontent.com/Coldstream-Louis/homework8/master/spotlight.png" height="200" width="200" x="-60" y="-100"/>
 
@@ -150,16 +157,18 @@ export default function Module1(props) {
           </g>
         </g>
       </svg>
-      <div className={"scrollTextContainer"}>
+      <div className="scrollTextContainer">
+        <h2 id="scrollHeader">{headerS}</h2>
         <p id="scrollText">{textS}</p>
       </div>
 
-      <div className={"markers"} style={{height: "200vh"}}>
-        <div className={"marker"} id="step_s" style={{height: "75vh"}}></div>
-        <div className={"marker"} id="step_i" style={{height: "75vh"}}></div>
-        <div className={"marker"} id="step_r" style={{height: "75vh"}}></div>
+      <div className="markers" style={{height: "200vh"}}>
+        <div className="marker" id="step_s" style={{height: "75vh"}}></div>
+        <div className="marker" id="step_i" style={{height: "75vh"}}></div>
+        <div className="marker" id="step_r" style={{height: "75vh"}}></div>
       </div>
 
+    </div>
     </div>
   </>);
 }
