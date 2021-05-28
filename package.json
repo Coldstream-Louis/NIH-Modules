@@ -8,7 +8,7 @@
     "@material-ui/core": "4.10.0",
     "@material-ui/icons": "4.9.1",
     "classnames": "2.2.6",
-    "gsap": "^3.6.0",
+    "gsap": "^3.6.1",
     "history": "4.10.1",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
