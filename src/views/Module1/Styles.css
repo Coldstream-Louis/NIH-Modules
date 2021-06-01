@@ -28,6 +28,14 @@
     overflow: "visible";
     height: 200px;
     align-self: flex-start;
+    padding: 15px;
+}
+
+#scrollText{
+    font-size: 18px;
+}
+#scrollHeader{
+    font-weight: bold;
 }
 
 .markers{
@@ -38,10 +46,6 @@
     width: 100%;
     color: #00e5ff;
     height: 100%;
-}
-
-#sick{
-    /* display: none; */
 }
 
 #step_s{

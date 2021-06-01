@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import './Styles.css';
@@ -7,9 +7,9 @@ import SPath from "assets/img/module1/S-path.svg";
 import IPath from "assets/img/module1/I-path.svg";
 import RPath from "assets/img/module1/R-path.svg";
 
-export default function Module1(props) {
-  let notSick = <g id="person">
-      <polyline id="right_arm_1_" className="st8" points="75.4,87.9 93.6,116.2 106.8,135.5 	"/>
+export default function Module1() {
+  const notSick = <g id="person">
+      <polyline id="right_arm" className="right_arm st8" points="75.4,87.9 93.6,116.2 106.8,135.5 	"/>
       <g className="right_leg_group st9">
           <polyline id="left_leg_2_" className="st1" points="29.7,158.3 30,194.5 30.7,216.7 			"/>
           <path id="left_foot_2_" className="st2" d="M35.1,219.4l-4.3-2.4c-1-0.6-1.4-1.9-0.8-2.9l0,0c0.6-1,1.9-1.4,2.9-0.8l4.3,2.5
@@ -28,14 +28,15 @@ export default function Module1(props) {
         <path className="st4" d="M78,42.7c-0.2,9.6-5.3,17.5-14.4,22.2c-5.7,2.9-12,4.3-18.4,4.3c-0.6,0-1.2,0-1.7,0C36.6,69,30,67,24.3,63.2
           c-7-4.4-11.2-12.1-11.3-20.3l0,0V30c0.2-9.4,5.2-17.2,13.9-22c11.6-6.3,27.8-6,38.5,0.7C73.1,13.3,78,21.6,78,29.8V42.7z"/>
       </g>
-      <path id="right_arm-2_1_" className="st8" d="M19,96.2L30.6,122l0,0l22.3,15"/>
+      <path id="left_arm" className="left_arm st8" d="M19,96.2L30.6,122l0,0l22.3,15"/>
       <path id="Hair_1_" className="st10" d="M76.3,20c-4.2-9.3-15.1-16.2-27-18.1C28.8-1.2,14.4,14.3,13,28.1c-0.4,4.2-1,9.5,0,9.7
         c1.3,0.3,4.2-9.1,5.8-8.8s0.5,11.1,1.6,11.2c0.8,0.1,2.3-4.4,3.1-7.9c0.9-3.9,0.8-6.1,1.6-6.2c1.5-0.3,2.8,7,5.3,7
         c3,0.1,3.5-11,8.8-12.3c2.5-0.6,3.2,1.7,8.8,2.9c1.9,0.4,6.9,1.5,11.7-0.6c4.4-1.9,4.4-4.6,7-4.7c5.6-0.2,9.8,12.2,11.2,11.7
         C78.9,29.9,78.5,24.8,76.3,20z"/>
     </g>
-  let isSick = <g id="person">
-    <line id="left_arm_upper" className="st11" x1="71.6" y1="88.9" x2="89.5" y2="116.9"/>
+  const isSick = <g id="person">
+    <line id="l_arm" className="st11" x1="71.6" y1="88.9" x2="89.5" y2="116.9"/>
+
     <g className="right_leg_group st9">
       <line id="right_leg_1_" className="st12" x1="30.8" y1="158.2" x2="30.8" y2="216"/>
       <path id="right_foot_1_" className="st2" d="M31.6,217.5l3.3,1.9c1,0.6,2.3,0.2,2.9-0.7l0,0l0,0c0.6-1,0.2-2.3-0.7-2.9l-3.4-2
@@ -51,8 +52,8 @@ export default function Module1(props) {
         c-18.5-3.6-32.5-18.7-34.1-40.5c-1.3-7.5-2.9-24,5.5-41.2c3.2-6.6,8.5-17.2,20.8-23.4c14.8-7.4,29.4-2.9,33.1-1.7
         C72.6,61.2,92.2,67.7,94.5,81z"/>
     </g>
-    <line id="left_arm_lower" className="st11" x1="69.5" y1="124.5" x2="89.4" y2="116.1"/>
-    <path id="right_arm" className="st11" d="M18.1,97.2l9.5,25.4c0,0.1,0.1,0.2,0.2,0.2l28.2,6.2"/>
+    <line id="l_arm_lower" className="st11" x1="69.5" y1="124.5" x2="89.4" y2="116.1"/>
+    <path id="r_arm" className="st11" d="M18.1,97.2l9.5,25.4c0,0.1,0.1,0.2,0.2,0.2l28.2,6.2"/>
     <path id="head" className="st14" d="M35.3,41.7L35.3,41.7l3.1-12.3c2.4-8.9,9.1-15.2,18.5-17.8c12.6-3.3,28,0.7,36.6,9.8
       c6.2,6.2,8.9,15.2,6.9,23.2l-3,12.3c-2.5,9.2-9.3,15.6-19.1,17.8c-6.1,1.4-12.5,1.3-18.6-0.2c-0.6-0.2-1.1-0.2-1.6-0.5
       c-6.8-1.9-12.8-5.7-16.8-10.3C35.6,57.9,33.5,49.6,35.3,41.7z"/>
@@ -72,8 +73,8 @@ export default function Module1(props) {
         "/>
     <polygon id="lightening_1" className="st19" points="-6.9,146.2 -3.4,149.2 -13.8,152.5 -10.8,157.7 4.6,150.7 1.9,148.1 10,143.1 	"/>
 </g>
-  let recoveredSick = <g id="person">
-    <polyline id="left_arm" className="st0" points="76.3,84.5 105.1,69.6 110.4,38.7 	"/>
+  const recoveredSick = <g id="person">
+    <polyline id="l_arm_2" className="st0" points="76.3,84.5 105.1,69.6 110.4,38.7 	"/>
     <g className="right_leg_group">
       <line id="right_foot_2_" className="st1" x1="30.6" y1="157.4" x2="30.6" y2="215.8"/>
       <path id="right_foot" className="st2" d="M34.9,219.5l-3.6-2.1c-1-0.6-1.3-1.8-0.8-2.8l0.1-0.1c0.6-1,1.8-1.3,2.8-0.8l3.6,2.1
@@ -89,7 +90,7 @@ export default function Module1(props) {
     <path id="head_2_" className="st4" d="M76.6,42c-0.2,9.6-5.3,17.5-14.5,22.2c-5.7,2.9-12,4.3-18.4,4.3c-0.6,0-1.2,0-1.7,0
       c-6.8-0.2-13.5-2.2-19.1-6c-7-4.4-11.2-12.1-11.3-20.3l0,0V29.3c0.2-9.4,5.2-17.2,13.9-22C37.1,1,53.3,1.3,64,8
       c7.7,4.6,12.6,12.8,12.6,21.1L76.6,42z"/>
-    <polyline id="right_arm_2_" className="st0" points="13.8,94.1 -6.8,75.3 -14.3,47.4 	"/>
+    <polyline id="r_arm_2" className="st0" points="13.8,94.1 -6.8,75.3 -14.3,47.4 	"/>
     <path id="mouth_1_" className="st5" d="M71.7,46.2c-1.9,6.7-8,11.1-14.3,10.7c-5.1-0.4-9.6-3.6-11.7-8.3"/>
     <path id="hair_1_" className="st6" d="M74.9,19.3C70.7,10,59.8,3,47.9,1.2C27.4-1.9,13,13.6,11.6,27.4c-0.4,4.2-1,9.5,0,9.7
       c1.3,0.3,4.2-9.1,5.8-8.8s0.5,11.1,1.7,11.2c0.8,0.1,2.3-4.4,3.1-7.9c0.9-3.9,0.8-6.1,1.6-6.2c1.5-0.3,2.8,7,5.3,7
@@ -101,13 +102,15 @@ export default function Module1(props) {
   const headerR = "R: Removed";
   const textS = "The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
   const textI = "The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
-  const textR = "the number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
+  const textR = "The number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
   const [stepSIR, setSIR] = useState(sirBlue);
   const [sickNot, setSick] = useState(notSick);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(CSSPlugin);
+
+    ScrollTrigger.refresh();
 
     // gsap.set("#person", {x:40 , y:0})
     gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 150});
@@ -164,21 +167,21 @@ export default function Module1(props) {
           const step_2 = document.querySelector("#step_i");
           const step_3 = document.querySelector("#step_r");
           legs_walking_tl.play();
-          if(currScroll > step_1.offsetTop && currScroll < step_2.offsetTop) {
+          if(currScroll >= step_1.offsetTop && currScroll < step_2.offsetTop) {
             setSIR(SPath);
             setSick(notSick);
             document.querySelector("#scrollText").textContent = textS;
             document.querySelector("#scrollHeader").textContent = headerS;
             legs_walking_tl.pause();
           }
-          else if(currScroll > step_2.offsetTop && currScroll < step_3.offsetTop) {
+          else if(currScroll >= step_2.offsetTop && currScroll < step_3.offsetTop) {
             setSIR(IPath);
             document.querySelector("#scrollText").textContent = textI;
             document.querySelector("#scrollHeader").textContent = headerI;
             legs_walking_tl.pause();
             setSick(isSick);
           }
-          else if(currScroll > step_3.offsetTop) {
+          else if(currScroll >= step_3.offsetTop) {
             setSIR(RPath);
             setSick(recoveredSick);
             document.querySelector("#scrollText").textContent = textR;
@@ -209,11 +212,10 @@ export default function Module1(props) {
     <div className="textContainer">
       <p>We will begin this section by learning how  to break up a disease’s natural history into discrete steps. </p>
       <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments: </p>
-    </div>
+    </div> {/* closes textContainer */}
     <div className="scrollingContainer">
       <svg id="module1-1" width={600} height={400} viewBox="0 0 2000 1600">
         <image x="-60" y="800" width="1900" height="800" href={stepSIR}></image>
-
         <g id="init_scene">
           <g className="full_person">
           <image href="https://raw.githubusercontent.com/Coldstream-Louis/homework8/master/spotlight.png" height="200" width="200" x="-60" y="-100"/>
@@ -291,15 +293,13 @@ export default function Module1(props) {
       <div className="scrollTextContainer">
         <h2 id="scrollHeader">{headerS}</h2>
         <p id="scrollText">{textS}</p>
-      </div>
-
+      </div> {/* closes scrollingTextContainer */}
       <div className="markers" style={{height: "200vh"}}>
         <div className="marker" id="step_s" style={{height: "75vh"}}></div>
         <div className="marker" id="step_i" style={{height: "75vh"}}></div>
         <div className="marker" id="step_r" style={{height: "75vh"}}></div>
-      </div>
-
-    </div>
-    </div>
+      </div> {/* closes marker */}
+    </div> {/* closes scrollingContainer */}
+  </div> {/* closes mainContainer */}
   </>);
 }
