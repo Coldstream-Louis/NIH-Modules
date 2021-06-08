@@ -196,7 +196,6 @@ export default function Module1() {
 
     
 function determineTileColor(tileID){
-  let tile = document.querySelector(tileID)
   let tileD3 = d3.select(tileID)
   
   // console.log("tileID is", tileID)
@@ -207,33 +206,55 @@ function determineTileColor(tileID){
 
         tileD3.append('path').attr('d', sirS).attr('class', 'letterS')
 
-        d3.select("#tile1 .topFace").classed('susTileTop', true)
+        // tile 1 is active, add the fully saturated colors to it
+        d3.select("#tile1 .topFace").classed('susTileTop', true).attr('opacity', 1)
+        d3.select("#tile1 .sideProfile").classed('susTileSide', true).attr('opacity', 1)
 
-        d3.select("#tile1 .sideProfile").classed('susTileSide', true)
+        // add the colors to tile 2 and 3, but decrease the opacity
+        d3.select("#tile2 .topFace").classed('infTileTop', true).attr('opacity', 0.5)
+        d3.select("#tile2 .sideProfile").classed('infTileSide', true).attr('opacity', 0.5)
+        d3.select("#tile3 .topFace").classed('recTileTop', true).attr('opacity', 0.5)
+        d3.select("#tile3 .sideProfile").classed('recTileSide', true).attr('opacity', 0.5)
+
   } else if (tileID  === "#tile2"){
         console.log("within I")
         d3.selectAll(".letterS, .letterR").remove()
 
         tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
-        d3.select("#tile2 .topFace").classed('infTileTop', true)
+        // tile 2 is active, add the fully saturated colors to it
+        d3.select("#tile2 .topFace").attr('opacity', 1)
+        d3.select("#tile2 .sideProfile").attr('opacity', 1)
 
-        d3.select("#tile2 .sideProfile").classed('infTileSide', true)
+        // decrease the opacity of inactive tiles
+        d3.select("#tile1 .topFace").attr('opacity', 0.5)
+        d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
+        d3.select("#tile3 .topFace").attr('opacity', 0.5)
+        d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
+
     } else if (tileID === "#tile3") {
         console.log("within R")
         d3.selectAll(".letterS, .letterI").remove()
 
         tileD3.append("path").attr("d", sirR).attr('class','letterR')
 
-        d3.select("#tile3 .topFace").classed('recTileTop', true)
+        // tile 3 is active, add the fully saturated colors to it
+        d3.select("#tile3 .topFace").attr('opacity', 1)
+        d3.select("#tile3 .sideProfile").attr('opacity',1 )
 
-        d3.select("#tile3 .sideProfile").classed('recTileSide', true)
+
+        // decrease the opacity of inactive tiles
+        d3.select("#tile1 .topFace").attr('opacity', 0.5)
+        d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
+        d3.select("#tile2 .topFace").attr('opacity', 0.5)
+        d3.select("#tile2 .sideProfile").attr('opacity', 0.5)
   } else {
       console.log("not within SIR")
       d3.selectAll(".letterS, .letterI, .letterR").remove()
 
-      d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace')
-      d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile')
+      // if no tiles are active, remove any existing classes and return opacity to 1
+      d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
+      d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
   }
 
 }
