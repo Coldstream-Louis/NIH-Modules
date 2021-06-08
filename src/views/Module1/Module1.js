@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import './Styles.css';
-import sirBlue from "assets/img/module1/blue_tiles.svg";
-import SPath from "assets/img/module1/S-path.svg";
-import IPath from "assets/img/module1/I-path.svg";
-import RPath from "assets/img/module1/R-path.svg";
+// import sirBlue from "assets/img/module1/blue_tiles.svg";
+// import SPath from "assets/img/module1/S-path.svg";
+// import IPath from "assets/img/module1/I-path.svg";
+// import RPath from "assets/img/module1/R-path.svg";
 import { interpolate } from "flubber";
 import * as d3 from "d3";
 
@@ -20,21 +20,26 @@ export default function Module1() {
   const textR = "The number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
 
   // letters on top of tiles
-  const sirS = <path className="letterS" d="M156.1,37.3c-7.8-4.6-16.6-7.4-25.7-8c-8.8-0.5-16.7,1.2-23.6,5.2c-5.5,3.2-8.6,6.8-9.4,10.8
-		c-0.8,4,1,9.1,5.6,15.3c4.4,5.9,6.7,10.2,6.9,12.8c0.2,2.6-1.2,4.8-4.3,6.6c-3.7,2-7.8,2.9-12,2.5c-4.6-0.3-9.5-2-14.9-5.1
-		c-3.7-2.2-7.2-4.8-10.3-7.7c-3-2.8-5.6-5.9-7.9-9.3l-12.7,7.4c3.1,5.1,9.3,10.4,18.7,15.8c8.6,5.2,18.3,8.3,28.2,9.1
-		c9.5,0.7,17.9-1.1,25.2-5.4c3.7-2.2,6.3-4.4,7.7-6.8c1.4-2.4,1.8-5.2,1.1-7.9c-0.7-2.9-2.8-6.8-6.3-11.8c-3.2-4.4-5.1-7.6-5.9-9.6
-		c-0.7-1.6-0.8-3.4-0.2-5.1c0.9-1.7,2.4-3.1,4.1-4c3.3-1.9,7.1-2.7,10.9-2.4c4.5,0.3,8.9,1.7,12.8,4.1c6,3.5,11.1,8.3,15.1,14.1
-		l15.3-3.9C169.7,47.1,163.4,41.4,156.1,37.3"/>
+  const sirBase= ""
+  // const sirS = <path className="letterS" d="M156.1,37.3c-7.8-4.6-16.6-7.4-25.7-8c-8.8-0.5-16.7,1.2-23.6,5.2c-5.5,3.2-8.6,6.8-9.4,10.8
+	// 	c-0.8,4,1,9.1,5.6,15.3c4.4,5.9,6.7,10.2,6.9,12.8c0.2,2.6-1.2,4.8-4.3,6.6c-3.7,2-7.8,2.9-12,2.5c-4.6-0.3-9.5-2-14.9-5.1
+	// 	c-3.7-2.2-7.2-4.8-10.3-7.7c-3-2.8-5.6-5.9-7.9-9.3l-12.7,7.4c3.1,5.1,9.3,10.4,18.7,15.8c8.6,5.2,18.3,8.3,28.2,9.1
+	// 	c9.5,0.7,17.9-1.1,25.2-5.4c3.7-2.2,6.3-4.4,7.7-6.8c1.4-2.4,1.8-5.2,1.1-7.9c-0.7-2.9-2.8-6.8-6.3-11.8c-3.2-4.4-5.1-7.6-5.9-9.6
+	// 	c-0.7-1.6-0.8-3.4-0.2-5.1c0.9-1.7,2.4-3.1,4.1-4c3.3-1.9,7.1-2.7,10.9-2.4c4.5,0.3,8.9,1.7,12.8,4.1c6,3.5,11.1,8.3,15.1,14.1
+	// 	l15.3-3.9C169.7,47.1,163.4,41.4,156.1,37.3"/>
+  const sirS = "M156.1,37.3c-7.8-4.6-16.6-7.4-25.7-8c-8.8-0.5-16.7,1.2-23.6,5.2c-5.5,3.2-8.6,6.8-9.4,10.8 c-0.8,4,1,9.1,5.6,15.3c4.4,5.9,6.7,10.2,6.9,12.8c0.2,2.6-1.2,4.8-4.3,6.6c-3.7,2-7.8,2.9-12,2.5c-4.6-0.3-9.5-2-14.9-5.1 c-3.7-2.2-7.2-4.8-10.3-7.7c-3-2.8-5.6-5.9-7.9-9.3l-12.7,7.4c3.1,5.1,9.3,10.4,18.7,15.8c8.6,5.2,18.3,8.3,28.2,9.1 c9.5,0.7,17.9-1.1,25.2-5.4c3.7-2.2,6.3-4.4,7.7-6.8c1.4-2.4,1.8-5.2,1.1-7.9c-0.7-2.9-2.8-6.8-6.3-11.8c-3.2-4.4-5.1-7.6-5.9-9.6 c-0.7-1.6-0.8-3.4-0.2-5.1c0.9-1.7,2.4-3.1,4.1-4c3.3-1.9,7.1-2.7,10.9-2.4c4.5,0.3,8.9,1.7,12.8,4.1c6,3.5,11.1,8.3,15.1,14.1 l15.3-3.9C169.7,47.1,163.4,41.4,156.1,37.3"
 
-  const sirI = <polyline class="letterI" points="154.3,39.7 140.8,31.9 58.5,79.7 72.1,87.5 154.3,39.7 	"/>
+  // const sirI = <polyline className="letterI" points="154.3,39.7 140.8,31.9 58.5,79.7 72.1,87.5 154.3,39.7 	"/>
+  const sirI = "154.3,39.7 140.8,31.9 58.5,79.7 72.1,87.5 154.3,39.7 	"
 
-  const sirR = <path className="letterR" d="M100.9,53.9l26.9-15.6l9,5.2c6.2,3.6,9.7,6.8,10.8,9.7c1,2.9-0.8,5.8-5.4,8.5
-  c-4.4,2.6-9.5,3.9-14.6,3.6c-5.1-0.3-10.9-2.2-17.2-5.9L100.9,53.9 M149,37.3l-23.4-13.5L43.4,71.6l13.5,7.8l32.9-19.1l13.4,7.7
-  l-13,30.5l15.4,8.9l13-34.7c15.1,3.7,27.7,2.5,38-3.4c8-4.7,11.4-9.6,10.3-14.9C165.7,49.2,159.8,43.5,149,37.3"/>
+  // const sirR = <path className="letterR" d="M100.9,53.9l26.9-15.6l9,5.2c6.2,3.6,9.7,6.8,10.8,9.7c1,2.9-0.8,5.8-5.4,8.5
+  // c-4.4,2.6-9.5,3.9-14.6,3.6c-5.1-0.3-10.9-2.2-17.2-5.9L100.9,53.9 M149,37.3l-23.4-13.5L43.4,71.6l13.5,7.8l32.9-19.1l13.4,7.7
+  // l-13,30.5l15.4,8.9l13-34.7c15.1,3.7,27.7,2.5,38-3.4c8-4.7,11.4-9.6,10.3-14.9C165.7,49.2,159.8,43.5,149,37.3"/>
+  const sirR = "M100.9,53.9l26.9-15.6l9,5.2c6.2,3.6,9.7,6.8,10.8,9.7c1,2.9-0.8,5.8-5.4,8.5  c-4.4,2.6-9.5,3.9-14.6,3.6c-5.1-0.3-10.9-2.2-17.2-5.9L100.9,53.9 M149,37.3l-23.4-13.5L43.4,71.6l13.5,7.8l32.9-19.1l13.4,7.7  l-13,30.5l15.4,8.9l13-34.7c15.1,3.7,27.7,2.5,38-3.4c8-4.7,11.4-9.6,10.3-14.9C165.7,49.2,159.8,43.5,149,37.3"
+  
 
   // useState to set if figure is on S, I, or R
-  const [stepSIR, setSIR] = useState(sirBlue);
+  // const [stepSIR, setSIR] = useState(sirBase);
 
   useEffect(() => {
     // the plugins to be used:
@@ -50,29 +55,32 @@ export default function Module1() {
     ScrollTrigger.refresh();
 
     // add tiles to SVG so there are 3
-    // addTiles(3)
-    // let allTiles = gsap.utils.toArray(".tile")
+    addTiles(3)
+    let allTiles = gsap.utils.toArray(".tile")
 
-    // // programmatically set each tile the correct distance apart
-    // for (let i=0; i < allTiles.length; i++){
-    //   let myX = 0
-    //   let myY = 360
-    //   let scale = 2.5
-    //   let xIncrement = 90 * 1.5 * scale
-    //   let yIncrement = 50 * 1.5 * scale
-    //   gsap.set(allTiles[i],{
-    //     x: myX + xIncrement*i,
-    //     y: myY + yIncrement*i,
-    //     scaleX: scale,
-    //     scaleY: scale,
-    //   })
-    // }
+    // programmatically set each tile the correct distance apart
+    for (let i=0; i < allTiles.length; i++){
+      let myX = 0
+      let myY = 360
+      let scale = 2.5
+      let xIncrement = 90 * 1.5 * scale
+      let yIncrement = 50 * 1.5 * scale
+      gsap.set(allTiles[i],{
+        x: myX + xIncrement*i,
+        y: myY + yIncrement*i,
+        scaleX: scale,
+        scaleY: scale,
+      })
+    }    
 
-
-    // gsap.set(".tilegroup",{x:60, y: 400})
-    // gsap.set(".full_person",{x:-80, y: 0})
-    // place spotlight in correct position:
+    // place things in the correct position and scale them if needed:
+    // the tiles are moved:
+    gsap.set(".tilegroup",{x:60, y: 400})
+    // the spotlight is moved and scaled:
     gsap.set("#spotlight", {x:-50 , y:-150, scaleX:.9, scaleY:.9})
+    // the spotlight and person are moved:
+    gsap.set(".full_person",{x:-80, y: 0})
+
 
     // place entire scene in correct position:
     gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
@@ -121,6 +129,8 @@ export default function Module1() {
       ease: "none"
     });
 
+
+
     // create a tween that updates the text based on scroll position
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
@@ -137,16 +147,20 @@ export default function Module1() {
 
           legs_walking_tl.play();
           if(currScroll >= step_1.offsetTop && currScroll < step_2.offsetTop) {
-            setSIR(SPath);
+            // setSIR(SPath);
+            // setSIR(sirS)
             determineSIR("susceptible")
+            determineTileColor("#tile1")
 
             document.querySelector("#scrollText").textContent = textS;
             document.querySelector("#scrollHeader").textContent = headerS;
             legs_walking_tl.pause();
 
           } else if (currScroll >= step_2.offsetTop && currScroll < step_3.offsetTop) {
-            setSIR(IPath);
+            // setSIR(IPath);
+            // setSIR(sirI)
             determineSIR("infectious")
+            determineTileColor("#tile2")
 
             document.querySelector("#scrollText").textContent = textI;
             document.querySelector("#scrollHeader").textContent = headerI;
@@ -154,17 +168,21 @@ export default function Module1() {
 
 
           } else if (currScroll >= step_3.offsetTop) {
-            setSIR(RPath);
+            // setSIR(RPath);
+            // setSIR(sirR)
 
             determineSIR("recovered")
+            determineTileColor("#tile3")
 
             document.querySelector("#scrollText").textContent = textR;
             document.querySelector("#scrollHeader").textContent = headerR;
             legs_walking_tl.pause();
           }
           else if(currScroll < step_1.offsetTop) {
-            setSIR(sirBlue);
+            // setSIR(sirBlue);
+            // setSIR(sirBase)
             determineSIR("susceptible")
+            determineTileColor("not")
 
             legs_walking_tl.pause();
           }
@@ -175,6 +193,50 @@ export default function Module1() {
         //pinSpacing: false
       },
     });
+
+    
+function determineTileColor(tileID){
+  let tile = document.querySelector(tileID)
+  let tileD3 = d3.select(tileID)
+  
+  // console.log("tileID is", tileID)
+
+  if (tileID === "#tile1"){
+        console.log("within S")
+        d3.selectAll(".letterR, .letterI").remove()
+
+        tileD3.append('path').attr('d', sirS).attr('class', 'letterS')
+
+        d3.select("#tile1 .topFace").classed('susTileTop', true)
+
+        d3.select("#tile1 .sideProfile").classed('susTileSide', true)
+  } else if (tileID  === "#tile2"){
+        console.log("within I")
+        d3.selectAll(".letterS, .letterR").remove()
+
+        tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+
+        d3.select("#tile2 .topFace").classed('infTileTop', true)
+
+        d3.select("#tile2 .sideProfile").classed('infTileSide', true)
+    } else if (tileID === "#tile3") {
+        console.log("within R")
+        d3.selectAll(".letterS, .letterI").remove()
+
+        tileD3.append("path").attr("d", sirR).attr('class','letterR')
+
+        d3.select("#tile3 .topFace").classed('recTileTop', true)
+
+        d3.select("#tile3 .sideProfile").classed('recTileSide', true)
+  } else {
+      console.log("not within SIR")
+      d3.selectAll(".letterS, .letterI, .letterR").remove()
+
+      d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace')
+      d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile')
+  }
+
+}
     
   }, []);
 
@@ -190,12 +252,12 @@ export default function Module1() {
     </div> {/* closes textContainer */}
     <div className="scrollingContainer">
       <svg id="module1-1" width={600} height={400} viewBox="0 0 2000 1600">
-        <image x="-60" y="800" width="1900" height="800" href={stepSIR}></image>
-        {/* <g className="tilegroup">
+        {/* <image x="-60" y="800" width="1900" height="800" href={stepSIR}></image> */}
+        <g className="tilegroup">
           <g className="tile">
           <path className="topFace" d="M211.3,59c4.7,2.7,4.7,7.1,0.1,9.8l-92.3,53.6c-4.6,2.7-12.3,2.7-17,0l-98.6-57
               c-4.7-2.7-4.7-7.1,0-9.8L95.7,2c4.6-2.7,12.3-2.7,17,0L211.3,59z"/>
-            <path className="sideProfile"d="M212.4,68.2c-0.1,0-0.1,0.1-0.2,0.2c-0.1,0.1-0.3,0.2-0.4,0.3v0l-0.4,0.2v0.1l-92.2,53.6
+          <path className="sideProfile"d="M212.4,68.2c-0.1,0-0.1,0.1-0.2,0.2c-0.1,0.1-0.3,0.2-0.4,0.3v0l-0.4,0.2v0.1l-92.2,53.6
               c-0.4,0.1-0.7,0.3-1,0.5c-0.1,0-0.1,0.1-0.2,0.1c-0.2,0.1-0.4,0.2-0.6,0.3c-0.3,0.1-0.6,0.2-1,0.2c-3.4,1.1-7.5,1.2-10.9,0.2
               c0,0-0.1,0-0.1,0c-0.5-0.1-1-0.3-1.5-0.5c-0.1,0-0.2-0.1-0.3-0.1c-0.5-0.2-0.9-0.4-1.3-0.7l-98.7-57C1.2,64.2,0,62.4,0,60.6v0.1v8
               v0.1c0,1.7,1.1,3.5,3.5,4.9l98.7,56.9c0.4,0.2,0.9,0.5,1.3,0.6c0.1,0,0.2,0.1,0.3,0.1c0.5,0.2,0.9,0.3,1.4,0.5c0.1,0,0.2,0,0.3,0.1
@@ -203,7 +265,7 @@ export default function Module1() {
               c0.4-0.3,0.8-0.5,1.1-0.8s0.6-0.6,0.9-0.9c0.3-0.4,0.5-0.8,0.7-1.2c0.3-0.5,0.4-1.2,0.4-1.8V64C214.9,65.4,214.1,66.9,212.4,68.2z"
               />
           </g> 
-        </g>  */}
+        </g> 
         <g id="init_scene">
           <g className="full_person">
           {/* <image href="https://raw.githubusercontent.com/Coldstream-Louis/homework8/master/spotlight.png" height="200" width="200" x="-60" y="-100"/> */}
@@ -479,7 +541,7 @@ export function addTiles(number){
   
   for (let i=1; i < number; i++){
     let nextTile = tile.cloneNode(true)
-    nextTile.id = "tile"+ number
+    nextTile.id = "tile"+ (i+1)
     tilegroup.appendChild(nextTile)
   }
 }
