@@ -91,20 +91,20 @@ export default function Module1() {
     legs_walking_tl.addLabel("move_legs_1")
       .to(".left_leg_group", {duration:0.3, rotation:15}, "move_legs_1")
       .to(".right_leg_group", {duration:0.3, rotation:-15}, "move_legs_1")
-      // .to(".left_arm", {duration:0.3, rotation:10}, "move_legs_1")
-      // .to(".right_arm", {duration:0.3, rotation:-10}, "move_legs_1");
+      // .to(".leftarm", {duration:0.3, rotation:10}, "move_legs_1")
+      // .to(".rightarm", {duration:0.3, rotation:-10}, "move_legs_1");
 
     legs_walking_tl.addLabel("move_legs_2")
       .to(".left_leg_group", {duration:0.3, rotation:-15}, "move_legs2")
       .to(".right_leg_group", {duration:0.3, rotation:15 }, "move_legs2")
-      // .to(".left_arm", {duration:0.3, rotation:-10}, "move_legs_2")
-      // .to(".right_arm", {duration:0.3, rotation:10}, "move_legs_2");
+      // .to(".leftarm", {duration:0.3, rotation:-10}, "move_legs_2")
+      // .to(".rightarm", {duration:0.3, rotation:10}, "move_legs_2");
 
     legs_walking_tl.addLabel("move_legs_0")
       .to(".left_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
       .to(".right_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
-      // .to(".left_arm", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
-      // .to(".right_arm", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0");
+      // .to(".leftarm", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
+      // .to(".rightarm", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0");
 
     // initialize a mater timeline to add other tweens and timelines to:
     var master_tl = gsap.timeline();
@@ -195,69 +195,69 @@ export default function Module1() {
     });
 
     
-function determineTileColor(tileID){
-  let tileD3 = d3.select(tileID)
-  
-  // console.log("tileID is", tileID)
+    function determineTileColor(tileID){
+      let tileD3 = d3.select(tileID)
+      
+      // console.log("tileID is", tileID)
 
-  if (tileID === "#tile1"){
-        console.log("within S")
-        d3.selectAll(".letterR, .letterI").remove()
+      if (tileID === "#tile1"){
+            console.log("within S")
+            d3.selectAll(".letterR, .letterI").remove()
 
-        tileD3.append('path').attr('d', sirS).attr('class', 'letterS')
+            tileD3.append('path').attr('d', sirS).attr('class', 'letterS')
 
-        // tile 1 is active, add the fully saturated colors to it
-        d3.select("#tile1 .topFace").classed('susTileTop', true).attr('opacity', 1)
-        d3.select("#tile1 .sideProfile").classed('susTileSide', true).attr('opacity', 1)
+            // tile 1 is active, add the fully saturated colors to it
+            d3.select("#tile1 .topFace").classed('susTileTop', true).attr('opacity', 1)
+            d3.select("#tile1 .sideProfile").classed('susTileSide', true).attr('opacity', 1)
 
-        // add the colors to tile 2 and 3, but decrease the opacity
-        d3.select("#tile2 .topFace").classed('infTileTop', true).attr('opacity', 0.5)
-        d3.select("#tile2 .sideProfile").classed('infTileSide', true).attr('opacity', 0.5)
-        d3.select("#tile3 .topFace").classed('recTileTop', true).attr('opacity', 0.5)
-        d3.select("#tile3 .sideProfile").classed('recTileSide', true).attr('opacity', 0.5)
+            // add the colors to tile 2 and 3, but decrease the opacity
+            d3.select("#tile2 .topFace").classed('infTileTop', true).attr('opacity', 0.5)
+            d3.select("#tile2 .sideProfile").classed('infTileSide', true).attr('opacity', 0.5)
+            d3.select("#tile3 .topFace").classed('recTileTop', true).attr('opacity', 0.5)
+            d3.select("#tile3 .sideProfile").classed('recTileSide', true).attr('opacity', 0.5)
 
-  } else if (tileID  === "#tile2"){
-        console.log("within I")
-        d3.selectAll(".letterS, .letterR").remove()
+      } else if (tileID  === "#tile2"){
+            console.log("within I")
+            d3.selectAll(".letterS, .letterR").remove()
 
-        tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+            tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
-        // tile 2 is active, add the fully saturated colors to it
-        d3.select("#tile2 .topFace").attr('opacity', 1)
-        d3.select("#tile2 .sideProfile").attr('opacity', 1)
+            // tile 2 is active, add the fully saturated colors to it
+            d3.select("#tile2 .topFace").attr('opacity', 1)
+            d3.select("#tile2 .sideProfile").attr('opacity', 1)
 
-        // decrease the opacity of inactive tiles
-        d3.select("#tile1 .topFace").attr('opacity', 0.5)
-        d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-        d3.select("#tile3 .topFace").attr('opacity', 0.5)
-        d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
+            // decrease the opacity of inactive tiles
+            d3.select("#tile1 .topFace").attr('opacity', 0.5)
+            d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
+            d3.select("#tile3 .topFace").attr('opacity', 0.5)
+            d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
 
-    } else if (tileID === "#tile3") {
-        console.log("within R")
-        d3.selectAll(".letterS, .letterI").remove()
+        } else if (tileID === "#tile3") {
+            console.log("within R")
+            d3.selectAll(".letterS, .letterI").remove()
 
-        tileD3.append("path").attr("d", sirR).attr('class','letterR')
+            tileD3.append("path").attr("d", sirR).attr('class','letterR')
 
-        // tile 3 is active, add the fully saturated colors to it
-        d3.select("#tile3 .topFace").attr('opacity', 1)
-        d3.select("#tile3 .sideProfile").attr('opacity',1 )
+            // tile 3 is active, add the fully saturated colors to it
+            d3.select("#tile3 .topFace").attr('opacity', 1)
+            d3.select("#tile3 .sideProfile").attr('opacity',1 )
 
 
-        // decrease the opacity of inactive tiles
-        d3.select("#tile1 .topFace").attr('opacity', 0.5)
-        d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-        d3.select("#tile2 .topFace").attr('opacity', 0.5)
-        d3.select("#tile2 .sideProfile").attr('opacity', 0.5)
-  } else {
-      console.log("not within SIR")
-      d3.selectAll(".letterS, .letterI, .letterR").remove()
+            // decrease the opacity of inactive tiles
+            d3.select("#tile1 .topFace").attr('opacity', 0.5)
+            d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
+            d3.select("#tile2 .topFace").attr('opacity', 0.5)
+            d3.select("#tile2 .sideProfile").attr('opacity', 0.5)
+      } else {
+          console.log("not within SIR")
+          d3.selectAll(".letterS, .letterI, .letterR").remove()
 
-      // if no tiles are active, remove any existing classes and return opacity to 1
-      d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
-      d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
-  }
+          // if no tiles are active, remove any existing classes and return opacity to 1
+          d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
+          d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
+      }
 
-}
+    }
     
   }, []);
 
@@ -311,8 +311,10 @@ function determineTileColor(tileID){
                   C75.5,59.2,95.1,65.7,97.4,79z"/>
                 <path id="infLArmLower" className="leftarm st2" d="M72.4,126.5c-1.6,0-3-0.9-3.7-2.4c-0.9-2,0.1-4.4,2.1-5.2l19.9-8.4c2-0.9,4.4,0.1,5.2,2.1
                   c0.9,2-0.1,4.4-2.1,5.2L74,126.2C73.4,126.4,72.9,126.5,72.4,126.5z"/>
-                <path id="infRArm" className="rightarm st2" d="M58.9,131c-0.3,0-0.6,0-0.9-0.1l-28-6.2c-1.6-0.3-2.9-1.4-3.3-3l-9.4-25.2
-                  c-0.8-2.1,0.3-4.4,2.3-5.1c2.1-0.8,4.4,0.3,5.1,2.3l8.8,23.5l26.2,5.8c2.2,0.5,3.5,2.6,3,4.8C62.4,129.8,60.7,131,58.9,131z"/>
+                <path id="infRArmLower" className="rightarm st2" d="M59.6,131.2c-0.3,0-0.6,0-0.9-0.1L29,123.9c-2.1-0.5-3.5-2.7-2.9-4.8
+                    c0.5-2.1,2.7-3.5,4.8-2.9l29.6,7.2c2.1,0.5,3.5,2.7,2.9,4.8C63,130,61.4,131.2,59.6,131.2z"/>
+                  <path id="infRArmUpper" className="rightarm st2" d="M30,124c-1.6,0-3.1-1-3.7-2.6l-9.2-24.3c-0.8-2.1,0.3-4.4,2.3-5.2
+                    c2.1-0.8,4.4,0.3,5.2,2.3l9.2,24.3c0.8,2.1-0.3,4.4-2.3,5.2C30.9,124,30.4,124,30,124z"/>
                 <g id="infHead">
                   <path id="infFace" className="st5" d="M95.5,28.9c-2.5-0.5-3.2,2.1-7.8,2.8c-5.2,0.9-9.7-1.3-11.4-2.2c-5-2.5-5-4.9-7.6-4.9
                     c-5.5,0-8.6,10.4-11.4,9.7c-2.2-0.5-1.8-7.8-3.3-7.9c-0.7,0-1.2,2.1-3,5.6c-1.7,3.3-4.2,7.2-4.9,6.9c-1.1-0.5,2.6-10.5,1.1-11.2
@@ -328,12 +330,16 @@ function determineTileColor(tileID){
                 </g>
               </g>
               <g id="recovered">
-                <path id="recLArm" className="leftarm st8" d="M78.1,86.5c-1.4,0-2.8-0.8-3.6-2.2c-1-2-0.2-4.4,1.7-5.4l27-14l5-28.9c0.4-2.2,2.4-3.6,4.6-3.3
+                <path id="recLArmUpper" className="leftarm st8" d="M106.6,71.5c-0.2,0-0.4,0-0.7-0.1c-2.2-0.4-3.7-2.4-3.3-4.6l5-30
+                  c0.4-2.2,2.4-3.7,4.6-3.3c2.2,0.4,3.7,2.4,3.3,4.6l-5,30C110.3,70.1,108.6,71.5,106.6,71.5z"/>
+                <path id="recLArmLower" className="leftarm st8" d="M78.1,86.5c-1.4,0-2.8-0.8-3.6-2.2c-1-2-0.2-4.4,1.7-5.4l27-14l5-28.9c0.4-2.2,2.4-3.6,4.6-3.3
                   c2.2,0.4,3.6,2.4,3.3,4.6l-5.6,32.9L79.9,86.1C79.3,86.4,78.7,86.5,78.1,86.5z"/>
                 <path id="recBody" className="st9" d="M64.3,55c31.4,22.7,49.3,86.1,11.6,111.7c-31.4,22.6-76.8-1.2-76.3-43.1C0,97.2,15.4,65.4,33.7,54.3
                   C41.8,48.4,55.8,48.5,64.3,55"/>
-                <path id="recRArm" className="rightarm st8" d="M15.5,96.1c-1,0-1.9-0.3-2.7-1L-8.6,75.5l-7.8-29c-0.6-2.1,0.7-4.3,2.8-4.9
-                  c2.1-0.6,4.3,0.7,4.9,2.8l7.2,26.8l19.7,18c1.6,1.5,1.7,4,0.3,5.7C17.7,95.7,16.6,96.1,15.5,96.1z"/>
+                <path id="recRArmLower" className="rightarm st8" d="M15.2,95.9c-1,0-2-0.4-2.8-1.2L-8.1,74.3c-1.6-1.6-1.6-4.1,0-5.7
+                  c1.6-1.6,4.1-1.6,5.7,0L18,89.1c1.6,1.6,1.6,4.1,0,5.7C17.3,95.5,16.2,95.9,15.2,95.9z"/>
+                <path id="recRArmUpper" className="rightarm st8" d="M-5.3,75.5c-1.7,0-3.3-1.1-3.8-2.8L-17,46.9c-0.7-2.1,0.5-4.4,2.6-5
+                  c2.1-0.7,4.4,0.5,5,2.6l7.9,25.7c0.7,2.1-0.5,4.4-2.6,5C-4.5,75.4-4.9,75.5-5.3,75.5z"/>
                 <g id="recHead">
                   <path id="recFace" className="st8" d="M67.2,15.7c-2.6,0.1-2.7,2.8-7,4.7c-4.8,2.1-9.8,1-11.7,0.6c-5.6-1.2-6.3-3.5-8.8-2.9
                     c-5.3,1.3-5.8,12.4-8.8,12.3c-2.5,0-3.8-7.3-5.3-7c-0.8,0.1-0.7,2.3-1.6,6.2c-0.8,3.5-2.3,8-3.1,7.9c-1.2-0.1-0.1-10.9-1.7-11.2
@@ -348,12 +354,16 @@ function determineTileColor(tileID){
                 </g>
               </g>
               <g id="susceptible">
-                <path id="susLArm" className=" leftarm st8" d="M107.6,136.7c-1.3,0-2.5-0.6-3.3-1.7L91,115.6L72.8,87.3c-1.2-1.9-0.7-4.3,1.2-5.5
-                  c1.9-1.2,4.3-0.7,5.5,1.2l18.2,28.3l13.2,19.3c1.2,1.8,0.8,4.3-1,5.6C109.2,136.5,108.4,136.7,107.6,136.7z"/>
+                <path id="susLArmUpper" className="leftarm st8" d="M92.2,110.7c-1.4,0-2.7-0.7-3.4-1.9l-16.2-27c-1.1-1.9-0.5-4.4,1.4-5.5
+                    c1.9-1.1,4.4-0.5,5.5,1.4l16.2,27c1.1,1.9,0.5,4.4-1.4,5.5C93.6,110.5,92.9,110.7,92.2,110.7z"/>
                 <path id="susBody" className="st9" d="M64.8,54.9c31.4,22.7,49.3,86.1,11.5,111.7C45,189.2-0.5,165.4,0,123.5
                   c0.4-26.4,15.7-58.2,34.1-69.3C42.3,48.3,56.3,48.4,64.8,54.9"/>
-                <path id="susRArm" className="rightarm st8" d="M53.7,138.2c-0.8,0-1.5-0.2-2.2-0.7l-23.2-15.6L16.2,95.1c-0.9-2,0-4.4,2-5.3
-                  c2-0.9,4.4,0,5.3,2l11.1,24.8l21.4,14.4c1.8,1.2,2.3,3.7,1.1,5.6C56.2,137.6,55,138.2,53.7,138.2z"/>
+                <path id="susLArmLower" className="leftarm st8" d="M107.8,136.6c-1.4,0-2.7-0.7-3.4-1.9l-15.6-25.9c-1.1-1.9-0.5-4.4,1.4-5.5
+                  c1.9-1.1,4.3-0.5,5.5,1.4l15.6,26c1.1,1.9,0.5,4.4-1.4,5.5C109.2,136.4,108.5,136.6,107.8,136.6z"/>
+                <path id="susRArmUpper" className="rightarm st8" d="M30.2,121.9c-1.6,0-3-0.9-3.7-2.4l-9.8-22.9c-0.9-2,0.1-4.4,2.1-5.2
+                  c2-0.9,4.4,0.1,5.2,2.1l9.8,22.9c0.9,2-0.1,4.4-2.1,5.2C31.3,121.8,30.7,121.9,30.2,121.9z"/>
+                <path id="susRArmLower" className="rightarm st8" d="M54,138.4c-0.8,0-1.6-0.2-2.3-0.7l-23.8-16.5c-1.8-1.3-2.3-3.7-1-5.6
+                  c1.3-1.8,3.7-2.3,5.6-1l23.8,16.5c1.8,1.3,2.3,3.7,1,5.6C56.6,137.8,55.3,138.4,54,138.4z"/>
                 <g id="susHead">
                   <path id="susFace" className="st8" d="M67.5,15.6c-2.6,0.1-2.6,2.8-7,4.7c-4.8,2.1-9.8,1-11.7,0.6c-5.6-1.2-6.3-3.5-8.8-2.9
                     c-5.3,1.3-5.8,12.4-8.8,12.3c-2.5,0-3.8-7.3-5.3-7c-0.8,0.1-0.7,2.3-1.6,6.2c-0.8,3.5-2.3,8-3.1,7.9c-1.1-0.1,0-10.9-1.6-11.2
@@ -368,12 +378,16 @@ function determineTileColor(tileID){
                 </g>
               </g>
               <g id="base">
-                <path id="baseLArm" className=" leftarm st8" d="M107.6,136.7c-1.3,0-2.5-0.6-3.3-1.7L91,115.6L72.8,87.3c-1.2-1.9-0.7-4.3,1.2-5.5
-                  c1.9-1.2,4.3-0.7,5.5,1.2l18.2,28.3l13.2,19.3c1.2,1.8,0.8,4.3-1,5.6C109.2,136.5,108.4,136.7,107.6,136.7z"/>
+                <path id="baseLArmLower" className="leftarm st8" d="M107.8,136.6c-1.4,0-2.7-0.7-3.4-1.9l-15.6-25.9c-1.1-1.9-0.5-4.4,1.4-5.5
+                  c1.9-1.1,4.3-0.5,5.5,1.4l15.6,26c1.1,1.9,0.5,4.4-1.4,5.5C109.2,136.4,108.5,136.6,107.8,136.6z"/>
+                <path id="baseLArmUpper" className="leftarm st8" d="M92.2,110.7c-1.4,0-2.7-0.7-3.4-1.9l-16.2-27c-1.1-1.9-0.5-4.4,1.4-5.5
+                  c1.9-1.1,4.4-0.5,5.5,1.4l16.2,27c1.1,1.9,0.5,4.4-1.4,5.5C93.6,110.5,92.9,110.7,92.2,110.7z"/>
                 <path id="baseBody" className="st9" d="M64.8,54.9c31.4,22.7,49.3,86.1,11.5,111.7C45,189.2-0.5,165.4,0,123.5
                   c0.4-26.4,15.7-58.2,34.1-69.3C42.3,48.3,56.3,48.4,64.8,54.9"/>
-                <path id="baseRArm" className="rightarm st8" d="M53.7,138.2c-0.8,0-1.5-0.2-2.2-0.7l-23.2-15.6L16.2,95.1c-0.9-2,0-4.4,2-5.3
-                  c2-0.9,4.4,0,5.3,2l11.1,24.8l21.4,14.4c1.8,1.2,2.3,3.7,1.1,5.6C56.2,137.6,55,138.2,53.7,138.2z"/>
+                <path id="baseRArmUpper" className="rightarm st8" d="M30.2,121.9c-1.6,0-3-0.9-3.7-2.4l-9.8-22.9c-0.9-2,0.1-4.4,2.1-5.2
+                  c2-0.9,4.4,0.1,5.2,2.1l9.8,22.9c0.9,2-0.1,4.4-2.1,5.2C31.3,121.8,30.7,121.9,30.2,121.9z"/>
+                <path id="baseRArmLower" className="rightarm st8" d="M54,138.4c-0.8,0-1.6-0.2-2.3-0.7l-23.8-16.5c-1.8-1.3-2.3-3.7-1-5.6
+                  c1.3-1.8,3.7-2.3,5.6-1l23.8,16.5c1.8,1.3,2.3,3.7,1,5.6C56.6,137.8,55.3,138.4,54,138.4z"/>
                 <g id="baseHead">
                   <path id="baseFace" className="st8" d="M67.5,15.6c-2.6,0.1-2.6,2.8-7,4.7c-4.8,2.1-9.8,1-11.7,0.6c-5.6-1.2-6.3-3.5-8.8-2.9
                     c-5.3,1.3-5.8,12.4-8.8,12.3c-2.5,0-3.8-7.3-5.3-7c-0.8,0.1-0.7,2.3-1.6,6.2c-0.8,3.5-2.3,8-3.1,7.9c-1.1-0.1,0-10.9-1.6-11.2
@@ -449,6 +463,26 @@ export function determineSIR(sirState){
         recMouth = d3.select("#recMouth").attr('d'),
         baseMouth = d3.select("#baseMouth").attr('d');
 
+    let susRArmUpper = d3.select("#susRArmUpper").attr('d'),
+        infRArmUpper = d3.select("#infRArmUpper").attr("d"),
+        recRArmUpper = d3.select("#recRArmUpper").attr('d'),
+        baseRArmUpper = d3.select("#baseRArmUpper").attr('d');
+    
+    let susRArmLower = d3.select("#susRArmLower").attr('d'),
+        infRArmLower = d3.select("#infRArmLower").attr("d"),
+        recRArmLower = d3.select("#recRArmLower").attr('d'),
+        baseRArmLower = d3.select("#baseRArmLower").attr('d');
+
+    let susLArmUpper = d3.select("#susLArmUpper").attr('d'),
+        infLArmUpper = d3.select("#infLArmUpper").attr("d"),
+        recLArmUpper = d3.select("#recLArmUpper").attr('d'),
+        baseLArmUpper = d3.select("#baseLArmUpper").attr('d');
+    
+    let susLArmLower = d3.select("#susLArmLower").attr('d'),
+        infLArmLower = d3.select("#infLArmLower").attr("d"),
+        recLArmLower = d3.select("#recLArmLower").attr('d'),
+        baseLArmLower = d3.select("#baseLArmLower").attr('d');
+
     // transitions: this one is a slower one with circle-based velocity
     let t = d3.transition()
             .duration(400)
@@ -500,6 +534,23 @@ export function determineSIR(sirState){
           .attrTween("d", () => {
             // console.log("mouth to rec")
             return interpolate(baseMouth, recMouth)}) 
+        d3.select("#baseRArmUpper")
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseRArmUpper, recRArmUpper)}) 
+        d3.select("#baseRArmLower")
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseRArmLower, recRArmLower)})
+        d3.select("#baseLArmUpper")
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseLArmUpper, recLArmUpper)}) 
+        d3.select("#baseLArmLower")
+        .lower()
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseLArmLower, recLArmLower)})                                  
     }
 
     function toInf(){
@@ -524,7 +575,24 @@ export function determineSIR(sirState){
           .attrTween("d", () => {
             // console.log("mouth to inf")
             return interpolate(baseMouth, infMouth)})
-            // .style("opacity", 1)
+        d3.select("#baseRArmUpper")
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseRArmUpper, infRArmUpper)}) 
+        d3.select("#baseRArmLower")
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseRArmLower, infRArmLower)})
+        d3.select("#baseLArmUpper")
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseLArmUpper, infLArmUpper)}) 
+        d3.select("#baseLArmLower")
+        .raise()
+          .transition(t)
+          .attrTween("d", () => {
+            return interpolate(baseLArmLower, infLArmLower)})   
+           
     }
 
     function toSus(){
@@ -549,7 +617,25 @@ export function determineSIR(sirState){
         .attrTween("d", () => {
           // console.log("mouth to sus")
           return interpolate(baseMouth, susMouth)})
+      d3.select("#baseRArmUpper")
+        .transition(t)
+        .attrTween("d", () => {
+          return interpolate(baseRArmUpper, susRArmUpper)}) 
+      d3.select("#baseRArmLower")
+        .transition(t)
+        .attrTween("d", () => {
+          return interpolate(baseRArmLower, susRArmLower)})
+      d3.select("#baseLArmUpper")
+        .transition(t)
+        .attrTween("d", () => {
+          return interpolate(baseLArmUpper, susLArmUpper)}) 
+      d3.select("#baseLArmLower")
+      .lower()
+        .transition(t)
+        .attrTween("d", () => {
+          return interpolate(baseLArmLower,susLArmLower)})       
     }
+ 
        
 }
 
