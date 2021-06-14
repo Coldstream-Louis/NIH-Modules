@@ -310,7 +310,7 @@ export default function Module1() {
             document.querySelector("#scrollHeader").textContent = headerBecomeInf;
             legs_walking_tl.pause();
 
-            determineTileColor("module2", "#tileH1")
+            determineTileColor("module2", "#tile5")
           }
         },
         onEnter: () => {
@@ -340,36 +340,42 @@ export default function Module1() {
             })
           }
                    
-          // addTilesHorizontal("moduleSvg", 4)
+          addTilesHorizontal("moduleSvg", 4)
   
-          // let allTilesH = gsap.utils.toArray(".tileH")
+          let allTilesH = gsap.utils.toArray(".tileH")
     
-          // console.log(allTilesH)
-          // for (let i=0; i < allTilesH.length; i++){
-          //   let myX = 0 + (90 * 1.5 * 1.2 * 4)
-          //   let myY = 360 + (50 * 1.5 * 1.2 * 4)
-          //   let scale = 1.2
-          //   let xIncrement = 90 * 1.5 * scale
-          //   let yIncrement = -50 * 1.5 * scale
+          console.log(allTilesH)
+          for (let i=0; i < allTilesH.length; i++){
+            let myX = 0 + (90 * 1.5 * 1.2 * 4)
+            let myY = 360 + (50 * 1.5 * 1.2 * 4)
+            let scale = 1.2
+            let xIncrement = 90 * 1.5 * scale
+            let yIncrement = -50 * 1.5 * scale
             
-          //   if (i = 0){
-          //     console.log("i value is 0")
-          //     gsap.to(allTilesH[i],{
-          //       x: myX - xIncrement*i ,
-          //       y: myY - yIncrement*i ,
-          //       scaleX: scale,
-          //       scaleY: scale,
-          //     })
-          //   } else {
-          //     console.log("i is not 0")
-          //     gsap.to(allTilesH[i],{
-          //       x: myX + xIncrement*i ,
-          //       y: myY + yIncrement*i ,
-          //       scaleX: scale,
-          //       scaleY: scale,
-          //     })
-          //   }
-          // }
+      
+            gsap.to(allTilesH[i],{
+                x: () => {
+                  if (allTilesH[i].id === "tileH1"){
+                    console.log("first, so x is", myX - (xIncrement) )
+                    return  myX - (xIncrement)
+                  } else {
+                    console.log("not first, so x is", myX + xIncrement*i )
+                    return myX + xIncrement*i
+                  }
+                },
+                y: () => {
+                  if (allTilesH[i].id === "tileH1"){
+                    console.log("first, so y is", myY - (yIncrement) )
+                    return  myY - (yIncrement)
+                  } else {
+                    console.log("not first, so y is", myY + yIncrement*i )
+                    return myY + yIncrement*i
+                  }
+                } ,
+                scaleX: scale,
+                scaleY: scale,
+              })
+          }
         // place things in the correct position and scale them if needed:
         // the tiles are moved:
         gsap.set(".tilegroup",{x:-20, y:20})
@@ -466,8 +472,8 @@ export default function Module1() {
           tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
           // update the tile colors
-          d3.select("#tileH1 .topFace").classed('infTileTop', true)
-          d3.select("#tileH1 .sideProfile").classed('infTileSide', true)
+          d3.select("#tile5 .topFace").classed('infTileTop', true)
+          d3.select("#tile5 .sideProfile").classed('infTileSide', true)
       }
 
     }
