@@ -9,7 +9,8 @@ import './Styles.css';
 import * as d3 from "d3";
 // import two functions: determineSIR and addTiles from external JS sources
 import {determineSIR} from 'utilityfunctions/determineSIR.js'
-import {addTiles} from 'utilityfunctions/addTiles.js'
+import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
+import { GamesOutlined } from '@material-ui/icons';
 
 export default function Module1() {
   // CONSTANTS //
@@ -57,7 +58,7 @@ export default function Module1() {
     ScrollTrigger.refresh();
 
     // add tiles to SVG so there are 3 total tiles
-    addTiles("module1-1", 3)
+    addTiles("moduleSvg", 3)
     let allTiles = gsap.utils.toArray(".tile")
 
     // programmatically set each tile the correct distance apart
@@ -145,7 +146,7 @@ export default function Module1() {
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
     // for module 1
-    master_tl.to("#module1-1", {
+    master_tl.to("#moduleSvg", {
       scrollTrigger: {
         trigger: "#module1markers",
         start: "top 180",
@@ -155,21 +156,20 @@ export default function Module1() {
           const step_1 = document.querySelector("#step_s");
           const step_2 = document.querySelector("#step_i");
           const step_3 = document.querySelector("#step_r");
-          const step_buffer = document.querySelector("#step_buffer");
 
           legs_walking_tl.play();
           if(currScroll < step_1.offsetTop) {
             //scroll is between the top and step 1
 
             determineSIR("susceptible")
-            determineTileColor("not")
+            determineTileColor("module1", "not")
 
             legs_walking_tl.pause();
           } else if(currScroll >= step_1.offsetTop && currScroll < (step_1.offsetTop + step_1.offsetHeight)) {
             // scroll is between or equal to the top step 1 and the top of step 2
 
             determineSIR("susceptible")
-            determineTileColor("#tile1")
+            determineTileColor("module1", "#tile1")
 
             document.querySelector("#scrollText").textContent = textS;
             document.querySelector("#scrollHeader").textContent = headerS;
@@ -180,7 +180,7 @@ export default function Module1() {
             // scroll is between or equal to the top of step 2 and the top of step 3
 
             determineSIR("infectious")
-            determineTileColor("#tile2")
+            determineTileColor("module1", "#tile2")
 
             document.querySelector("#scrollText").textContent = textI;
             document.querySelector("#scrollHeader").textContent = headerI;
@@ -190,7 +190,7 @@ export default function Module1() {
             // scroll is between or equal to the top of step 3 and the top of step buffer
 
             determineSIR("recovered")
-            determineTileColor("#tile3")
+            determineTileColor("module1", "#tile3")
 
             document.querySelector("#scrollText").textContent = textR;
             document.querySelector("#scrollHeader").textContent = headerR;
@@ -215,13 +215,13 @@ export default function Module1() {
           // because we have to move the svg around, we need to make sure 
           // it's back in the correct position when going
           // up the page
-          let svgModule = document.querySelector("#module1-1")
-          document.querySelector("#module1svg").append(svgModule)
+          let svgModule = document.querySelector("#moduleSvg")
+          document.querySelector("#moduleSvgDiv").append(svgModule)
 
           // we also add back the correct number of tiles for
           // module 1
           // add tiles to SVG so there are 3 total tiles
-          addTiles("module1-1", 3)
+          addTiles("moduleSvg", 3)
           let allTiles = gsap.utils.toArray(".tile")
 
           // programmatically set each tile the correct distance apart
@@ -245,11 +245,11 @@ export default function Module1() {
           // the spotlight is moved and scaled:
           gsap.set("#spotlight", {x:-50 , y:-150, scaleX:.9, scaleY:.9})
           // the spotlight and person are moved:
-          gsap.set(".full_person",{x:-80, y: 0,scaleX:1, scaleY:1})  
+          gsap.set(".full_person",{x:-80, y: 0, scaleX:1, scaleY:1})  
           // also set the tile color
-          determineTileColor("#tile1")
-          determineTileColor("#tile2")
-          determineTileColor("#tile3")
+          determineTileColor("module1","#tile1")
+          determineTileColor("module1","#tile2")
+          determineTileColor("module1","#tile3")
         },
         scrub: true,
         // pin: true,
@@ -279,11 +279,12 @@ export default function Module1() {
       ease: "none"
     });
 
+
     // create a tween that updates the text based on scroll position
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
     // for module 2
-    master_tl.to("#module1-1", {
+    master_tl.to("#moduleSvg", {
       scrollTrigger: {
         trigger: "#module2markers",
         start: "top 180",
@@ -300,7 +301,6 @@ export default function Module1() {
 
             legs_walking_tl.pause();
 
-
             document.querySelector("#scrollText").textContent = startSus;
             document.querySelector("#scrollHeader").textContent = headerStartSus;
 
@@ -310,38 +310,69 @@ export default function Module1() {
             document.querySelector("#scrollHeader").textContent = headerBecomeInf;
             legs_walking_tl.pause();
 
+            determineTileColor("module2", "#tileH1")
           }
         },
         onEnter: () => {
           // put the svg in the module2 position
-          let svgModule = document.querySelector("#module1-1")
+          let svgModule = document.querySelector("#moduleSvg")
           document.querySelector("#module2svg").append(svgModule)
 
-        // because we want a long path for module 2, let's scale down tiles
-        // let's also scale down the human
-        
-        // add tiles to SVG so there are 10 total tiles
-        addTiles("module1-1", 10)
-        let allTiles2 = gsap.utils.toArray(".tile")
+          // because we want a long path for module 2, let's scale down tiles
+          // let's also scale down the human
+          
+          // add tiles to SVG so there are 10 total tiles
+          addTiles("moduleSvg", 10)
+          let allTiles2 = gsap.utils.toArray(".tile")
 
-        // programmatically set each tile the correct distance apart
-        for (let i=0; i < allTiles2.length; i++){
-          let myX = 0
-          let myY = 360
-          let scale = 1.2
-          let xIncrement = 90 * 1.5 * scale
-          let yIncrement = 50 * 1.5 * scale
-          gsap.set(allTiles2[i],{
-            x: myX + xIncrement*i,
-            y: myY + yIncrement*i,
-            scaleX: scale,
-            scaleY: scale,
-          })
-        }    
-
+          // programmatically set each tile the correct distance apart
+          for (let i=0; i < allTiles2.length; i++){
+            let myX = 0
+            let myY = 360
+            let scale = 1.2
+            let xIncrement = 90 * 1.5 * scale
+            let yIncrement = 50 * 1.5 * scale
+            gsap.set(allTiles2[i],{
+              x: myX + xIncrement*i,
+              y: myY + yIncrement*i,
+              scaleX: scale,
+              scaleY: scale,
+            })
+          }
+                   
+          // addTilesHorizontal("moduleSvg", 4)
+  
+          // let allTilesH = gsap.utils.toArray(".tileH")
+    
+          // console.log(allTilesH)
+          // for (let i=0; i < allTilesH.length; i++){
+          //   let myX = 0 + (90 * 1.5 * 1.2 * 4)
+          //   let myY = 360 + (50 * 1.5 * 1.2 * 4)
+          //   let scale = 1.2
+          //   let xIncrement = 90 * 1.5 * scale
+          //   let yIncrement = -50 * 1.5 * scale
+            
+          //   if (i = 0){
+          //     console.log("i value is 0")
+          //     gsap.to(allTilesH[i],{
+          //       x: myX - xIncrement*i ,
+          //       y: myY - yIncrement*i ,
+          //       scaleX: scale,
+          //       scaleY: scale,
+          //     })
+          //   } else {
+          //     console.log("i is not 0")
+          //     gsap.to(allTilesH[i],{
+          //       x: myX + xIncrement*i ,
+          //       y: myY + yIncrement*i ,
+          //       scaleX: scale,
+          //       scaleY: scale,
+          //     })
+          //   }
+          // }
         // place things in the correct position and scale them if needed:
         // the tiles are moved:
-        gsap.set(".tilegroup",{x:60, y:20})
+        gsap.set(".tilegroup",{x:-20, y:20})
         // the spotlight is moved and scaled:
         gsap.set("#spotlight", {x:-40 , y:-100, scaleX:.8, scaleY:.8})
         // the spotlight and person are moved:
@@ -363,14 +394,14 @@ export default function Module1() {
         markers: true,
         //pinSpacing: false
       },
-    });
+    }); 
 
-    function determineTileColor(tileID){
+    function determineTileColor(module = "module1", tileID){
       let tileD3 = d3.select(tileID)
       
       // console.log("tileID is", tileID)
-
-      if (tileID === "#tile1"){
+      if (module === "module1"){
+        if (tileID === "#tile1"){
             // console.log("within S")
             d3.selectAll(".letterR, .letterI").remove()
 
@@ -386,21 +417,21 @@ export default function Module1() {
             d3.select("#tile3 .topFace").classed('recTileTop', true).attr('opacity', 0.5)
             d3.select("#tile3 .sideProfile").classed('recTileSide', true).attr('opacity', 0.5)
 
-      } else if (tileID  === "#tile2"){
-            // console.log("within I")
-            d3.selectAll(".letterS, .letterR").remove()
+        } else if (tileID  === "#tile2"){
+              // console.log("within I")
+              d3.selectAll(".letterS, .letterR").remove()
 
-            tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+              tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
-            // tile 2 is active, add the fully saturated colors to it
-            d3.select("#tile2 .topFace").attr('opacity', 1)
-            d3.select("#tile2 .sideProfile").attr('opacity', 1)
+              // tile 2 is active, add the fully saturated colors to it
+              d3.select("#tile2 .topFace").attr('opacity', 1)
+              d3.select("#tile2 .sideProfile").attr('opacity', 1)
 
-            // decrease the opacity of inactive tiles
-            d3.select("#tile1 .topFace").attr('opacity', 0.5)
-            d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-            d3.select("#tile3 .topFace").attr('opacity', 0.5)
-            d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
+              // decrease the opacity of inactive tiles
+              d3.select("#tile1 .topFace").attr('opacity', 0.5)
+              d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
+              d3.select("#tile3 .topFace").attr('opacity', 0.5)
+              d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
 
         } else if (tileID === "#tile3") {
             // console.log("within R")
@@ -418,13 +449,25 @@ export default function Module1() {
             d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
             d3.select("#tile2 .topFace").attr('opacity', 0.5)
             d3.select("#tile2 .sideProfile").attr('opacity', 0.5)
-      } else {
-          // console.log("not within SIR")
-          d3.selectAll(".letterS, .letterI, .letterR").remove()
+        } else {
+            // console.log("not within SIR")
+            d3.selectAll(".letterS, .letterI, .letterR").remove()
 
-          // if no tiles are active, remove any existing classes and return opacity to 1
-          d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
-          d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
+            // if no tiles are active, remove any existing classes and return opacity to 1
+            d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
+            d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
+        }
+      } //close if module1
+
+      if (module === "module2"){
+          // console.log("within I")
+          d3.selectAll(".letterS, .letterR").remove()
+
+          tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+
+          // update the tile colors
+          d3.select("#tileH1 .topFace").classed('infTileTop', true)
+          d3.select("#tileH1 .sideProfile").classed('infTileSide', true)
       }
 
     }
@@ -441,8 +484,8 @@ export default function Module1() {
       <p>We will begin this section by learning how  to break up a disease’s natural history into discrete steps. </p>
       <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments: </p>
     </div> {/* closes textContainer */}
-    <div id = "module1svg" className="scrollingContainer">
-      <svg id="module1-1" width={600} height={400} viewBox="0 0 2000 1600">
+    <div id = "moduleSvgDiv" className="scrollingContainer">
+      <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">
         <g className="tilegroup">
 
         </g> 
