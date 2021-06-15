@@ -10,7 +10,7 @@ import * as d3 from "d3";
 // import two functions: determineSIR and addTiles from external JS sources
 import {determineSIR} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
-import { GamesOutlined } from '@material-ui/icons';
+
 
 export default function Module1() {
   // CONSTANTS //
@@ -102,6 +102,22 @@ export default function Module1() {
     legs_walking_tl.addLabel("move_legs_0")
       .to(".left_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
       .to(".right_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
+
+
+    // create a timeline that moves the legs for the perpendicular person:
+    var wg_legs_walking_tl = gsap.timeline({repeat: -1,});
+    wg_legs_walking_tl.pause();
+    wg_legs_walking_tl.addLabel("move_legs_1")
+      .to("#wg_left_leg_group", {duration:0.3, rotation:15}, "move_legs_1")
+      .to("#wg_right_leg_group", {duration:0.3, rotation:-15}, "move_legs_1")
+
+    wg_legs_walking_tl.addLabel("move_legs_2")
+      .to("#wg_left_leg_group", {duration:0.3, rotation:-15}, "move_legs2")
+      .to("#wg_right_leg_group", {duration:0.3, rotation:15 }, "move_legs2")
+
+    wg_legs_walking_tl.addLabel("move_legs_0")
+      .to("#wg_left_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
+      .to("#wg_right_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
 
 
     // NOT USED: arms swinging as character walks.
@@ -212,6 +228,9 @@ export default function Module1() {
           }
         },
         onEnterBack: () =>{
+          // change the background color and text color back:
+          document.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s;"
+
           // because we have to move the svg around, we need to make sure 
           // it's back in the correct position when going
           // up the page
@@ -275,7 +294,7 @@ export default function Module1() {
         markers: true,
       },
       x:850,
-      y:480,
+      y:520,
       ease: "none"
     });
 
@@ -304,6 +323,10 @@ export default function Module1() {
             document.querySelector("#scrollText").textContent = startSus;
             document.querySelector("#scrollHeader").textContent = headerStartSus;
 
+            // show the person on the perpendicular
+            document.querySelector(".perpendicularPerson").style="visibility: visible;"  
+                  
+
           } else if(currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
             // scroll is within step 6
             document.querySelector("#scrollText").textContent = becomeInf;
@@ -311,9 +334,13 @@ export default function Module1() {
             legs_walking_tl.pause();
 
             determineTileColor("module2", "#tile5")
+
           }
         },
         onEnter: () => {
+          // change the background color and text color to module 2 colors:
+          document.querySelector(".mainContainer").style = "background-color: #314152; transition:background-color: 1s;"
+
           // put the svg in the module2 position
           let svgModule = document.querySelector("#moduleSvg")
           document.querySelector("#module2svg").append(svgModule)
@@ -340,35 +367,38 @@ export default function Module1() {
             })
           }
                    
+          // add tiles perpendicularly
           addTilesHorizontal("moduleSvg", 4)
   
           let allTilesH = gsap.utils.toArray(".tileH")
-    
-          console.log(allTilesH)
+
           for (let i=0; i < allTilesH.length; i++){
+            // myX and myY are set as the initial values of 0 and 360
+            // plus the extra x and y distance
+            // of the 5th tile down
+            // this aligns the perpendicular path
+            // with the correct tile
             let myX = 0 + (90 * 1.5 * 1.2 * 4)
             let myY = 360 + (50 * 1.5 * 1.2 * 4)
             let scale = 1.2
             let xIncrement = 90 * 1.5 * scale
             let yIncrement = -50 * 1.5 * scale
             
-      
+            // this code animates each tile:
+            // if it's the first tile, we add it to the left of the existing path
+            // else, we add it to the right
             gsap.to(allTilesH[i],{
                 x: () => {
                   if (allTilesH[i].id === "tileH1"){
-                    console.log("first, so x is", myX - (xIncrement) )
                     return  myX - (xIncrement)
                   } else {
-                    console.log("not first, so x is", myX + xIncrement*i )
                     return myX + xIncrement*i
                   }
                 },
                 y: () => {
                   if (allTilesH[i].id === "tileH1"){
-                    console.log("first, so y is", myY - (yIncrement) )
                     return  myY - (yIncrement)
                   } else {
-                    console.log("not first, so y is", myY + yIncrement*i )
                     return myY + yIncrement*i
                   }
                 } ,
@@ -386,21 +416,42 @@ export default function Module1() {
 
         // set the figure back to "susceptible" body state
         determineSIR("susceptible")    
-        
+
+        // transition in the contents
         document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"
         document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;" 
-        document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;" 
+        document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"
         },
         onLeave: () =>{
           document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
           document.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
-          document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
+          document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;"
+          document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
         },
         scrub: true,
         markers: true,
         //pinSpacing: false
       },
     }); 
+
+    // position the person on the perpendicular
+    gsap.set(".perpendicularPerson",{
+      x: 400, y: -30, scaleX:.6, scaleY: .6
+    })
+    // move the person on the perpendicualr
+    master_tl.to('.perpendicularPerson', {
+      scrollTrigger:{
+        trigger: "#step_5",
+        start: "top 180",
+        end: "bottom 180",
+        onEnter: ()=>{wg_legs_walking_tl.play()},
+        markers: true,
+        scrub: true,
+      },
+      x:160,
+      y:90,
+      ease: "none",
+    });    
 
     function determineTileColor(module = "module1", tileID){
       let tileD3 = d3.select(tileID)
@@ -637,6 +688,40 @@ export default function Module1() {
               <path id="spotlightpath" d="M106.0809,0,6.0487,243.3674C-15.45,295.6717,23.0093,353.0612,79.56,353.0612h53.0427c56.55,0,95.01-57.3895,73.5108-109.6938Z"/> */}
             </g> {/* closes spotlight group */}
           </g>  {/* closes full_person group */}
+          <g className = "perpendicularPerson">
+            <g id="wg_leg_group">
+              <g id="wg_left_leg_group">
+                <path id="wg_left_leg_1_" className="wgst0" d="M36.7,219c2.1,0,3.9-2.9,3.9-6.4v-48.1c0-3.5-1.7-6.4-3.9-6.4s-3.9,2.9-3.9,6.4v48.1
+                  C32.8,216.2,34.6,219,36.7,219z"/>
+                <path id="wg_left_foot_1_" className="wgst1" d="M31.3,226.8c0.9,0,1.8-0.2,2.6-0.8l6-3.9c2.5-1.6,3.3-5.1,1.9-7.9
+                  c-1.4-2.8-4.6-3.7-7-2.1l-6,3.9c-2.5,1.6-3.3,5.1-1.9,7.9C27.8,225.7,29.5,226.8,31.3,226.8z"/>
+              </g>
+              <g id="wg_right_leg_group">
+                <path id="wg_right_leg" className="wgst0" d="M76.4,219c2.1,0,3.9-2.9,3.9-6.4v-48.1c0-3.5-1.7-6.4-3.9-6.4s-3.9,2.9-3.9,6.4v48.1
+                  C72.5,216.1,74.3,219,76.4,219z"/>
+                <path id="wg_right_foot" className="wgst1" d="M71,226.7c0.9,0,1.8-0.2,2.6-0.8l6-3.9c2.5-1.6,3.3-5.1,1.9-7.9c-1.4-2.8-4.6-3.7-7-2.1
+                  l-6,3.9c-2.5,1.6-3.3,5.1-1.9,7.9C67.5,225.7,69.2,226.7,71,226.7z"/>
+              </g>
+            </g>
+            <path id="wg_left_arm_lower" className="wgst0" d="M5.7,126.5c0.8-0.2,1.6-0.7,2.2-1.4l21.8-25.2c1.6-1.9,1.4-4.7-0.5-6.4
+              c-1.9-1.6-4.7-1.4-6.4,0.5L1.1,119.2c-1.6,1.9-1.4,4.7,0.5,6.4C2.7,126.6,4.3,126.9,5.7,126.5z"/>
+            <path id="wg_left_arm_upper" className="wgst0" d="M17,113.6c0.8-0.2,1.6-0.7,2.2-1.4L41,87c1.6-1.9,1.4-4.7-0.5-6.4
+              c-1.9-1.6-4.7-1.4-6.4,0.5l-21.8,25.2c-1.6,1.9-1.4,4.7,0.5,6.4C14,113.7,15.6,114,17,113.6z"/>
+            <path id="wg_body" className="wgst2" d="M82.9,171.7c-6.2,5.3-48.6,7.6-54-2.3c-6.5-11.9-1.3-66.7-1.2-95.3c0-10.6,14.9-18.7,28.4-18.9
+              c8.4-0.1,17,3.4,23.1,8.7c4.9,4.3,7.6,11.1,7.6,18.2c0,8.9-1.4,16.9-1.5,38.5C85.2,147,86.8,168.4,82.9,171.7z"/>
+            <path id="wg_right_arm_upper" className="wgst0" d="M68,120.8c2.6,0,4.8-2.1,4.8-4.8V80.4c0-2.6-2.1-4.8-4.8-4.8s-4.8,2.1-4.8,4.8V116
+              C63.2,118.7,65.4,120.8,68,120.8z"/>
+            <path id="wg_right_arm_lower" className="wgst0" d="M49,146.3c2.2,1.4,5,1,6.2-0.9l16.9-26.2c1.2-1.9,0.5-4.6-1.7-6.1
+              c-2.2-1.4-5-1-6.2,0.9l-16.9,26.2C46,142.1,46.8,144.8,49,146.3z"/>
+            <g id="wg_head">
+              <path id="wg_face" className="wgst0" d="M28.1,28.3c0.4,0.8,2.8-10.4,2.8-10.4c-0.4-2.9,12-1.8,16.4-1.5c3.6,0.3,19.4-1.1,19.4,3.6
+                l3.8,15.8c2.2,0.6,2.2-7.9,4.5-9.9c1.9-1.8,4.4,4.9,4.9,4.6L80,43.9c-2.7,24.9-49.8,23.2-52.5-1.8l0-14.9v-1
+                C27.6,26.9,27.8,27.6,28.1,28.3z"/>
+              <path id="wg_hair" className="wgst3" d="M75,25.8c-2.3,2.1-2.3,10.5-4.5,9.9L66.8,20c0-4.7-15.8-3.3-19.4-3.6c-4.5-0.4-16.8-1.5-16.4,1.5
+                c0,0-2.5,11.2-2.8,10.4c-0.3-0.7-0.5-1.4-0.7-2.1C26,19.7,29,10.9,30.8,9.4c2.5-2,5.5-5,10.2-7.2c2.4-1.1,6.5-1.9,11-2.2
+                C61.8-0.6,70,4.9,71.9,5.9c5.6,2.9,9.4,12.7,8.1,24.4c0,0.1,0,0.2-0.1,0.2C79.4,30.8,76.9,24.1,75,25.8z"/>
+            </g>
+          </g> {/* closes perpendicularPerson */}
         </g>  {/* closes init_scene group */}
       </svg>
       <div className="scrollTextContainer">

@@ -113,7 +113,6 @@
 .st10{fill:#3C2415;}
 .st11{fill:#7F2933;}
 
-
 .lightbeam_st{
     opacity:0.72;
     fill:url(#lightbeam_1_);
@@ -150,6 +149,18 @@
     fill:url(#a)
 }
 
+/* no visibility default for wg */
+.perpendicularPerson{
+    visibility: hidden;
+}
+
+/* wg colors */
+.wgst0{fill:#CFB395;}
+.wgst1{fill:#231F20;}
+.wgst2{fill:#D45931;}
+.wgst3{fill:#784528;}
+
+/* tiles */
 .topFace{
     fill:#4484c5;
 }

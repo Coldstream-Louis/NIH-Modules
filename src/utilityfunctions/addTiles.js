@@ -42,8 +42,8 @@ export function addTilesHorizontal(module, number){
   d3.selectAll(".tileHorizontal").remove()
 
   // create an empty group to place the horizontal tiles in
-  let tilegroup = d3.select(`#${module} .tilegroup`).append("g")
-                                                    .attr("class", "tileHgroup")
+  d3.select(`#${module} .tilegroup`).append("g")
+                                    .attr("class", "tileHgroup")
   
   // create a tile using d3: this is a group of 2 paths for the top face and
   // the side profile
