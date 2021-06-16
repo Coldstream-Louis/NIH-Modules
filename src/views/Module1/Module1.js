@@ -89,35 +89,103 @@ export default function Module1() {
     gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
     // create a timeline that moves the legs:
-    var legs_walking_tl = gsap.timeline({repeat: -1,});
-    legs_walking_tl.pause();
-    legs_walking_tl.addLabel("move_legs_1")
-      .to(".left_leg_group", {duration:0.3, rotation:15}, "move_legs_1")
-      .to(".right_leg_group", {duration:0.3, rotation:-15}, "move_legs_1")
+    let m1_legs_walking_tl = gsap.timeline({
+      repeat: 6, 
+      scrollTrigger: {
+        trigger: "#module1markers",
+        markers: true,
+        scrub: true
+      }
+    })
+    let m2_legs_walking_tl = gsap.timeline({
+      repeat: 20, 
+      scrollTrigger: {
+        trigger: "#module2markers",
+        markers: true,
+        scrub: true
+      }
+    })
+    
+    m1_legs_walking_tl.addLabel("move_legs_1")
+      .to(".left_leg_group", {
+        // duration:15, 
+        rotation:15}, "move_legs_1")
+      .to(".right_leg_group", {
+        // duration:15, 
+        rotation:-15}, "move_legs_1")
 
-    legs_walking_tl.addLabel("move_legs_2")
-      .to(".left_leg_group", {duration:0.3, rotation:-15}, "move_legs2")
-      .to(".right_leg_group", {duration:0.3, rotation:15 }, "move_legs2")
+    m1_legs_walking_tl.addLabel("move_legs_2")
+      .to(".left_leg_group", {
+        // duration:15, 
+        rotation:-15}, "move_legs2")
+      .to(".right_leg_group", {
+        // duration:15, 
+        rotation:15 }, "move_legs2")
 
-    legs_walking_tl.addLabel("move_legs_0")
-      .to(".left_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
-      .to(".right_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
+    m1_legs_walking_tl.addLabel("move_legs_0")
+      .to(".left_leg_group", {
+        // duration:5, 
+        rotation:0, ease: "none"}, "move_legs_0")
+      .to(".right_leg_group", {
+        // duration:5, 
+        rotation:0, ease: "none"}, "move_legs_0")
 
+    m2_legs_walking_tl.addLabel("move_legs_1")
+      .to(".left_leg_group", {
+        // duration:15, 
+        rotation:15}, "move_legs_1")
+      .to(".right_leg_group", {
+        // duration:15, 
+        rotation:-15}, "move_legs_1")
 
+    m2_legs_walking_tl.addLabel("move_legs_2")
+      .to(".left_leg_group", {
+        // duration:15, 
+        rotation:-15}, "move_legs2")
+      .to(".right_leg_group", {
+        // duration:15, 
+        rotation:15 }, "move_legs2")
+
+    m2_legs_walking_tl.addLabel("move_legs_0")
+      .to(".left_leg_group", {
+        // duration:5, 
+        rotation:0, ease: "none"}, "move_legs_0")
+      .to(".right_leg_group", {
+        // duration:5, 
+        rotation:0, ease: "none"}, "move_legs_0")
+  
     // create a timeline that moves the legs for the perpendicular person:
-    var wg_legs_walking_tl = gsap.timeline({repeat: -1,});
-    wg_legs_walking_tl.pause();
+    var wg_legs_walking_tl = gsap.timeline({
+      repeat: 6, 
+      scrollTrigger: {
+        trigger: '#module2markers',
+        markers: true,
+        scrub: true
+      }
+    });
     wg_legs_walking_tl.addLabel("move_legs_1")
-      .to("#wg_left_leg_group", {duration:0.3, rotation:15}, "move_legs_1")
-      .to("#wg_right_leg_group", {duration:0.3, rotation:-15}, "move_legs_1")
+      .to("#wg_left_leg_group", {
+        // duration:1, 
+        rotation:15}, "move_legs_1")
+      .to("#wg_right_leg_group", {
+        // duration:1, 
+        rotation:-15}, "move_legs_1")
 
     wg_legs_walking_tl.addLabel("move_legs_2")
-      .to("#wg_left_leg_group", {duration:0.3, rotation:-15}, "move_legs2")
-      .to("#wg_right_leg_group", {duration:0.3, rotation:15 }, "move_legs2")
+      .to("#wg_left_leg_group", {
+        // duration:1, 
+        rotation:-15}, "move_legs2")
+      .to("#wg_right_leg_group", {
+        // duration:1, 
+        rotation:15 }, "move_legs2")
 
     wg_legs_walking_tl.addLabel("move_legs_0")
-      .to("#wg_left_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
-      .to("#wg_right_leg_group", {duration:0.1, rotation:0, ease: "none"}, "move_legs_0")
+      .to("#wg_left_leg_group", {
+        // duration:1, 
+        rotation:0, ease: "none"}, "move_legs_0")
+      .to("#wg_right_leg_group", {
+        // duration:1, 
+        rotation:0, ease: "none"}, "move_legs_0")
 
 
     // NOT USED: arms swinging as character walks.
@@ -145,10 +213,10 @@ export default function Module1() {
         trigger: "#module1markers",
         start: "top 180",
         end: "+=2600",
-        onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
-        onLeave: ()=>{legs_walking_tl.pause();},
-        onEnterBack: ()=>{legs_walking_tl.play();},
-        onLeaveBack: ()=>{legs_walking_tl.pause(); },
+        // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
+        // onLeave: ()=>{legs_walking_tl.pause();},
+        // onEnterBack: ()=>{legs_walking_tl.play();},
+        // onLeaveBack: ()=>{legs_walking_tl.pause(); },
         scrub: true,
         // pin: true,
         markers: true,
@@ -173,14 +241,14 @@ export default function Module1() {
           const step_2 = document.querySelector("#step_i");
           const step_3 = document.querySelector("#step_r");
 
-          legs_walking_tl.play();
+          // legs_walking_tl.play();
           if(currScroll < step_1.offsetTop) {
             //scroll is between the top and step 1
 
             determineSIR("susceptible")
             determineTileColor("module1", "not")
 
-            legs_walking_tl.pause();
+            // legs_walking_tl.pause();
           } else if(currScroll >= step_1.offsetTop && currScroll < (step_1.offsetTop + step_1.offsetHeight)) {
             // scroll is between or equal to the top step 1 and the top of step 2
 
@@ -189,7 +257,7 @@ export default function Module1() {
 
             document.querySelector("#scrollText").textContent = textS;
             document.querySelector("#scrollHeader").textContent = headerS;
-            legs_walking_tl.pause();
+            // legs_walking_tl.pause();
 
           } else if (currScroll >= step_2.offsetTop && currScroll < (step_2.offsetTop + step_2.offsetHeight)) {
 
@@ -200,7 +268,7 @@ export default function Module1() {
 
             document.querySelector("#scrollText").textContent = textI;
             document.querySelector("#scrollHeader").textContent = headerI;
-            legs_walking_tl.pause();
+            // legs_walking_tl.pause();
 
           } else if (currScroll >= step_3.offsetTop && currScroll < (step_3.offsetTop + step_3.offsetHeight) ) {
             // scroll is between or equal to the top of step 3 and the top of step buffer
@@ -211,7 +279,7 @@ export default function Module1() {
             document.querySelector("#scrollText").textContent = textR;
             document.querySelector("#scrollHeader").textContent = headerR;
 
-            legs_walking_tl.pause();
+            // legs_walking_tl.pause();
 
             // if scroll is back, we want to show the text and scene
             document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"    
@@ -219,7 +287,7 @@ export default function Module1() {
             document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"                       
           } else {
             // scroll is at or beyond the buffer div, so let's hide the scroller text and the scene
-            legs_walking_tl.pause();            
+            // legs_walking_tl.pause();            
 
             document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
             document.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
@@ -229,7 +297,10 @@ export default function Module1() {
         },
         onEnterBack: () =>{
           // change the background color and text color back:
-          document.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s;"
+          document.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s; -webkit-transition: background-color 1s;"
+
+          // remove the perpendicular person
+          document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
 
           // because we have to move the svg around, we need to make sure 
           // it's back in the correct position when going
@@ -285,10 +356,10 @@ export default function Module1() {
         trigger: "#module2markers",
         start: "top 180",
         end: "+=2600",
-        onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
-        onLeave: ()=>{legs_walking_tl.pause();},
-        onEnterBack: ()=>{legs_walking_tl.play();},
-        onLeaveBack: ()=>{legs_walking_tl.pause(); },
+        // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
+        // onLeave: ()=>{master_tl.remove(legs_walking_tl)},
+        // onEnterBack: ()=>{},
+        // onLeaveBack: ()=>{legs_walking_tl.pause(); },
         scrub: true,
         // pin: true,
         markers: true,
@@ -310,15 +381,14 @@ export default function Module1() {
         end: "+=2600",
         onUpdate: () => {        
           const currScroll = window.scrollY + 160;
-          const step_buffer = document.querySelector("#step_buffer");
           const step_5 = document.querySelector("#step_5");  
           const step_6 = document.querySelector("#step_6")    
 
-          legs_walking_tl.play();
+          // legs_walking_tl.play();
           if (currScroll >= step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
             //scroll is within step 5
 
-            legs_walking_tl.pause();
+            // legs_walking_tl.pause();
 
             document.querySelector("#scrollText").textContent = startSus;
             document.querySelector("#scrollHeader").textContent = headerStartSus;
@@ -331,7 +401,7 @@ export default function Module1() {
             // scroll is within step 6
             document.querySelector("#scrollText").textContent = becomeInf;
             document.querySelector("#scrollHeader").textContent = headerBecomeInf;
-            legs_walking_tl.pause();
+            // legs_walking_tl.pause();
 
             determineTileColor("module2", "#tile5")
 
@@ -339,7 +409,7 @@ export default function Module1() {
         },
         onEnter: () => {
           // change the background color and text color to module 2 colors:
-          document.querySelector(".mainContainer").style = "background-color: #314152; transition:background-color: 1s;"
+          document.querySelector(".mainContainer").style = "background-color: #314152; transition:background-color: 2s; -webkit-transition: background-color 2s;"
 
           // put the svg in the module2 position
           let svgModule = document.querySelector("#moduleSvg")
@@ -366,6 +436,8 @@ export default function Module1() {
               scaleY: scale,
             })
           }
+
+          
                    
           // add tiles perpendicularly
           addTilesHorizontal("moduleSvg", 4)
@@ -418,14 +490,14 @@ export default function Module1() {
         determineSIR("susceptible")    
 
         // transition in the contents
-        document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"
-        document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;" 
-        document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"
+        document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
+        document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
         },
         onLeave: () =>{
-          document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
-          document.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
-          document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;"
+          document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
+          document.querySelector("#init_scene").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;" 
+          document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;"
           document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
         },
         scrub: true,
@@ -444,7 +516,7 @@ export default function Module1() {
         trigger: "#step_5",
         start: "top 180",
         end: "bottom 180",
-        onEnter: ()=>{wg_legs_walking_tl.play()},
+        // onEnter: ()=>{wg_legs_walking_tl.play()},
         markers: true,
         scrub: true,
       },

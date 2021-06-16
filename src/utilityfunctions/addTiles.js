@@ -34,6 +34,7 @@ export function addTiles(module, number){
       nextTile.id = "tile"+ (i+1)
       tilegroup.appendChild(nextTile)
     }
+
   }
 
 // add the number of tiles desired on the horizontal
