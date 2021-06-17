@@ -8,7 +8,7 @@ import './Styles.css';
 // import d3
 import * as d3 from "d3";
 // import two functions: determineSIR and addTiles from external JS sources
-import {determineSIR} from 'utilityfunctions/determineSIR.js'
+import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
 
@@ -395,8 +395,15 @@ export default function Module1() {
             document.querySelector("#scrollHeader").textContent = headerStartSus;
 
             // show the person on the perpendicular
-            document.querySelector(".perpendicularPerson").style="visibility: visible;"  
-                  
+            document.querySelector(".perpendicularPerson").style="visibility: visible;"
+            if (currScroll >= (step_5.offsetHeight + step_5.offsetTop - 200) && currScroll < step_6.offsetTop ){
+
+              determineTileColor("module2", "#tileH1")
+              determineTileColor("module2", "#tileH2")
+              determineTileColor("module2", "#tileH3")  
+              // determineSIRPerp("infected")
+            }
+    
 
           } else if(currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
             // scroll is within step 6
@@ -404,7 +411,8 @@ export default function Module1() {
             document.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
-            determineTileColor("module2", "#tileH1")
+
+            // determineSIRPerp("infectious")
 
           }
         },
@@ -597,8 +605,8 @@ export default function Module1() {
           tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
           // update the tile colors
-          d3.select("#tileH1 .topFace").classed('infTileTop', true)
-          d3.select("#tileH1 .sideProfile").classed('infTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', true)
       }
 
     }
