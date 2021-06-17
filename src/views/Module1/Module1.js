@@ -156,9 +156,10 @@ export default function Module1() {
   
     // create a timeline that moves the legs for the perpendicular person:
     var wg_legs_walking_tl = gsap.timeline({
-      repeat: 6, 
+      repeat: 20, 
       scrollTrigger: {
         trigger: '#module2markers',
+        // trigger: "#step_5",
         markers: true,
         scrub: true
       }
@@ -403,7 +404,7 @@ export default function Module1() {
             document.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
-            determineTileColor("module2", "#tile5")
+            determineTileColor("module2", "#tileH1")
 
           }
         },
@@ -436,11 +437,9 @@ export default function Module1() {
               scaleY: scale,
             })
           }
-
-          
                    
           // add tiles perpendicularly
-          addTilesHorizontal("moduleSvg", 4)
+          addTilesHorizontal("moduleSvg", 9)
   
           let allTilesH = gsap.utils.toArray(".tileH")
 
@@ -457,21 +456,24 @@ export default function Module1() {
             let yIncrement = -50 * 1.5 * scale
             
             // this code animates each tile:
-            // if it's the first tile, we add it to the left of the existing path
+            // if it's the an even tile, we add it 
+            // to the left of the existing path
             // else, we add it to the right
             gsap.to(allTilesH[i],{
                 x: () => {
-                  if (allTilesH[i].id === "tileH1"){
-                    return  myX - (xIncrement)
+                  if (i % 2 === 0){
+                    // console.log("i math at even", (i/2))
+                    return  myX + (xIncrement*(i/2))
                   } else {
-                    return myX + xIncrement*i
+                    // console.log("i math at odd", (i-1)/2 + 1)
+                    return myX - xIncrement*((i-1)/2 + 1)
                   }
                 },
                 y: () => {
-                  if (allTilesH[i].id === "tileH1"){
-                    return  myY - (yIncrement)
+                  if (i % 2 === 0){
+                    return  myY + (yIncrement*(i/2))
                   } else {
-                    return myY + yIncrement*i
+                    return myY - yIncrement*((i-1)/2 + 1)
                   }
                 } ,
                 scaleX: scale,
@@ -513,15 +515,15 @@ export default function Module1() {
     // move the person on the perpendicualr
     master_tl.to('.perpendicularPerson', {
       scrollTrigger:{
-        trigger: "#step_5",
+        trigger: "#module2markers",
         start: "top 180",
-        end: "bottom 180",
+        end: "+=2600",
         // onEnter: ()=>{wg_legs_walking_tl.play()},
         markers: true,
         scrub: true,
       },
-      x:160,
-      y:90,
+      x:-360,
+      y:360,
       ease: "none",
     });    
 
@@ -595,8 +597,8 @@ export default function Module1() {
           tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
           // update the tile colors
-          d3.select("#tile5 .topFace").classed('infTileTop', true)
-          d3.select("#tile5 .sideProfile").classed('infTileSide', true)
+          d3.select("#tileH1 .topFace").classed('infTileTop', true)
+          d3.select("#tileH1 .sideProfile").classed('infTileSide', true)
       }
 
     }
