@@ -1,0 +1,202 @@
+.mainContainer{
+    margin: 15px;
+    background-color: #1c2530;
+    color: white;
+    text-align: center;
+}
+
+.fixedParent{
+    padding-top: 80px;
+}
+
+.scrollingContainer {
+    margin: 15px auto;
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 40px 40px;
+    display: flex;
+}
+
+.stickyContainer{
+    position: sticky;
+    position: -webkit-sticky;
+    top:0;
+}
+
+.textContainer > p{
+    font-size: 18px;
+    margin: 15px;
+}
+
+#moduleSvg{
+    /* background-color: white; */
+    position: -webkit-sticky; 
+    position: sticky;
+    /* position: fixed; */
+    top: 0;
+}
+
+.scrollTextContainer{
+    max-width: 45%;
+    /* position: -webkit-sticky; */
+    position: fixed;
+    right: 0;
+    /* top: 0; */
+    overflow: "visible";
+    /* height: 200px; */
+    align-self: flex-start;
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.sectionTitle{
+    padding: 15px 0px;
+}
+
+.moduleText{
+    font-size:18px;
+}
+
+#scrollText{
+    font-size: 18px;
+    padding: 15px;
+}
+#scrollHeader{
+    font-weight: bold;
+    margin: 0;
+}
+
+.markers{
+    display: block;
+    width:1vh;
+}
+.marker{
+    width: 100%;
+    color: #00e5ff;
+    height: 100%;
+}
+
+#step_s{
+    background-color: blue;
+}
+#step_i{
+    background-color: greenyellow;
+}
+#step_r{
+    background-color: green;
+}
+#step_buffer{
+    background-color: pink;
+}
+#step_5{
+    background-color: red;
+}
+
+#step_6{
+    background-color: yellow;
+}
+#step_7{
+    background-color: teal;
+}
+#step_8{
+    background-color: orange;
+}
+
+
+.st0{fill:none;stroke:#C49A6C;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
+.st1{fill:#231F20;stroke:#231F20;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
+.st2{fill:#C3996C;}
+.st3{fill:#985EA6;}
+.st4{fill:#F4CB45;}
+.st5{fill:#C7AA56;}
+.st6{fill:#3C2517;}
+.st7{fill:#802A34;}
+.st8{fill:#C49A6C;}
+.st9{fill:#985DA6;}
+.st10{fill:#3C2415;}
+.st11{fill:#7F2933;}
+
+.lightbeam_st{
+    opacity:0.72;
+    fill:url(#lightbeam_1_);
+}
+
+#lightstop1{
+    stop-color:#FFFFFF;
+    stop-opacity:0
+}
+
+#lightstop2{
+    stop-color:#FFFFFF;
+}
+
+#susceptible{
+    opacity: 0;
+}
+#infected{
+    opacity: 0;
+}
+#recovered{
+    opacity: 0;
+}
+
+#base{
+    opacity:1;
+}
+
+#lightnings{
+    opacity: 0;
+}
+
+#spotlightpath{
+    fill:url(#a)
+}
+
+/* no visibility default for wg */
+.perpendicularPerson{
+    visibility: visible;
+}
+
+/* wg colors */
+.wgst0{fill:#CFB395;}
+.wgst1{fill:#231F20;}
+.wgst2{fill:#D45931;}
+.wgst3{fill:#784528;}
+
+/* tiles */
+.topFace{
+    fill:#4484c5;
+}
+
+.sideProfile{
+    fill: #295481;
+}
+
+.susTileTop{
+    fill:#4484c5;
+}
+.susTileSide{
+    fill: #295481;
+}
+.letterS{
+    fill:#A8BCDE;
+}
+.infTileTop{
+    fill: #ea7526;
+}
+.infTileSide{
+    fill: #9f4f12;
+}
+.letterI{
+    fill: #eebd9b;
+}
+.recTileTop{
+    fill: #59b25f;
+}
+.recTileSide{
+    fill: #377b40;
+}
+.letterR{
+    fill:#b3d6b5;
+}

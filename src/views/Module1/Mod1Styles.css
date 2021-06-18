@@ -1,8 +1,15 @@
+html, #root{
+    background-color: #1c2530;
+}
 .mainContainer{
     margin: 15px;
     background-color: #1c2530;
     color: white;
     text-align: center;
+}
+
+.fixedParent{
+    padding-top: 80px;
 }
 
 .scrollingContainer {

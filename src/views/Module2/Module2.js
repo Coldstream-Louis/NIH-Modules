@@ -7,14 +7,11 @@ import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import { Link } from "react-router-dom";
-import Button from "components/CustomButtons/Button.js";
-
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 // import styles
-import './Mod1Styles.css';
+import './Mod2Styles.css';
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // import d3
@@ -24,20 +21,20 @@ import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
 const dashboardRoutes = [];
+
 const useStyles = makeStyles(styles);
 
-export default function Module1(props) {
-  const classes = useStyles();
+export default function Module2(props) {
+
   const { ...rest } = props;
+  const classes = useStyles();
   // CONSTANTS //
   // headers and text descriptions:
-  const headerS = "S: Susceptible";
-  const headerI = "I: Infectious";
-  const headerR = "R: Removed";
-  const textS = "The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
-  const textI = "The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
-  const textR = "The number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
-  
+  const headerStartSus = "Begin as Susceptible";
+  const startSus = "Professor F begins by being susceptible to a disease."
+
+  const headerBecomeInf = "Interacting with Infectious"
+  const becomeInf = "As they move about in their life, they may interact with someone who is infected with an agent — an infectious person"
 
   // letters on top of tiles
   // base = no letter
@@ -68,48 +65,33 @@ export default function Module1(props) {
     // refresh scrolltrigger (supposedly helps prevent funkiness)
     ScrollTrigger.refresh();
 
-    // add tiles to SVG so there are 3 total tiles
-    addTiles("moduleSvg", 3)
-    let allTiles = gsap.utils.toArray(".tile")
-
-    // programmatically set each tile the correct distance apart
-    for (let i=0; i < allTiles.length; i++){
-      let myX = 0
-      let myY = 360
-      let scale = 2.5
-      let xIncrement = 90 * 1.5 * scale
-      let yIncrement = 50 * 1.5 * scale
-      gsap.set(allTiles[i],{
-        x: myX + xIncrement*i,
-        y: myY + yIncrement*i,
-        scaleX: scale,
-        scaleY: scale,
-      })
-    }    
-
-    // place things in the correct position and scale them if needed:
-    // the tiles are moved:
-    gsap.set(".tilegroup",{x:60, y: 400})
-    // the spotlight is moved and scaled:
-    gsap.set("#spotlight", {x:-50 , y:-150, scaleX:.9, scaleY:.9})
-    // the spotlight and person are moved:
-    gsap.set(".full_person",{x:-80, y: 0})
-
 
     // place entire scene in correct position:
     gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
+
+    // place things in the correct position and scale them if needed:
+    // the tiles are moved:
+    gsap.set(".tilegroup",{x:0, y:20})
+    // the spotlight is moved and scaled:
+    gsap.set("#spotlight", {x:-40 , y:-100, scaleX:.8, scaleY:.8})
+    // the spotlight and person are moved:
+    gsap.set(".full_person",{x: -80, y: 0, scaleX:.6, scaleY: .6})    
+
+    // set the figure back to "susceptible" body state
+    determineSIR("susceptible")    
+    
     // create a timeline that moves the legs:
-    let m1_legs_walking_tl = gsap.timeline({
-      repeat: 6, 
+    let m2_legs_walking_tl = gsap.timeline({
+      repeat: 20, 
       scrollTrigger: {
-        trigger: "#module1markers",
+        trigger: "#module2markers",
         markers: true,
         scrub: true
       }
     })
 
-    m1_legs_walking_tl.addLabel("move_legs_1")
+    m2_legs_walking_tl.addLabel("move_legs_1")
       .to(".left_leg_group", {
         // duration:15, 
         rotation:15}, "move_legs_1")
@@ -117,7 +99,7 @@ export default function Module1(props) {
         // duration:15, 
         rotation:-15}, "move_legs_1")
 
-    m1_legs_walking_tl.addLabel("move_legs_2")
+    m2_legs_walking_tl.addLabel("move_legs_2")
       .to(".left_leg_group", {
         // duration:15, 
         rotation:-15}, "move_legs2")
@@ -125,15 +107,48 @@ export default function Module1(props) {
         // duration:15, 
         rotation:15 }, "move_legs2")
 
-    m1_legs_walking_tl.addLabel("move_legs_0")
+    m2_legs_walking_tl.addLabel("move_legs_0")
       .to(".left_leg_group", {
         // duration:5, 
         rotation:0, ease: "none"}, "move_legs_0")
       .to(".right_leg_group", {
         // duration:5, 
         rotation:0, ease: "none"}, "move_legs_0")
+  
+    // create a timeline that moves the legs for the perpendicular person:
+    var wg_legs_walking_tl = gsap.timeline({
+      repeat: 20, 
+      scrollTrigger: {
+        trigger: '#module2markers',
+        // trigger: "#step_5",
+        markers: true,
+        scrub: true
+      }
+    });
+    wg_legs_walking_tl.addLabel("move_legs_1")
+      .to("#wg_left_leg_group", {
+        // duration:1, 
+        rotation:15}, "move_legs_1")
+      .to("#wg_right_leg_group", {
+        // duration:1, 
+        rotation:-15}, "move_legs_1")
 
- 
+    wg_legs_walking_tl.addLabel("move_legs_2")
+      .to("#wg_left_leg_group", {
+        // duration:1, 
+        rotation:-15}, "move_legs2")
+      .to("#wg_right_leg_group", {
+        // duration:1, 
+        rotation:15 }, "move_legs2")
+
+    wg_legs_walking_tl.addLabel("move_legs_0")
+      .to("#wg_left_leg_group", {
+        // duration:1, 
+        rotation:0, ease: "none"}, "move_legs_0")
+      .to("#wg_right_leg_group", {
+        // duration:1, 
+        rotation:0, ease: "none"}, "move_legs_0")
+
 
     // NOT USED: arms swinging as character walks.
     // var arms_swinging_tl = gsap.timeline({repeat:-1,});
@@ -153,211 +168,186 @@ export default function Module1(props) {
     // initialize a mater timeline to add other tweens and timelines to:
     var master_tl = gsap.timeline();
     
+
+    // because we want a long path for module 2, let's scale down tiles
+    // let's also scale down the human
+    
+    // add tiles to SVG so there are 10 total tiles
+    addTiles("moduleSvg", 10)
+    let allTiles2 = gsap.utils.toArray(".tile")
+
+    // programmatically set each tile the correct distance apart
+    for (let i=0; i < allTiles2.length; i++){
+      let myX = 0
+      let myY = 360
+      let scale = 1.2
+      let xIncrement = 90 * 1.5 * scale
+      let yIncrement = 50 * 1.5 * scale
+      gsap.set(allTiles2[i],{
+        x: myX + xIncrement*i,
+        y: myY + yIncrement*i,
+        scaleX: scale,
+        scaleY: scale,
+      })
+    }
+              
+    // add tiles perpendicularly
+    addTilesHorizontal("moduleSvg", 9)
+
+    let allTilesH = gsap.utils.toArray(".tileH")
+
+    for (let i=0; i < allTilesH.length; i++){
+      // myX and myY are set as the initial values of 0 and 360
+      // plus the extra x and y distance
+      // of the 5th tile down
+      // this aligns the perpendicular path
+      // with the correct tile
+      let myX = 0 + (90 * 1.5 * 1.2 * 4)
+      let myY = 360 + (50 * 1.5 * 1.2 * 4)
+      let scale = 1.2
+      let xIncrement = 90 * 1.5 * scale
+      let yIncrement = -50 * 1.5 * scale
+      
+      // this code animates each tile:
+      // if it's the an even tile, we add it 
+      // to the left of the existing path
+      // else, we add it to the right
+      gsap.to(allTilesH[i],{
+          x: () => {
+            if (i % 2 === 0){
+              // console.log("i math at even", (i/2))
+              return  myX + (xIncrement*(i/2))
+            } else {
+              // console.log("i math at odd", (i-1)/2 + 1)
+              return myX - xIncrement*((i-1)/2 + 1)
+            }
+          },
+          y: () => {
+            if (i % 2 === 0){
+              return  myY + (yIncrement*(i/2))
+            } else {
+              return myY - yIncrement*((i-1)/2 + 1)
+            }
+          } ,
+          scaleX: scale,
+          scaleY: scale,
+        })
+    }
+
+    // position the person on the perpendicular
+    gsap.set(".perpendicularPerson",{
+      x: 480, y: -40, scaleX:.6, scaleY: .6
+    })
+
+    // move the person on the perpendicualr
+    master_tl.to('.perpendicularPerson', {
+      scrollTrigger:{
+        trigger: "#module2markers",
+        start: "top 180",
+        end: "+=2600",
+        // onEnter: ()=>{wg_legs_walking_tl.play()},
+        markers: true,
+        scrub: true,
+      },
+      x:-360,
+      y:400,
+      ease: "none",
+    });    
     // create a tween that moves the person and spotlight (full person) 
-    // to the correct end position for Module 1
-   master_tl.to('.full_person', {
+    // to the correct end position for Module 2
+    master_tl.to('.full_person', {
       scrollTrigger: {
-        trigger: "#module1markers",
+        trigger: "#module2markers",
         start: "top 180",
         end: "+=2600",
         // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
-        // onLeave: ()=>{legs_walking_tl.pause();},
-        // onEnterBack: ()=>{legs_walking_tl.play();},
+        // onLeave: ()=>{master_tl.remove(legs_walking_tl)},
+        // onEnterBack: ()=>{},
         // onLeaveBack: ()=>{legs_walking_tl.pause(); },
         scrub: true,
         // pin: true,
         markers: true,
       },
-      x:450,
-      y:260,
+      x:850,
+      y:520,
       ease: "none"
     });
+
 
     // create a tween that updates the text based on scroll position
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
-    // for module 1
+    // for module 2
     master_tl.to("#moduleSvg", {
       scrollTrigger: {
-        trigger: "#module1markers",
+        trigger: "#module2markers",
         start: "top 180",
-        end: '+=2600',
-        onUpdate: () => {
+        end: "+=2600",
+        onUpdate: () => {        
           const currScroll = window.scrollY + 160;
-          const step_1 = document.querySelector("#step_s");
-          const step_2 = document.querySelector("#step_i");
-          const step_3 = document.querySelector("#step_r");
+          const step_5 = document.querySelector("#step_5");  
+          const step_6 = document.querySelector("#step_6")    
 
           // legs_walking_tl.play();
-          if(currScroll < step_1.offsetTop) {
-            //scroll is between the top and step 1
-
-            determineSIR("susceptible")
-            determineTileColor("module1", "not")
-
-            // legs_walking_tl.pause();
-          } else if(currScroll >= step_1.offsetTop && currScroll < (step_1.offsetTop + step_1.offsetHeight)) {
-            // scroll is between or equal to the top step 1 and the top of step 2
-
-            determineSIR("susceptible")
-            determineTileColor("module1", "#tile1")
-
-            document.querySelector("#scrollText").textContent = textS;
-            document.querySelector("#scrollHeader").textContent = headerS;
-            // legs_walking_tl.pause();
-
-          } else if (currScroll >= step_2.offsetTop && currScroll < (step_2.offsetTop + step_2.offsetHeight)) {
-
-            // scroll is between or equal to the top of step 2 and the top of step 3
-
-            determineSIR("infectious")
-            determineTileColor("module1", "#tile2")
-
-            document.querySelector("#scrollText").textContent = textI;
-            document.querySelector("#scrollHeader").textContent = headerI;
-            // legs_walking_tl.pause();
-
-          } else if (currScroll >= step_3.offsetTop && currScroll < (step_3.offsetTop + step_3.offsetHeight) ) {
-            // scroll is between or equal to the top of step 3 and the top of step buffer
-
-            determineSIR("recovered")
-            determineTileColor("module1", "#tile3")
-
-            document.querySelector("#scrollText").textContent = textR;
-            document.querySelector("#scrollHeader").textContent = headerR;
+          if (currScroll >= step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
+            //scroll is within step 5
 
             // legs_walking_tl.pause();
 
-            // if scroll is back, we want to show the text and scene
-            document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"    
-            document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;"     
-            document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"                       
-          } else {
-            // scroll is at or beyond the buffer div, so let's hide the scroller text and the scene
-            // legs_walking_tl.pause();            
+            document.querySelector("#scrollText").textContent = startSus;
+            document.querySelector("#scrollHeader").textContent = headerStartSus;
 
-            document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
-            document.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
-            document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
+            if (currScroll >= (step_5.offsetHeight + step_5.offsetTop - 200) && currScroll < step_6.offsetTop ){
+
+              determineTileColor("module2", "#tileH1")
+              determineTileColor("module2", "#tileH2")
+              determineTileColor("module2", "#tileH3")  
+              // determineSIRPerp("infected")
+            }
+    
+
+          } else if(currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
+            // scroll is within step 6
+            document.querySelector("#scrollText").textContent = becomeInf;
+            document.querySelector("#scrollHeader").textContent = headerBecomeInf;
+            // legs_walking_tl.pause();
+
+
+            // determineSIRPerp("infectious")
 
           }
         },
-        onEnterBack: () =>{
-          // change the background color and text color back:
-          document.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s; -webkit-transition: background-color 1s;"
-
-          // remove the perpendicular person
-          document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
-
-          // because we have to move the svg around, we need to make sure 
-          // it's back in the correct position when going
-          // up the page
-          let svgModule = document.querySelector("#moduleSvg")
-          document.querySelector("#moduleSvgDiv").append(svgModule)
-
-          // we also add back the correct number of tiles for
-          // module 1
-          // add tiles to SVG so there are 3 total tiles
-          addTiles("moduleSvg", 3)
-          let allTiles = gsap.utils.toArray(".tile")
-
-          // programmatically set each tile the correct distance apart
-          for (let i=0; i < allTiles.length; i++){
-            let myX = 0
-            let myY = 360
-            let scale = 2.5
-            let xIncrement = 90 * 1.5 * scale
-            let yIncrement = 50 * 1.5 * scale
-            gsap.set(allTiles[i],{
-              x: myX + xIncrement*i,
-              y: myY + yIncrement*i,
-              scaleX: scale,
-              scaleY: scale,
-            })
-          }    
-
-          // place things in the correct position and scale them if needed:
-          // the tiles are moved:
-          gsap.set(".tilegroup",{x:60, y: 400})
-          // the spotlight is moved and scaled:
-          gsap.set("#spotlight", {x:-50 , y:-150, scaleX:.9, scaleY:.9})
-          // the spotlight and person are moved:
-          gsap.set(".full_person",{x:-80, y: 0, scaleX:1, scaleY:1})  
-          // also set the tile color
-          determineTileColor("module1","#tile1")
-          determineTileColor("module1","#tile2")
-          determineTileColor("module1","#tile3")
+        onEnter: () => {
+        // transition in the contents
+        // document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        // document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
+        // document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        },
+        onLeave: () =>{
+          // document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
+          // document.querySelector("#init_scene").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;" 
+          // document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;"
+          // document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
         },
         scrub: true,
-        // pin: true,
         markers: true,
-        // pinSpacing: false
+        //pinSpacing: false
       },
-    });
+    }); 
 
-
-    function determineTileColor(module = "module1", tileID){
+    function determineTileColor(module = "module2", tileID){
       let tileD3 = d3.select(tileID)
-      
-      // console.log("tileID is", tileID)
-      if (module === "module1"){
-        if (tileID === "#tile1"){
-            // console.log("within S")
-            d3.selectAll(".letterR, .letterI").remove()
 
-            tileD3.append('path').attr('d', sirS).attr('class', 'letterS')
+      if (module === "module2"){
+          // console.log("within I")
+          d3.selectAll(".letterS, .letterR").remove()
 
-            // tile 1 is active, add the fully saturated colors to it
-            d3.select("#tile1 .topFace").classed('susTileTop', true).attr('opacity', 1)
-            d3.select("#tile1 .sideProfile").classed('susTileSide', true).attr('opacity', 1)
+          tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
 
-            // add the colors to tile 2 and 3, but decrease the opacity
-            d3.select("#tile2 .topFace").classed('infTileTop', true).attr('opacity', 0.5)
-            d3.select("#tile2 .sideProfile").classed('infTileSide', true).attr('opacity', 0.5)
-            d3.select("#tile3 .topFace").classed('recTileTop', true).attr('opacity', 0.5)
-            d3.select("#tile3 .sideProfile").classed('recTileSide', true).attr('opacity', 0.5)
-
-        } else if (tileID  === "#tile2"){
-              // console.log("within I")
-              d3.selectAll(".letterS, .letterR").remove()
-
-              tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
-
-              // tile 2 is active, add the fully saturated colors to it
-              d3.select("#tile2 .topFace").attr('opacity', 1)
-              d3.select("#tile2 .sideProfile").attr('opacity', 1)
-
-              // decrease the opacity of inactive tiles
-              d3.select("#tile1 .topFace").attr('opacity', 0.5)
-              d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-              d3.select("#tile3 .topFace").attr('opacity', 0.5)
-              d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
-
-        } else if (tileID === "#tile3") {
-            // console.log("within R")
-            d3.selectAll(".letterS, .letterI").remove()
-
-            tileD3.append("path").attr("d", sirR).attr('class','letterR')
-
-            // tile 3 is active, add the fully saturated colors to it
-            d3.select("#tile3 .topFace").attr('opacity', 1)
-            d3.select("#tile3 .sideProfile").attr('opacity',1 )
-
-
-            // decrease the opacity of inactive tiles
-            d3.select("#tile1 .topFace").attr('opacity', 0.5)
-            d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-            d3.select("#tile2 .topFace").attr('opacity', 0.5)
-            d3.select("#tile2 .sideProfile").attr('opacity', 0.5)
-        } else {
-            // console.log("not within SIR")
-            d3.selectAll(".letterS, .letterI, .letterR").remove()
-
-            // if no tiles are active, remove any existing classes and return opacity to 1
-            d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
-            d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
-        }
-      } //close if module1
+          // update the tile colors
+          d3.select(`${tileID} .topFace`).classed('infTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', true)
+      }
 
     }
     
@@ -373,13 +363,13 @@ export default function Module1(props) {
           // routes={dashboardRoutes}
           rightLinks={<HeaderLinks />}
        />
-  <div className="mainContainer fixedParent">
+
+<div className="mainContainer fixedParent">
     <h1 className = "sectionTitle">
-      Module 1.1: What is SIR?
+      Module 1.2: SIR Model in Practice
     </h1>
     <div className="textContainer">
-      <p>We will begin this section by learning how  to break up a disease’s natural history into discrete steps. </p>
-      <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments: </p>
+      <p>Now that we've defined S (Susceptible), I (Infectious), and R (Recovered), let's look at what the SIR model looks like in practice.</p>
     </div> {/* closes textContainer */}
     <div id = "moduleSvgDiv" className="scrollingContainer">
       <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">
@@ -528,25 +518,55 @@ export default function Module1(props) {
               <path id="spotlightpath" d="M106.0809,0,6.0487,243.3674C-15.45,295.6717,23.0093,353.0612,79.56,353.0612h53.0427c56.55,0,95.01-57.3895,73.5108-109.6938Z"/> */}
             </g> {/* closes spotlight group */}
           </g>  {/* closes full_person group */}
+          <g className = "perpendicularPerson">
+            <g id="wg_leg_group">
+              <g id="wg_left_leg_group">
+                <path id="wg_left_leg_1_" className="wgst0" d="M36.7,219c2.1,0,3.9-2.9,3.9-6.4v-48.1c0-3.5-1.7-6.4-3.9-6.4s-3.9,2.9-3.9,6.4v48.1
+                  C32.8,216.2,34.6,219,36.7,219z"/>
+                <path id="wg_left_foot_1_" className="wgst1" d="M31.3,226.8c0.9,0,1.8-0.2,2.6-0.8l6-3.9c2.5-1.6,3.3-5.1,1.9-7.9
+                  c-1.4-2.8-4.6-3.7-7-2.1l-6,3.9c-2.5,1.6-3.3,5.1-1.9,7.9C27.8,225.7,29.5,226.8,31.3,226.8z"/>
+              </g>
+              <g id="wg_right_leg_group">
+                <path id="wg_right_leg" className="wgst0" d="M76.4,219c2.1,0,3.9-2.9,3.9-6.4v-48.1c0-3.5-1.7-6.4-3.9-6.4s-3.9,2.9-3.9,6.4v48.1
+                  C72.5,216.1,74.3,219,76.4,219z"/>
+                <path id="wg_right_foot" className="wgst1" d="M71,226.7c0.9,0,1.8-0.2,2.6-0.8l6-3.9c2.5-1.6,3.3-5.1,1.9-7.9c-1.4-2.8-4.6-3.7-7-2.1
+                  l-6,3.9c-2.5,1.6-3.3,5.1-1.9,7.9C67.5,225.7,69.2,226.7,71,226.7z"/>
+              </g>
+            </g>
+            <path id="wg_left_arm_lower" className="wgst0" d="M5.7,126.5c0.8-0.2,1.6-0.7,2.2-1.4l21.8-25.2c1.6-1.9,1.4-4.7-0.5-6.4
+              c-1.9-1.6-4.7-1.4-6.4,0.5L1.1,119.2c-1.6,1.9-1.4,4.7,0.5,6.4C2.7,126.6,4.3,126.9,5.7,126.5z"/>
+            <path id="wg_left_arm_upper" className="wgst0" d="M17,113.6c0.8-0.2,1.6-0.7,2.2-1.4L41,87c1.6-1.9,1.4-4.7-0.5-6.4
+              c-1.9-1.6-4.7-1.4-6.4,0.5l-21.8,25.2c-1.6,1.9-1.4,4.7,0.5,6.4C14,113.7,15.6,114,17,113.6z"/>
+            <path id="wg_body" className="wgst2" d="M82.9,171.7c-6.2,5.3-48.6,7.6-54-2.3c-6.5-11.9-1.3-66.7-1.2-95.3c0-10.6,14.9-18.7,28.4-18.9
+              c8.4-0.1,17,3.4,23.1,8.7c4.9,4.3,7.6,11.1,7.6,18.2c0,8.9-1.4,16.9-1.5,38.5C85.2,147,86.8,168.4,82.9,171.7z"/>
+            <path id="wg_right_arm_upper" className="wgst0" d="M68,120.8c2.6,0,4.8-2.1,4.8-4.8V80.4c0-2.6-2.1-4.8-4.8-4.8s-4.8,2.1-4.8,4.8V116
+              C63.2,118.7,65.4,120.8,68,120.8z"/>
+            <path id="wg_right_arm_lower" className="wgst0" d="M49,146.3c2.2,1.4,5,1,6.2-0.9l16.9-26.2c1.2-1.9,0.5-4.6-1.7-6.1
+              c-2.2-1.4-5-1-6.2,0.9l-16.9,26.2C46,142.1,46.8,144.8,49,146.3z"/>
+            <g id="wg_head">
+              <path id="wg_face" className="wgst0" d="M28.1,28.3c0.4,0.8,2.8-10.4,2.8-10.4c-0.4-2.9,12-1.8,16.4-1.5c3.6,0.3,19.4-1.1,19.4,3.6
+                l3.8,15.8c2.2,0.6,2.2-7.9,4.5-9.9c1.9-1.8,4.4,4.9,4.9,4.6L80,43.9c-2.7,24.9-49.8,23.2-52.5-1.8l0-14.9v-1
+                C27.6,26.9,27.8,27.6,28.1,28.3z"/>
+              <path id="wg_hair" className="wgst3" d="M75,25.8c-2.3,2.1-2.3,10.5-4.5,9.9L66.8,20c0-4.7-15.8-3.3-19.4-3.6c-4.5-0.4-16.8-1.5-16.4,1.5
+                c0,0-2.5,11.2-2.8,10.4c-0.3-0.7-0.5-1.4-0.7-2.1C26,19.7,29,10.9,30.8,9.4c2.5-2,5.5-5,10.2-7.2c2.4-1.1,6.5-1.9,11-2.2
+                C61.8-0.6,70,4.9,71.9,5.9c5.6,2.9,9.4,12.7,8.1,24.4c0,0.1,0,0.2-0.1,0.2C79.4,30.8,76.9,24.1,75,25.8z"/>
+            </g>
+          </g> {/* closes perpendicularPerson */}
         </g>  {/* closes init_scene group */}
       </svg>
       <div className="scrollTextContainer">
-        <h2 id="scrollHeader">{headerS}</h2>
-        <p id="scrollText">{textS}</p>
+        <h2 id="scrollHeader">{headerStartSus}</h2>
+        <p id="scrollText">{startSus}</p>
       </div> {/* closes scrollingTextContainer */}
-      <div className="markers" id="module1markers" >
-        <div className="marker" id="step_s" style={{height: "75vh"}}></div>
-        <div className="marker" id="step_i" style={{height: "75vh"}}></div>
-        <div className="marker" id="step_r" style={{height: "75vh"}}></div>
-        <div className="marker" id="step_buffer" style={{height: "80vh"}}></div>
+      <div className="markers" id="module2markers" >
+          <div className="marker" id="step_5" style={{height: "75vh"}}></div>
+          <div className="marker" id="step_6" style={{height: "75vh"}}></div>
+          <div className="marker" id="step_7" style={{height: "75vh"}}></div>
+          <div className="marker" id="step_8" style={{height: "75vh"}}></div>
+
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
-    <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p>
-    <Link to="/Module2" className={classes.navLink}>
-        <Button size="lg" round>
-          Go to Module 2 &#8594;
-        </Button>
-    </Link>
+    {/* <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p> */}
   </div> {/* closes mainContainer */}
   </div>
   </>);
