@@ -23,12 +23,8 @@ import * as d3 from "d3";
 import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
-const dashboardRoutes = [];
-const useStyles = makeStyles(styles);
 
 export default function Module1(props) {
-  const classes = useStyles();
-  const { ...rest } = props;
   // CONSTANTS //
   // headers and text descriptions:
   const headerS = "S: Susceptible";
@@ -542,11 +538,12 @@ export default function Module1(props) {
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
     <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p>
-    <Link to="/Module2" className={classes.navLink}>
-        <Button size="lg" round>
+    
+    {/* <Link to="/Module2" className={classes.navLink}> */}
+        <Button component={Link} to ="/Module2" size="lg" round>
           Go to Module 2 &#8594;
         </Button>
-    </Link>
+    {/* </Link> */}
   </div> {/* closes mainContainer */}
   </div>
   </>);

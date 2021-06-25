@@ -19,6 +19,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import Footer from "components/Footer/Footer.js";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
+
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
@@ -43,7 +44,7 @@ export default function LandingPage(props) {
           <GridContainer className = {classes.main}>
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>COVID Learning Modules</h1>
-              <h4>
+              <h4 className = {classes.h4}>
                 Welcome to COVID Learning Modules
               </h4>
               <br />
