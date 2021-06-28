@@ -14,16 +14,16 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
 
-import Button from "components/CustomButtons/Button.js";
-import Parallax from "components/Parallax/Parallax.js";
-import Footer from "components/Footer/Footer.js";
+// import Button from "components/CustomButtons/Button.js";
+// import Parallax from "components/Parallax/Parallax.js";
+// import Footer from "components/Footer/Footer.js";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 
 // Sections for this page
-import ProductSection from "./Sections/ProductSection.js";
-import TeamSection from "./Sections/TeamSection.js";
-import WorkSection from "./Sections/WorkSection.js";
+// import ProductSection from "./Sections/ProductSection.js";
+// import TeamSection from "./Sections/TeamSection.js";
+// import WorkSection from "./Sections/WorkSection.js";
 
 const dashboardRoutes = [];
 

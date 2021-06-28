@@ -1,5 +1,5 @@
 // import React useEffect and useState (useState currently not used)
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -51,18 +51,21 @@ export default function Module1(props) {
   // useState to set if figure is on S, I, or R
   // const [stepSIR, setSIR] = useState(sirBase);
 
+  // useRef to make sure each page loads its own content
+  const ref = useRef(null)
+
   useEffect(() => {
+    // bump position to top of page
+    window.scrollTo(0, 0)
     // the plugins to be used:
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(CSSPlugin);
 
-    // make sure scroll is at top of page
-    window.onbeforeunload = function () {
-      window.scrollTo(0,0);
-    };
-
     // refresh scrolltrigger (supposedly helps prevent funkiness)
     ScrollTrigger.refresh();
+
+    // grab the current content
+    const elem = ref.current
 
     // add tiles to SVG so there are 3 total tiles
     addTiles("moduleSvg", 3)
@@ -85,15 +88,15 @@ export default function Module1(props) {
 
     // place things in the correct position and scale them if needed:
     // the tiles are moved:
-    gsap.set(".tilegroup",{x:60, y: 400})
+    gsap.set(elem.querySelector(".tilegroup"),{x:60, y: 400})
     // the spotlight is moved and scaled:
-    gsap.set("#spotlight", {x:-50 , y:-150, scaleX:.9, scaleY:.9})
+    gsap.set(elem.querySelector("#spotlight"), {x:-50 , y:-150, scaleX:.9, scaleY:.9})
     // the spotlight and person are moved:
-    gsap.set(".full_person",{x:-80, y: 0})
+    gsap.set(elem.querySelector(".full_person"),{x:-80, y: 0})
 
 
     // place entire scene in correct position:
-    gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
+    gsap.to(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
     // create a timeline that moves the legs:
     let m1_legs_walking_tl = gsap.timeline({
@@ -151,7 +154,7 @@ export default function Module1(props) {
     
     // create a tween that moves the person and spotlight (full person) 
     // to the correct end position for Module 1
-   master_tl.to('.full_person', {
+   master_tl.to(elem.querySelector('.full_person'), {
       scrollTrigger: {
         trigger: "#module1markers",
         start: "top 180",
@@ -173,16 +176,16 @@ export default function Module1(props) {
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
     // for module 1
-    master_tl.to("#moduleSvg", {
+    master_tl.to(elem.querySelector("#moduleSvg"), {
       scrollTrigger: {
         trigger: "#module1markers",
         start: "top 180",
         end: '+=2600',
         onUpdate: () => {
           const currScroll = window.scrollY + 160;
-          const step_1 = document.querySelector("#step_s");
-          const step_2 = document.querySelector("#step_i");
-          const step_3 = document.querySelector("#step_r");
+          const step_1 = elem.querySelector("#step_s");
+          const step_2 = elem.querySelector("#step_i");
+          const step_3 = elem.querySelector("#step_r");
 
           // legs_walking_tl.play();
           if(currScroll < step_1.offsetTop) {
@@ -198,8 +201,8 @@ export default function Module1(props) {
             determineSIR("susceptible")
             determineTileColor("module1", "#tile1")
 
-            document.querySelector("#scrollText").textContent = textS;
-            document.querySelector("#scrollHeader").textContent = headerS;
+            elem.querySelector("#scrollText").textContent = textS;
+            elem.querySelector("#scrollHeader").textContent = headerS;
             // legs_walking_tl.pause();
 
           } else if (currScroll >= step_2.offsetTop && currScroll < (step_2.offsetTop + step_2.offsetHeight)) {
@@ -209,8 +212,8 @@ export default function Module1(props) {
             determineSIR("infectious")
             determineTileColor("module1", "#tile2")
 
-            document.querySelector("#scrollText").textContent = textI;
-            document.querySelector("#scrollHeader").textContent = headerI;
+            elem.querySelector("#scrollText").textContent = textI;
+            elem.querySelector("#scrollHeader").textContent = headerI;
             // legs_walking_tl.pause();
 
           } else if (currScroll >= step_3.offsetTop && currScroll < (step_3.offsetTop + step_3.offsetHeight) ) {
@@ -219,37 +222,37 @@ export default function Module1(props) {
             determineSIR("recovered")
             determineTileColor("module1", "#tile3")
 
-            document.querySelector("#scrollText").textContent = textR;
-            document.querySelector("#scrollHeader").textContent = headerR;
+            elem.querySelector("#scrollText").textContent = textR;
+            elem.querySelector("#scrollHeader").textContent = headerR;
 
             // legs_walking_tl.pause();
 
             // if scroll is back, we want to show the text and scene
-            document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"    
-            document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;"     
-            document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"                       
+            elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"    
+            elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;"     
+            elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"                       
           } else {
             // scroll is at or beyond the buffer div, so let's hide the scroller text and the scene
             // legs_walking_tl.pause();            
 
-            document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
-            document.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
-            document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
+            elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
+            elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
+            elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
 
           }
         },
         onEnterBack: () =>{
           // change the background color and text color back:
-          document.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s; -webkit-transition: background-color 1s;"
+          elem.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s; -webkit-transition: background-color 1s;"
 
           // remove the perpendicular person
-          document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
+          elem.querySelector(".perpendicularPerson").style="visibility: hidden;" 
 
           // because we have to move the svg around, we need to make sure 
           // it's back in the correct position when going
           // up the page
-          let svgModule = document.querySelector("#moduleSvg")
-          document.querySelector("#moduleSvgDiv").append(svgModule)
+          let svgModule = elem.querySelector("#moduleSvg")
+          elem.querySelector("#moduleSvgDiv").append(svgModule)
 
           // we also add back the correct number of tiles for
           // module 1
@@ -361,7 +364,7 @@ export default function Module1(props) {
 
   // what is rendered:
   return (<>
-  <div>
+  <div ref={ref}>
   <Header
           brand="COVID-19 Modules"
           color="dark"

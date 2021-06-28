@@ -1,5 +1,5 @@
 // import React useEffect and useState (useState currently not used)
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -12,7 +12,6 @@ import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 // import styles
 import './Mod2Styles.css';
-import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // import d3
 import * as d3 from "d3";
@@ -22,12 +21,8 @@ import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
 const dashboardRoutes = [];
 
-const useStyles = makeStyles(styles);
+export default function Module2() {
 
-export default function Module2(props) {
-
-  const { ...rest } = props;
-  const classes = useStyles();
   // CONSTANTS //
   // headers and text descriptions:
   const headerStartSus = "Begin as Susceptible";
@@ -52,31 +47,34 @@ export default function Module2(props) {
   // useState to set if figure is on S, I, or R
   // const [stepSIR, setSIR] = useState(sirBase);
 
+  // useRef to make sure each page loads its own content
+  const ref = useRef(null)
+
   useEffect(() => {
+    // bump position to top of page
+    window.scrollTo(0, 0)
+
     // the plugins to be used:
     gsap.registerPlugin(ScrollTrigger);
     gsap.registerPlugin(CSSPlugin);
 
-    // make sure scroll is at top of page
-    window.onbeforeunload = function () {
-      window.scrollTo(0,0);
-    };
-
     // refresh scrolltrigger (supposedly helps prevent funkiness)
     ScrollTrigger.refresh();
 
+    // grab the current content
+    const elem = ref.current
 
     // place entire scene in correct position:
-    gsap.to("#init_scene", {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
+    gsap.to(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
 
     // place things in the correct position and scale them if needed:
     // the tiles are moved:
-    gsap.set(".tilegroup",{x:0, y:20})
+    gsap.set(elem.querySelector(".tilegroup"),{x:0, y:20})
     // the spotlight is moved and scaled:
-    gsap.set("#spotlight", {x:-40 , y:-100, scaleX:.8, scaleY:.8})
+    gsap.set(elem.querySelector("#spotlight"), {x:-40 , y:-100, scaleX:.8, scaleY:.8})
     // the spotlight and person are moved:
-    gsap.set(".full_person",{x: -80, y: 0, scaleX:.6, scaleY: .6})    
+    gsap.set(elem.querySelector(".full_person"),{x: -80, y: 0, scaleX:.6, scaleY: .6})    
 
     // set the figure back to "susceptible" body state
     determineSIR("susceptible")    
@@ -150,20 +148,6 @@ export default function Module2(props) {
         rotation:0, ease: "none"}, "move_legs_0")
 
 
-    // NOT USED: arms swinging as character walks.
-    // var arms_swinging_tl = gsap.timeline({repeat:-1,});
-    // arms_swinging_tl.pause();
-    // arms_swinging_tl.addLabel("move_arms_1")
-    //   .to(".leftarm", {duration:0.3, rotation:10}, "move_arms_1")
-    //   .to(".rightarm", {duration:0.3, rotation:-10}, "move_arms_1");
-
-    // arms_swinging_tl.addLabel("move_arms_2")
-    //   .to(".leftarm", {duration:0.3, rotation:-10}, "move_arms_2")
-    //   .to(".rightarm", {duration:0.3, rotation:10}, "move_arms_2");
-
-    // arms_swinging_tl.addLabel("move_arms_0")
-    //   .to(".leftarm", {duration:0.1, rotation:0, ease: "none"}, "move_arms_0")
-    //   .to(".rightarm", {duration:0.1, rotation:0, ease: "none"}, "move_arms_0");    
 
     // initialize a mater timeline to add other tweens and timelines to:
     var master_tl = gsap.timeline();
@@ -235,12 +219,12 @@ export default function Module2(props) {
     }
 
     // position the person on the perpendicular
-    gsap.set(".perpendicularPerson",{
+    gsap.set(elem.querySelector(".perpendicularPerson"),{
       x: 480, y: -40, scaleX:.6, scaleY: .6
     })
 
     // move the person on the perpendicualr
-    master_tl.to('.perpendicularPerson', {
+    master_tl.to(elem.querySelector('.perpendicularPerson'), {
       scrollTrigger:{
         trigger: "#module2markers",
         start: "top 180",
@@ -255,7 +239,7 @@ export default function Module2(props) {
     });    
     // create a tween that moves the person and spotlight (full person) 
     // to the correct end position for Module 2
-    master_tl.to('.full_person', {
+    master_tl.to(elem.querySelector('.full_person'), {
       scrollTrigger: {
         trigger: "#module2markers",
         start: "top 180",
@@ -278,15 +262,15 @@ export default function Module2(props) {
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
     // for module 2
-    master_tl.to("#moduleSvg", {
+    master_tl.to(elem.querySelector("#moduleSvg"), {
       scrollTrigger: {
         trigger: "#module2markers",
         start: "top 180",
         end: "+=2600",
         onUpdate: () => {        
           const currScroll = window.scrollY + 160;
-          const step_5 = document.querySelector("#step_5");  
-          const step_6 = document.querySelector("#step_6")    
+          const step_5 = elem.querySelector("#step_5");  
+          const step_6 = elem.querySelector("#step_6")    
 
           // legs_walking_tl.play();
           if (currScroll >= step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
@@ -294,8 +278,8 @@ export default function Module2(props) {
 
             // legs_walking_tl.pause();
 
-            document.querySelector("#scrollText").textContent = startSus;
-            document.querySelector("#scrollHeader").textContent = headerStartSus;
+            elem.querySelector("#scrollText").textContent = startSus;
+            elem.querySelector("#scrollHeader").textContent = headerStartSus;
 
             if (currScroll >= (step_5.offsetHeight + step_5.offsetTop - 200) && currScroll < step_6.offsetTop ){
 
@@ -308,8 +292,8 @@ export default function Module2(props) {
 
           } else if(currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
             // scroll is within step 6
-            document.querySelector("#scrollText").textContent = becomeInf;
-            document.querySelector("#scrollHeader").textContent = headerBecomeInf;
+            elem.querySelector("#scrollText").textContent = becomeInf;
+            elem.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
 
@@ -319,15 +303,15 @@ export default function Module2(props) {
         },
         onEnter: () => {
         // transition in the contents
-        // document.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
-        // document.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
-        // document.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        // elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        // elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
+        // elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
         },
         onLeave: () =>{
-          // document.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
-          // document.querySelector("#init_scene").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;" 
-          // document.querySelector(".tilegroup").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;"
-          // document.querySelector(".perpendicularPerson").style="visibility: hidden;" 
+          // elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
+          // elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;" 
+          // elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;"
+          // elem.querySelector(".perpendicularPerson").style="visibility: hidden;" 
         },
         scrub: true,
         markers: true,
@@ -355,7 +339,7 @@ export default function Module2(props) {
 
   // what is rendered:
   return (<>
-  <div>
+  <div ref={ref}>
   <Header
           brand="COVID-19 Modules"
           color="dark"
@@ -374,7 +358,6 @@ export default function Module2(props) {
     <div id = "moduleSvgDiv" className="scrollingContainer">
       <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">
         <g className="tilegroup">
-
         </g> 
         <g id="init_scene">
           <g className="full_person">

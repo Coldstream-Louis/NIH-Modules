@@ -23,18 +23,20 @@
     position: -webkit-sticky;
     top:0;
 }
-
+.textContainer{
+    padding: 15px;
+}
 .textContainer > p{
     font-size: 18px;
     margin: 15px;
 }
 
-#moduleSvg{
+svg{
     /* background-color: white; */
     position: -webkit-sticky; 
     position: sticky;
-    /* position: fixed; */
-    top: 0;
+    /* position: fixed !important; */
+    top:10;
 }
 
 .scrollTextContainer{
@@ -47,6 +49,7 @@
     /* height: 200px; */
     align-self: flex-start;
     padding: 15px;
+    margin-top:30px;
     vertical-align: middle;
 }
 
