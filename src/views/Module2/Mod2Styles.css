@@ -1,4 +1,4 @@
-.mainContainer{
+/* .mainContainer{
     margin: 15px;
     background-color: #1c2530;
     color: white;
@@ -10,43 +10,27 @@
 }
 
 .scrollingContainer {
-    margin: 15px auto;
     width: 100%;
     height: 100%;
     color: white;
-    padding: 40px 40px;
+    padding: 15px;
     display: flex;
 }
 
-.stickyContainer{
-    position: sticky;
-    position: -webkit-sticky;
-    top:0;
-}
 .textContainer{
     padding: 15px;
 }
 .textContainer > p{
     font-size: 18px;
     margin: 15px;
-}
+} */
 
-svg{
-    /* background-color: white; */
-    position: -webkit-sticky; 
-    position: sticky;
-    /* position: fixed !important; */
-    top:10;
-}
-
-.scrollTextContainer{
+/* .scrollTextContainer{
     max-width: 45%;
-    /* position: -webkit-sticky; */
+
     position: fixed;
     right: 0;
-    /* top: 0; */
-    overflow: "visible";
-    /* height: 200px; */
+
     align-self: flex-start;
     padding: 15px;
     margin-top:30px;
@@ -78,20 +62,9 @@ svg{
     width: 100%;
     color: #00e5ff;
     height: 100%;
-}
+} */
 
-#step_s{
-    background-color: blue;
-}
-#step_i{
-    background-color: greenyellow;
-}
-#step_r{
-    background-color: green;
-}
-#step_buffer{
-    background-color: pink;
-}
+
 #step_5{
     background-color: red;
 }
@@ -105,8 +78,10 @@ svg{
 #step_8{
     background-color: orange;
 }
-
-
+#step_9{
+    background-color:magenta;
+}
+/* 
 .st0{fill:none;stroke:#C49A6C;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st1{fill:#231F20;stroke:#231F20;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st2{fill:#C3996C;}
@@ -154,9 +129,8 @@ svg{
 
 #spotlightpath{
     fill:url(#a)
-}
+} */
 
-/* no visibility default for wg */
 .perpendicularPerson{
     visibility: visible;
 }
@@ -166,9 +140,29 @@ svg{
 .wgst1{fill:#231F20;}
 .wgst2{fill:#D45931;}
 .wgst3{fill:#784528;}
+.wgst4{fill:#CEB394;}
+.wgst5{fill:#D45832;}
+.wgst6{fill:#BEAA97;}
+.wgst7{fill:#774428;}
+.wgst8{fill:#7F2A34;}
+.wgst9{fill:#F3CA44;}
+
+#wg_susceptible{
+    opacity: 0;
+}
+#wg_infected{
+    opacity: 0;
+}
+#wg_recovered{
+    opacity: 0;
+}
+
+#wglightning{
+    opacity: 0;
+}
 
 /* tiles */
-.topFace{
+/* .topFace{
     fill:#4484c5;
 }
 
@@ -202,4 +196,4 @@ svg{
 }
 .letterR{
     fill:#b3d6b5;
-}
+} */

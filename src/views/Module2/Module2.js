@@ -1,12 +1,9 @@
 // import React useEffect and useState (useState currently not used)
 import React, {useEffect, useState, useRef} from 'react';
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
-// nodejs library that concatenates classes
-import classNames from "classnames";
+
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,7 +16,6 @@ import * as d3 from "d3";
 import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
-const dashboardRoutes = [];
 
 export default function Module2() {
 
@@ -38,8 +34,8 @@ export default function Module2() {
   // The attribute 'd' for SVG path that forms the letter S on top of a tile
   const sirS = "M156.1,37.3c-7.8-4.6-16.6-7.4-25.7-8c-8.8-0.5-16.7,1.2-23.6,5.2c-5.5,3.2-8.6,6.8-9.4,10.8 c-0.8,4,1,9.1,5.6,15.3c4.4,5.9,6.7,10.2,6.9,12.8c0.2,2.6-1.2,4.8-4.3,6.6c-3.7,2-7.8,2.9-12,2.5c-4.6-0.3-9.5-2-14.9-5.1 c-3.7-2.2-7.2-4.8-10.3-7.7c-3-2.8-5.6-5.9-7.9-9.3l-12.7,7.4c3.1,5.1,9.3,10.4,18.7,15.8c8.6,5.2,18.3,8.3,28.2,9.1 c9.5,0.7,17.9-1.1,25.2-5.4c3.7-2.2,6.3-4.4,7.7-6.8c1.4-2.4,1.8-5.2,1.1-7.9c-0.7-2.9-2.8-6.8-6.3-11.8c-3.2-4.4-5.1-7.6-5.9-9.6 c-0.7-1.6-0.8-3.4-0.2-5.1c0.9-1.7,2.4-3.1,4.1-4c3.3-1.9,7.1-2.7,10.9-2.4c4.5,0.3,8.9,1.7,12.8,4.1c6,3.5,11.1,8.3,15.1,14.1 l15.3-3.9C169.7,47.1,163.4,41.4,156.1,37.3"
 
-  // The attribute 'points' for SVG polyline that forms the letter S on top of a tile
-  const sirI = "154.3,39.7 140.8,31.9 58.5,79.7 72.1,87.5 154.3,39.7 	"
+  // The attribute 'points' for SVG polyline that forms the letter I on top of a tile
+  const sirI = "154.3,39.7 140.8,31.9 58.5,79.7 72.1,87.5 154.3,39.7"
 
   // The attribute 'd' for SVG path that forms the letter R on top of a tile
   const sirR = "M100.9,53.9l26.9-15.6l9,5.2c6.2,3.6,9.7,6.8,10.8,9.7c1,2.9-0.8,5.8-5.4,8.5  c-4.4,2.6-9.5,3.9-14.6,3.6c-5.1-0.3-10.9-2.2-17.2-5.9L100.9,53.9 M149,37.3l-23.4-13.5L43.4,71.6l13.5,7.8l32.9-19.1l13.4,7.7  l-13,30.5l15.4,8.9l13-34.7c15.1,3.7,27.7,2.5,38-3.4c8-4.7,11.4-9.6,10.3-14.9C165.7,49.2,159.8,43.5,149,37.3"
@@ -270,8 +266,10 @@ export default function Module2() {
         onUpdate: () => {        
           const currScroll = window.scrollY + 160;
           const step_5 = elem.querySelector("#step_5");  
-          const step_6 = elem.querySelector("#step_6")    
-
+          const step_6 = elem.querySelector("#step_6") ;
+          const step_7 = elem.querySelector("#step_7")   
+          const step_8 = elem.querySelector("#step_8")
+          const step_9  = elem.querySelector("#step_9")
           // legs_walking_tl.play();
           if (currScroll >= step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
             //scroll is within step 5
@@ -280,25 +278,44 @@ export default function Module2() {
 
             elem.querySelector("#scrollText").textContent = startSus;
             elem.querySelector("#scrollHeader").textContent = headerStartSus;
+            
+            determineTileColor("#tileH1", "")
+            determineTileColor("#tileH3", "")
+            determineTileColor("#tileH5", "")   
+            determineTileColor("#tile6","")
+            determineTileColor("#tile7","")           
+            
+            determineSIRPerp("susceptible")
 
-            if (currScroll >= (step_5.offsetHeight + step_5.offsetTop - 200) && currScroll < step_6.offsetTop ){
-
-              determineTileColor("module2", "#tileH1")
-              determineTileColor("module2", "#tileH2")
-              determineTileColor("module2", "#tileH3")  
-              // determineSIRPerp("infected")
-            }
     
 
-          } else if(currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
+          } else if (currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
+            determineTileColor("#tileH1", "infected")
+            determineTileColor("#tileH3", "infected")
+            determineTileColor("#tileH5", "infected")  
+
+            determineSIR("susceptible")
+
             // scroll is within step 6
             elem.querySelector("#scrollText").textContent = becomeInf;
             elem.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
 
-            // determineSIRPerp("infectious")
+            determineSIRPerp("infectious")
+            determineTileColor("#tile6","infected")
+            determineTileColor("#tile7","infected")
+ 
 
+
+          } else if (currScroll >= step_7.offsetTop && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
+            determineSIR("infectious")
+            determineSIRPerp("infectious")
+          } else if (currScroll >= step_8.offsetTop && currScroll < (step_8.offsetTop + step_8.offsetHeight)){
+            determineSIR("infectious")
+            determineSIRPerp("recovered")
+          } else if (currScroll >= step_9.offsetTop && currScroll < (step_8.offsetTop + step_9.offsetHeight)){
+            determineSIR("recovered")
           }
         },
         onEnter: () => {
@@ -319,18 +336,82 @@ export default function Module2() {
       },
     }); 
 
-    function determineTileColor(module = "module2", tileID){
+    function determineTileColor(tileID, status){
       let tileD3 = d3.select(tileID)
+      let children = d3.selectAll(`${tileID} > *`)
+      console.log("kids of", tileID, ": ", children)
+      if (status === "suceptible"){
+          // console.log("susceptible tiles: ", tileID)
+          d3.selectAll(".letterI, .letterR, .baseLetter").remove()
 
-      if (module === "module2"){
-          // console.log("within I")
-          d3.selectAll(".letterS, .letterR").remove()
+          if (!children.classed('.letterS')){
+              console.log("the tile does not have the letter S")
+              tileD3.append("path").attr("d", sirS).attr('class','letterS')
+          } else {
+              console.log("The tile already has letter S")
+          }
 
-          tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+          // update the tile colors
+          d3.select(`${tileID} .topFace`).classed('susTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('recTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
+      } else if (status === "infected"){
+          // console.log("Infected Tiles: ", tileID)
+          console.log(tileD3)
+          // d3.selectAll(".letterS, .letterR, .baseLetter").remove()
+          if (!children.classed('.letterI')){
+            console.log("the tile does not have the letter I")
+            tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+          } else {
+              console.log("The tile already has letter I")
+          }
 
           // update the tile colors
           d3.select(`${tileID} .topFace`).classed('infTileTop', true)
           d3.select(`${tileID} .sideProfile`).classed('infTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('susTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('recTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
+
+      } else if (status === "recovered"){
+          // console.log("Recovered tiles: ", tileID)
+          d3.selectAll(".letterS, .letterI, .baseLetter").remove()
+
+          if (!children.classed('.letterR')){
+            console.log("the tile does not have the letter R")
+            tileD3.append("path").attr("d", sirR).attr('class','letterR')
+          } else {
+              console.log("The tile already has letter R")
+          }
+
+          // update the tile colors
+          d3.select(`${tileID} .topFace`).classed('recTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('susTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
+      } else {
+          console.log("tiles are not S, I, or R")
+          d3.selectAll(".letterS, .letterI, .letterR").remove()
+
+          if (!children.classed('.baseLetter')){
+            console.log("the tile does not have the base letter")
+            tileD3.append("path").attr("d", sirBase).attr('class', 'baseLetter')
+          } else {
+              console.log("The tile already has the base letter")
+          }
+          
+          d3.select(`${tileID} .topFace`).classed('susTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('recTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
       }
 
     }
@@ -515,24 +596,82 @@ export default function Module2() {
                 <path id="wg_right_foot" className="wgst1" d="M71,226.7c0.9,0,1.8-0.2,2.6-0.8l6-3.9c2.5-1.6,3.3-5.1,1.9-7.9c-1.4-2.8-4.6-3.7-7-2.1
                   l-6,3.9c-2.5,1.6-3.3,5.1-1.9,7.9C67.5,225.7,69.2,226.7,71,226.7z"/>
               </g>
-            </g>
-            <path id="wg_left_arm_lower" className="wgst0" d="M5.7,126.5c0.8-0.2,1.6-0.7,2.2-1.4l21.8-25.2c1.6-1.9,1.4-4.7-0.5-6.4
-              c-1.9-1.6-4.7-1.4-6.4,0.5L1.1,119.2c-1.6,1.9-1.4,4.7,0.5,6.4C2.7,126.6,4.3,126.9,5.7,126.5z"/>
-            <path id="wg_left_arm_upper" className="wgst0" d="M17,113.6c0.8-0.2,1.6-0.7,2.2-1.4L41,87c1.6-1.9,1.4-4.7-0.5-6.4
-              c-1.9-1.6-4.7-1.4-6.4,0.5l-21.8,25.2c-1.6,1.9-1.4,4.7,0.5,6.4C14,113.7,15.6,114,17,113.6z"/>
-            <path id="wg_body" className="wgst2" d="M82.9,171.7c-6.2,5.3-48.6,7.6-54-2.3c-6.5-11.9-1.3-66.7-1.2-95.3c0-10.6,14.9-18.7,28.4-18.9
-              c8.4-0.1,17,3.4,23.1,8.7c4.9,4.3,7.6,11.1,7.6,18.2c0,8.9-1.4,16.9-1.5,38.5C85.2,147,86.8,168.4,82.9,171.7z"/>
-            <path id="wg_right_arm_upper" className="wgst0" d="M68,120.8c2.6,0,4.8-2.1,4.8-4.8V80.4c0-2.6-2.1-4.8-4.8-4.8s-4.8,2.1-4.8,4.8V116
-              C63.2,118.7,65.4,120.8,68,120.8z"/>
-            <path id="wg_right_arm_lower" className="wgst0" d="M49,146.3c2.2,1.4,5,1,6.2-0.9l16.9-26.2c1.2-1.9,0.5-4.6-1.7-6.1
-              c-2.2-1.4-5-1-6.2,0.9l-16.9,26.2C46,142.1,46.8,144.8,49,146.3z"/>
-            <g id="wg_head">
-              <path id="wg_face" className="wgst0" d="M28.1,28.3c0.4,0.8,2.8-10.4,2.8-10.4c-0.4-2.9,12-1.8,16.4-1.5c3.6,0.3,19.4-1.1,19.4,3.6
-                l3.8,15.8c2.2,0.6,2.2-7.9,4.5-9.9c1.9-1.8,4.4,4.9,4.9,4.6L80,43.9c-2.7,24.9-49.8,23.2-52.5-1.8l0-14.9v-1
-                C27.6,26.9,27.8,27.6,28.1,28.3z"/>
-              <path id="wg_hair" className="wgst3" d="M75,25.8c-2.3,2.1-2.3,10.5-4.5,9.9L66.8,20c0-4.7-15.8-3.3-19.4-3.6c-4.5-0.4-16.8-1.5-16.4,1.5
-                c0,0-2.5,11.2-2.8,10.4c-0.3-0.7-0.5-1.4-0.7-2.1C26,19.7,29,10.9,30.8,9.4c2.5-2,5.5-5,10.2-7.2c2.4-1.1,6.5-1.9,11-2.2
-                C61.8-0.6,70,4.9,71.9,5.9c5.6,2.9,9.4,12.7,8.1,24.4c0,0.1,0,0.2-0.1,0.2C79.4,30.8,76.9,24.1,75,25.8z"/>
+            </g>  {/* close leg group for wg */}
+            <g id="wg_susceptible">
+              <path id="wgSusLArmLower" className="wgst0" d="M5.7,126.5c0.8-0.2,1.6-0.7,2.2-1.4l21.8-25.2c1.6-1.9,1.4-4.7-0.5-6.4
+                c-1.9-1.6-4.7-1.4-6.4,0.5L1.1,119.2c-1.6,1.9-1.4,4.7,0.5,6.4C2.7,126.6,4.3,126.9,5.7,126.5z"/>
+              <path id="wgSusLArmUpper" className="wgst0" d="M17,113.6c0.8-0.2,1.6-0.7,2.2-1.4L41,87c1.6-1.9,1.4-4.7-0.5-6.4
+                c-1.9-1.6-4.7-1.4-6.4,0.5l-21.8,25.2c-1.6,1.9-1.4,4.7,0.5,6.4C14,113.7,15.6,114,17,113.6z"/>
+              <path id="wgSusBody" className="wgst2" d="M82.9,171.7c-6.2,5.3-48.6,7.6-54-2.3c-6.5-11.9-1.3-66.7-1.2-95.3c0-10.6,14.9-18.7,28.4-18.9
+                c8.4-0.1,17,3.4,23.1,8.7c4.9,4.3,7.6,11.1,7.6,18.2c0,8.9-1.4,16.9-1.5,38.5C85.2,147,86.8,168.4,82.9,171.7z"/>
+              <path id="wgSusRArmUpper" className="wgst0" d="M68,120.8c2.6,0,4.8-2.1,4.8-4.8V80.4c0-2.6-2.1-4.8-4.8-4.8s-4.8,2.1-4.8,4.8V116
+                C63.2,118.7,65.4,120.8,68,120.8z"/>
+              <path id="wgSusRArmLower" className="wgst0" d="M49,146.3c2.2,1.4,5,1,6.2-0.9l16.9-26.2c1.2-1.9,0.5-4.6-1.7-6.1
+                c-2.2-1.4-5-1-6.2,0.9l-16.9,26.2C46,142.1,46.8,144.8,49,146.3z"/>
+              <g id="wgSusHead">
+                <path id="wgSusFace" className="wgst0" d="M28.1,28.3c0.4,0.8,2.8-10.4,2.8-10.4c-0.4-2.9,12-1.8,16.4-1.5c3.6,0.3,19.4-1.1,19.4,3.6
+                  l3.8,15.8c2.2,0.6,2.2-7.9,4.5-9.9c1.9-1.8,4.4,4.9,4.9,4.6L80,43.9c-2.7,24.9-49.8,23.2-52.5-1.8V27.2v-1
+                  C27.6,26.9,27.8,27.6,28.1,28.3z"/>
+                <path id="wgSusHair" className="wgst3" d="M75,25.8c-2.3,2.1-2.3,10.5-4.5,9.9L66.8,20c0-4.7-15.8-3.3-19.4-3.6C42.9,16,30.6,14.9,31,17.9
+                  c0,0-2.5,11.2-2.8,10.4c-0.3-0.7-0.5-1.4-0.7-2.1C26,19.7,29,10.9,30.8,9.4c2.5-2,5.5-5,10.2-7.2c2.4-1.1,6.5-1.9,11-2.2
+                  c9.8-0.6,18,4.9,19.9,5.9c5.6,2.9,9.4,12.7,8.1,24.4c0,0.1,0,0.2-0.1,0.2C79.4,30.8,76.9,24.1,75,25.8z"/>
+                 <path id="wgSusMouth" className="wgst8" d="M51.2,52.7c-6.4,0-9.8-3.4-9.9-3.4l-1.4,1.4c0.2,0.2,4,4,11.3,4c8.2,0,11.2-3.9,11.4-4.1
+                    L61,49.4C60.9,49.5,58.4,52.7,51.2,52.7z"/>    
+              </g>{/*close wgsushead */}
+            </g> {/* closes wg sus */}
+            <g id="wg_infected">
+              <path id="wgInfLArmUpper" className="wgst4" d="M16,115.3c0.8-0.2,1.6-0.7,2.2-1.4L40,88.7c1.6-1.9,1.4-4.7-0.5-6.4
+                c-1.9-1.6-4.7-1.4-6.4,0.5L11.4,108c-1.6,1.9-1.4,4.7,0.5,6.4C13,115.4,14.6,115.7,16,115.3z"/>
+              <path id="wgInfBody" className="wgst5" d="M79.9,169.8c-8.9,6.6-20.8,6.6-28.2,6.7c-10.6,0-18.4,0.1-22.9-4.9c-8.7-9.7,8.2-24.6,5.6-53.6
+                c-1.7-18.8-9.9-25.3-4.8-38.6c0.8-2,5.1-13.3,16.2-17.4c2.3-0.9,7-2.1,12.6-1.1c2.3,0.4,9.1,2.1,17.2,11.8c8.2,9.9,12.5,22,14.6,36
+                C92.9,126,97.5,156.8,79.9,169.8z"/>
+              <path id="wgInfLArmLower" className="wgst4" d="M38.1,126.9c1.5-2.2,1.5-4.7,0.1-5.7l-19.6-13.3c-1.4-1-3.8,0-5.3,2.2
+                s-1.5,4.7-0.1,5.7L32.8,129C34.3,130,36.6,129,38.1,126.9z"/>
+              <path id="wgInfRArmUpper" className="wgst4" d="M75.1,120.8c2.6,0,4.8-1.9,4.8-4.2V85.2c0-2.3-2.1-4.2-4.8-4.2
+                c-2.6,0-4.8,1.9-4.8,4.2v31.4C70.4,118.9,72.5,120.8,75.1,120.8z"/>
+              <path id="wgInfRArmLower" className="wgst4" d="M51.2,131.6c1.3,2.3,3.7,3.3,5.4,2.3l22-13.1c1.6-1,1.8-3.6,0.5-5.8
+                c-1.3-2.3-3.7-3.3-5.4-2.3l-22,13.1C50.1,126.8,49.9,129.4,51.2,131.6z"/>
+              <g id="wgInfHead">
+                <path id="wgInfFace" className="wgst6" d="M53.1,37.1C39.2,17.6,2,36.4,10.1,59.9l3.8,6.3l7.2,11.9c14.2,18.6,52.3-2.7,42.5-23.9
+                L53.1,37.1z"/>
+                <path id="wgInfHair" className="wgst7" d="M57.1,43.5C52.4,33.6,44.7,27.6,38.9,28c-2,0.1-11.1-0.3-18.6,5c-3.4,2.4-6.3,5-7.6,7
+                  C9.9,43.9,9,47.8,8,50.6C7.2,52.8,9.6,63,14.9,66.8c0.7,0.5-2.8-9.6-2.8-9.6c-1.7-2.2,8.6-7.2,12.3-9.1c3-1.5,14.9-10.2,17.1-6.5
+                  l10.6,10.7c2-0.6-2-7.3-1.2-10.1C51.7,39.8,57.7,44.8,57.1,43.5z"/>
+                <path id="wgInfMouth" className="wgst8" d="M48.6,70.7c-3.7-3.9-9.3-4.7-13.5-2.2c-3.3,2.1-5.2,5.8-5,9.7"/>
+              </g>{/*close wginfhead */}
+            </g> {/**close wg inf */}
+
+            <g id="wg_base">
+              <path id="wgBaseLArmLower" className="wgst0" d="M5.7,126.5c0.8-0.2,1.6-0.7,2.2-1.4l21.8-25.2c1.6-1.9,1.4-4.7-0.5-6.4
+                c-1.9-1.6-4.7-1.4-6.4,0.5L1.1,119.2c-1.6,1.9-1.4,4.7,0.5,6.4C2.7,126.6,4.3,126.9,5.7,126.5z"/>
+              <path id="wgBaseLArmUpper" className="wgst0" d="M17,113.6c0.8-0.2,1.6-0.7,2.2-1.4L41,87c1.6-1.9,1.4-4.7-0.5-6.4
+                c-1.9-1.6-4.7-1.4-6.4,0.5l-21.8,25.2c-1.6,1.9-1.4,4.7,0.5,6.4C14,113.7,15.6,114,17,113.6z"/>
+              <path id="wgBaseBody" className="wgst2" d="M82.9,171.7c-6.2,5.3-48.6,7.6-54-2.3c-6.5-11.9-1.3-66.7-1.2-95.3c0-10.6,14.9-18.7,28.4-18.9
+                c8.4-0.1,17,3.4,23.1,8.7c4.9,4.3,7.6,11.1,7.6,18.2c0,8.9-1.4,16.9-1.5,38.5C85.2,147,86.8,168.4,82.9,171.7z"/>
+              <path id="wgBaseRArmUpper" className="wgst0" d="M68,120.8c2.6,0,4.8-2.1,4.8-4.8V80.4c0-2.6-2.1-4.8-4.8-4.8s-4.8,2.1-4.8,4.8V116
+                C63.2,118.7,65.4,120.8,68,120.8z"/>
+              <path id="wgBaseRArmLower" className="wgst0" d="M49,146.3c2.2,1.4,5,1,6.2-0.9l16.9-26.2c1.2-1.9,0.5-4.6-1.7-6.1
+                c-2.2-1.4-5-1-6.2,0.9l-16.9,26.2C46,142.1,46.8,144.8,49,146.3z"/>
+              <g id="wgBaseHead">
+                <path id="wgBaseFace" className="wgst0" d="M28.1,28.3c0.4,0.8,2.8-10.4,2.8-10.4c-0.4-2.9,12-1.8,16.4-1.5c3.6,0.3,19.4-1.1,19.4,3.6
+                  l3.8,15.8c2.2,0.6,2.2-7.9,4.5-9.9c1.9-1.8,4.4,4.9,4.9,4.6L80,43.9c-2.7,24.9-49.8,23.2-52.5-1.8V27.2v-1
+                  C27.6,26.9,27.8,27.6,28.1,28.3z"/>
+                <path id="wgBaseHair" className="wgst3" d="M75,25.8c-2.3,2.1-2.3,10.5-4.5,9.9L66.8,20c0-4.7-15.8-3.3-19.4-3.6C42.9,16,30.6,14.9,31,17.9
+                  c0,0-2.5,11.2-2.8,10.4c-0.3-0.7-0.5-1.4-0.7-2.1C26,19.7,29,10.9,30.8,9.4c2.5-2,5.5-5,10.2-7.2c2.4-1.1,6.5-1.9,11-2.2
+                  c9.8-0.6,18,4.9,19.9,5.9c5.6,2.9,9.4,12.7,8.1,24.4c0,0.1,0,0.2-0.1,0.2C79.4,30.8,76.9,24.1,75,25.8z"/>
+                <path id="wgBaseMouth" className="wgst8" d="M51.2,52.7c-6.4,0-9.8-3.4-9.9-3.4l-1.4,1.4c0.2,0.2,4,4,11.3,4c8.2,0,11.2-3.9,11.4-4.1
+                    L61,49.4C60.9,49.5,58.4,52.7,51.2,52.7z"/>                      
+              </g> {/*close wgbasehead */}
+            </g> {/* closes wg base */}
+            <g id="wglightning">
+              <polygon className="wgst9" points="-20.8,103.9 -16.4,100.3 -29.2,95.8 -25.4,89.5 -6.5,98.7 -9.8,101.8 0,108.3 	"/>
+              <polygon className="wgst9" points="118.3,77.8 120.5,83.6 129.5,72.1 134.5,78.1 118.7,94.2 116.7,89.8 106.7,97.5 	"/>
+              <polygon className="wgst9" points="-3.5,159 -4,153.3 -15,161.3 -17.9,154.7 0.3,144.3 1,148.7 11.9,144.4 	"/>
+              <polygon className="wgst9" points="113.8,160.5 109.5,164.2 122.4,168.4 118.7,174.7 99.6,166 102.8,162.9 92.9,156.6 	"/>
+              <polygon className="wgst9" points="-20.8,103.9 -16.4,100.3 -29.2,95.8 -25.4,89.5 -6.5,98.7 -9.8,101.8 0,108.3 	"/>
+              <polygon className="wgst9" points="118.3,77.8 120.5,83.6 129.5,72.1 134.5,78.1 118.7,94.2 116.7,89.8 106.7,97.5 	"/>
+              <polygon className="wgst9" points="-3.5,159 -4,153.3 -15,161.3 -17.9,154.7 0.3,144.3 1,148.7 11.9,144.4 	"/>
+              <polygon className="wgst9" points="113.8,160.5 109.5,164.2 122.4,168.4 118.7,174.7 99.6,166 102.8,162.9 92.9,156.6 	"/>
             </g>
           </g> {/* closes perpendicularPerson */}
         </g>  {/* closes init_scene group */}
@@ -542,10 +681,11 @@ export default function Module2() {
         <p id="scrollText">{startSus}</p>
       </div> {/* closes scrollingTextContainer */}
       <div className="markers" id="module2markers" >
-          <div className="marker" id="step_5" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_6" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_7" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_8" style={{height: "75vh"}}></div>
+          <div className="marker" id="step_5" style={{height: "50vh"}}></div>
+          <div className="marker" id="step_6" style={{height: "50vh"}}></div>
+          <div className="marker" id="step_7" style={{height: "45vh"}}></div>
+          <div className="marker" id="step_8" style={{height: "40vh"}}></div>
+          <div className="marker" id="step_9" style={{height: "95vh"}}></div>          
 
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}

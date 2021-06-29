@@ -3,7 +3,6 @@ html, #root{
 }
 .mainContainer{
     margin: 15px;
-    background-color: #1c2530;
     color: white;
     text-align: center;
 }
@@ -13,18 +12,11 @@ html, #root{
 }
 
 .scrollingContainer {
-    margin: 15px auto;
     width: 100%;
     height: 100%;
     color: white;
-    padding: 40px 40px;
+    padding: 15px;
     display: flex;
-}
-
-.stickyContainer{
-    position: sticky;
-    position: -webkit-sticky;
-    top:0;
 }
 
 .textContainer > p{
@@ -36,8 +28,11 @@ html, #root{
     /* background-color: white; */
     position: -webkit-sticky; 
     position: sticky;
+    top: 10vh;
     /* position: fixed; */
-    top: 0;
+    /* top: '50px';
+    left: 15; */
+    /* align-self: flex-start; */
 }
 
 .scrollTextContainer{
@@ -45,8 +40,7 @@ html, #root{
     /* position: -webkit-sticky; */
     position: fixed;
     right: 0;
-    /* top: 0; */
-    overflow: "visible";
+    /* overflow: "visible"; */
     /* height: 200px; */
     align-self: flex-start;
     padding: 15px;
@@ -92,21 +86,6 @@ html, #root{
 #step_buffer{
     background-color: pink;
 }
-#step_5{
-    background-color: red;
-}
-
-#step_6{
-    background-color: yellow;
-}
-#step_7{
-    background-color: teal;
-}
-#step_8{
-    background-color: orange;
-}
-
-
 .st0{fill:none;stroke:#C49A6C;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st1{fill:#231F20;stroke:#231F20;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st2{fill:#C3996C;}
@@ -160,12 +139,6 @@ html, #root{
 .perpendicularPerson{
     visibility: hidden;
 }
-
-/* wg colors */
-.wgst0{fill:#CFB395;}
-.wgst1{fill:#231F20;}
-.wgst2{fill:#D45931;}
-.wgst3{fill:#784528;}
 
 /* tiles */
 .topFace{

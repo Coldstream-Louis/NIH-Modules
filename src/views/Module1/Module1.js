@@ -1,12 +1,9 @@
 // import React useEffect and useState (useState currently not used)
 import React, {useEffect, useState, useRef} from 'react';
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
-// nodejs library that concatenates classes
-import classNames from "classnames";
+
 import { Link } from "react-router-dom";
 import Button from "components/CustomButtons/Button.js";
 
@@ -15,16 +12,15 @@ import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 // import styles
 import './Mod1Styles.css';
-import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // import d3
 import * as d3 from "d3";
 // import two functions: determineSIR and addTiles from external JS sources
-import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
-import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
+import {determineSIR} from 'utilityfunctions/determineSIR.js'
+import {addTiles} from 'utilityfunctions/addTiles.js'
 
 
-export default function Module1(props) {
+export default function Module1() {
   // CONSTANTS //
   // headers and text descriptions:
   const headerS = "S: Susceptible";
