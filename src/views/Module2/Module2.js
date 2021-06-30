@@ -27,6 +27,15 @@ export default function Module2() {
   const headerBecomeInf = "Interacting with Infectious"
   const becomeInf = "As they move about in their life, they may interact with someone who is infected with an agent — an infectious person"
 
+  const headerWhenInf = "Becoming Infected"
+  const whenInf = 'From this chance encounter, Professor F becomes infected with the illness too. Soon, Professor F begins to feel ill, and passes from the "susceptible" state to the "infected/ill" state'
+
+  const headerStaySick = "Remaining Ill and Infectious"
+  const staySick = 'Professor F will remain ill and infectious for a particular number of days that is specific to their illness'
+
+  const headerBecomeRec = "Recovering from the Illness"
+  const becomeRec = 'After a certain number of days, Professor F is no longer sick: their body has healed and they are now considered "recovered" — not able to get the illness again. They will stay in the removed state for the rest of their life.'
+  
   // letters on top of tiles
   // base = no letter
   const sirBase= ""
@@ -172,7 +181,7 @@ export default function Module2() {
     }
               
     // add tiles perpendicularly
-    addTilesHorizontal("moduleSvg", 9)
+    addTilesHorizontal("moduleSvg", 8)
 
     let allTilesH = gsap.utils.toArray(".tileH")
 
@@ -216,7 +225,7 @@ export default function Module2() {
 
     // position the person on the perpendicular
     gsap.set(elem.querySelector(".perpendicularPerson"),{
-      x: 480, y: -40, scaleX:.6, scaleY: .6
+      x: 380, y: 0, scaleX:.6, scaleY: .6
     })
 
     // move the person on the perpendicualr
@@ -265,57 +274,90 @@ export default function Module2() {
         end: "+=2600",
         onUpdate: () => {        
           const currScroll = window.scrollY + 160;
-          const step_5 = elem.querySelector("#step_5");  
-          const step_6 = elem.querySelector("#step_6") ;
+          const step_5 = elem.querySelector("#step_5") 
+          const step_6 = elem.querySelector("#step_6")
           const step_7 = elem.querySelector("#step_7")   
           const step_8 = elem.querySelector("#step_8")
           const step_9  = elem.querySelector("#step_9")
-          // legs_walking_tl.play();
-          if (currScroll >= step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
+
+          if (currScroll <= step_5.offsetTop){
+            resetTileColors()
+          } else if (currScroll > step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
             //scroll is within step 5
 
-            // legs_walking_tl.pause();
+            if (currScroll >= (step_5.offsetTop + step_5.offsetHeight)/2  && currScroll < (step_5.offsetTop + step_5.offsetHeight)){
+              // console.log("hello i'm here")
 
-            elem.querySelector("#scrollText").textContent = startSus;
-            elem.querySelector("#scrollHeader").textContent = headerStartSus;
-            
-            determineTileColor("#tileH1", "")
-            determineTileColor("#tileH3", "")
-            determineTileColor("#tileH5", "")   
-            determineTileColor("#tile6","")
-            determineTileColor("#tile7","")           
-            
-            determineSIRPerp("susceptible")
+              determineTileColor("#tileH1", "infected")
+              determineTileColor("#tileH3", "infected")
+              determineTileColor("#tileH5", "infected")  
 
-    
+              determineSIR("susceptible")
+              determineSIRPerp("infectious")
+            } else {
+                determineTileColor("#tileH7", "susceptible")
+
+                determineTileColor("#tile1", "susceptible")   
+                determineTileColor("#tile2", "susceptible")   
+                determineTileColor("#tile3", "susceptible")   
+                determineTileColor("#tile4", "susceptible")
+
+                elem.querySelector("#scrollText").textContent = startSus;
+                elem.querySelector("#scrollHeader").textContent = headerStartSus;
+                    
+                determineSIR("susceptible")
+                determineSIRPerp("susceptible")
+            }
 
           } else if (currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
-            determineTileColor("#tileH1", "infected")
-            determineTileColor("#tileH3", "infected")
-            determineTileColor("#tileH5", "infected")  
-
-            determineSIR("susceptible")
 
             // scroll is within step 6
             elem.querySelector("#scrollText").textContent = becomeInf;
             elem.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
-
             determineSIRPerp("infectious")
+            determineTileColor("#tile5","infected")
             determineTileColor("#tile6","infected")
             determineTileColor("#tile7","infected")
- 
-
 
           } else if (currScroll >= step_7.offsetTop && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
+
+            elem.querySelector("#scrollText").textContent = whenInf;
+            elem.querySelector("#scrollHeader").textContent = headerWhenInf;
             determineSIR("infectious")
             determineSIRPerp("infectious")
+            determineTileColor("#tile5","infected")
+            determineTileColor("#tile6","infected")
+            determineTileColor("#tile7","infected")
+
+            if (currScroll >= (step_7.offsetTop + step_7.offsetHeight)/2  && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
+              // console.log("hello i need to be recovered")
+              determineSIRPerp("recovered")
+              determineTileColor("#tileH2", "recovered")
+              determineTileColor("#tileH4", "recovered")
+              determineTileColor("#tileH6", "recovered")
+              determineTileColor("#tileH8", "recovered")
+            } else {
+            determineTileColor("#tile5","infected")
+            determineTileColor("#tile6","infected")
+            determineTileColor("#tile7","infected")
+            }
+
           } else if (currScroll >= step_8.offsetTop && currScroll < (step_8.offsetTop + step_8.offsetHeight)){
             determineSIR("infectious")
             determineSIRPerp("recovered")
+            elem.querySelector("#scrollText").textContent = staySick;
+            elem.querySelector("#scrollHeader").textContent = headerStaySick;
+
           } else if (currScroll >= step_9.offsetTop && currScroll < (step_8.offsetTop + step_9.offsetHeight)){
             determineSIR("recovered")
+            determineTileColor("#tile8", "recovered")
+            determineTileColor("#tile9", "recovered")
+            determineTileColor("#tile10", "recovered")
+
+            elem.querySelector("#scrollText").textContent = becomeRec;
+            elem.querySelector("#scrollHeader").textContent = headerBecomeRec;
           }
         },
         onEnter: () => {
@@ -337,19 +379,9 @@ export default function Module2() {
     }); 
 
     function determineTileColor(tileID, status){
-      let tileD3 = d3.select(tileID)
-      let children = d3.selectAll(`${tileID} > *`)
-      console.log("kids of", tileID, ": ", children)
-      if (status === "suceptible"){
-          // console.log("susceptible tiles: ", tileID)
-          d3.selectAll(".letterI, .letterR, .baseLetter").remove()
-
-          if (!children.classed('.letterS')){
-              console.log("the tile does not have the letter S")
-              tileD3.append("path").attr("d", sirS).attr('class','letterS')
-          } else {
-              console.log("The tile already has letter S")
-          }
+      if (status == "susceptible"){
+          d3.selectAll(`${tileID} > .letterR, .letterI`).remove()
+          d3.select(`${tileID}`).append("path").attr("d", sirS).attr('class','letterS')
 
           // update the tile colors
           d3.select(`${tileID} .topFace`).classed('susTileTop', true)
@@ -358,16 +390,11 @@ export default function Module2() {
           d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
           d3.select(`${tileID} .topFace`).classed('recTileTop', false)
           d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
-      } else if (status === "infected"){
+      } else if (status == "infected"){
           // console.log("Infected Tiles: ", tileID)
-          console.log(tileD3)
-          // d3.selectAll(".letterS, .letterR, .baseLetter").remove()
-          if (!children.classed('.letterI')){
-            console.log("the tile does not have the letter I")
-            tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
-          } else {
-              console.log("The tile already has letter I")
-          }
+          // console.log(tileD3)
+          d3.selectAll(`${tileID} > .letterS, .letterR`).remove()
+          d3.select(`${tileID}`).append("polyline").attr("points", sirI).attr('class','letterI')
 
           // update the tile colors
           d3.select(`${tileID} .topFace`).classed('infTileTop', true)
@@ -377,16 +404,10 @@ export default function Module2() {
           d3.select(`${tileID} .topFace`).classed('recTileTop', false)
           d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
 
-      } else if (status === "recovered"){
+      } else if (status == "recovered"){
           // console.log("Recovered tiles: ", tileID)
-          d3.selectAll(".letterS, .letterI, .baseLetter").remove()
-
-          if (!children.classed('.letterR')){
-            console.log("the tile does not have the letter R")
-            tileD3.append("path").attr("d", sirR).attr('class','letterR')
-          } else {
-              console.log("The tile already has letter R")
-          }
+          d3.selectAll(`${tileID} > .letterS, .letterI`).remove()
+          d3.select(`${tileID}`).append("path").attr("d", sirR).attr('class','letterR')
 
           // update the tile colors
           d3.select(`${tileID} .topFace`).classed('recTileTop', true)
@@ -395,17 +416,10 @@ export default function Module2() {
           d3.select(`${tileID} .sideProfile`).classed('susTileSide', false)
           d3.select(`${tileID} .topFace`).classed('infTileTop', false)
           d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
-      } else {
-          console.log("tiles are not S, I, or R")
+      } else if (status = "") {
+          // console.log("tiles are not S, I, or R")
           d3.selectAll(".letterS, .letterI, .letterR").remove()
-
-          if (!children.classed('.baseLetter')){
-            console.log("the tile does not have the base letter")
-            tileD3.append("path").attr("d", sirBase).attr('class', 'baseLetter')
-          } else {
-              console.log("The tile already has the base letter")
-          }
-          
+         
           d3.select(`${tileID} .topFace`).classed('susTileTop', true)
           d3.select(`${tileID} .sideProfile`).classed('susTileSide', true)
           d3.select(`${tileID} .topFace`).classed('infTileTop', false)
@@ -415,7 +429,21 @@ export default function Module2() {
       }
 
     }
-    
+    function resetTileColors(){
+      // console.log("resetTileColors is called")
+      let allTiles = d3.selectAll('.tile')
+      let allTops = d3.selectAll('.topFace')
+      let allSides = d3.selectAll('.sideProfile')
+      allTops.classed('susTileTop', true)
+      allSides.classed('susTileSide', true)
+      allTops.classed('infTileTop', false)
+      allSides.classed('infTileSide', false)
+      allTops.classed('recTileTop', false)
+      allSides.classed('recTileSide', false)
+
+      allTiles.selectAll('.letterS, .letterI, .letterR').remove()
+      allTiles.selectAll('polyline').remove()
+    }
   }, []);
 
   // what is rendered:
