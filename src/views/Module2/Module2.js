@@ -3,10 +3,13 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
+import { Link } from "react-router-dom";
+import Button from "components/CustomButtons/Button.js";
 
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 // import styles
 import './Mod2Styles.css';
 
@@ -279,6 +282,7 @@ export default function Module2() {
           const step_7 = elem.querySelector("#step_7")   
           const step_8 = elem.querySelector("#step_8")
           const step_9  = elem.querySelector("#step_9")
+          const step_buffer = elem.querySelector("#step_buffer")
 
           if (currScroll <= step_5.offsetTop){
             resetTileColors()
@@ -295,6 +299,7 @@ export default function Module2() {
               determineSIR("susceptible")
               determineSIRPerp("infectious")
             } else {
+
                 determineTileColor("#tileH7", "susceptible")
 
                 determineTileColor("#tile1", "susceptible")   
@@ -310,16 +315,20 @@ export default function Module2() {
             }
 
           } else if (currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
-
+            
+            determineTileColor("#tileH1", "infected")
+            determineTileColor("#tileH3", "infected")
+            determineTileColor("#tileH5", "infected")  
+            determineTileColor("#tile5","infected")
+            determineTileColor("#tile6","infected")
+            determineTileColor("#tile7","infected")
             // scroll is within step 6
             elem.querySelector("#scrollText").textContent = becomeInf;
             elem.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
             determineSIRPerp("infectious")
-            determineTileColor("#tile5","infected")
-            determineTileColor("#tile6","infected")
-            determineTileColor("#tile7","infected")
+
 
           } else if (currScroll >= step_7.offsetTop && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
 
@@ -327,30 +336,43 @@ export default function Module2() {
             elem.querySelector("#scrollHeader").textContent = headerWhenInf;
             determineSIR("infectious")
             determineSIRPerp("infectious")
-            determineTileColor("#tile5","infected")
-            determineTileColor("#tile6","infected")
-            determineTileColor("#tile7","infected")
 
             if (currScroll >= (step_7.offsetTop + step_7.offsetHeight)/2  && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
               // console.log("hello i need to be recovered")
+
               determineSIRPerp("recovered")
               determineTileColor("#tileH2", "recovered")
               determineTileColor("#tileH4", "recovered")
               determineTileColor("#tileH6", "recovered")
               determineTileColor("#tileH8", "recovered")
+
+              determineTileColor("#tile5","infected")
+              determineTileColor("#tile6","infected")
+              determineTileColor("#tile7","infected")
+              determineTileColor("#tileH1", "infected")
+              determineTileColor("#tileH3", "infected")
+              determineTileColor("#tileH5", "infected")  
             } else {
-            determineTileColor("#tile5","infected")
-            determineTileColor("#tile6","infected")
-            determineTileColor("#tile7","infected")
+
+                determineTileColor("#tile5","infected")
+                determineTileColor("#tile6","infected")
+                determineTileColor("#tile7","infected")
+
             }
 
           } else if (currScroll >= step_8.offsetTop && currScroll < (step_8.offsetTop + step_8.offsetHeight)){
             determineSIR("infectious")
             determineSIRPerp("recovered")
+            
             elem.querySelector("#scrollText").textContent = staySick;
             elem.querySelector("#scrollHeader").textContent = headerStaySick;
 
           } else if (currScroll >= step_9.offsetTop && currScroll < (step_8.offsetTop + step_9.offsetHeight)){
+          // transition in the contents
+          elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+          elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
+          elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+                      
             determineSIR("recovered")
             determineTileColor("#tile8", "recovered")
             determineTileColor("#tile9", "recovered")
@@ -358,13 +380,19 @@ export default function Module2() {
 
             elem.querySelector("#scrollText").textContent = becomeRec;
             elem.querySelector("#scrollHeader").textContent = headerBecomeRec;
+          } else if (currScroll >=step_buffer.offsetTop){
+            // transition out the contents
+            elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
+            elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
+            elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
+
           }
         },
         onEnter: () => {
         // transition in the contents
-        // elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
-        // elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
-        // elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
+        elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
         },
         onLeave: () =>{
           // elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
@@ -372,6 +400,12 @@ export default function Module2() {
           // elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;"
           // elem.querySelector(".perpendicularPerson").style="visibility: hidden;" 
         },
+        onEnterBack: () => {
+          // transition in the contents
+          elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+          elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
+          elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+          },
         scrub: true,
         markers: true,
         //pinSpacing: false
@@ -380,7 +414,8 @@ export default function Module2() {
 
     function determineTileColor(tileID, status){
       if (status == "susceptible"){
-          d3.selectAll(`${tileID} > .letterR, .letterI`).remove()
+          d3.selectAll(`${tileID} > .letterR`).remove()
+          d3.selectAll(`${tileID} > .letterI`).remove()
           d3.select(`${tileID}`).append("path").attr("d", sirS).attr('class','letterS')
 
           // update the tile colors
@@ -393,7 +428,8 @@ export default function Module2() {
       } else if (status == "infected"){
           // console.log("Infected Tiles: ", tileID)
           // console.log(tileD3)
-          d3.selectAll(`${tileID} > .letterS, .letterR`).remove()
+          d3.selectAll(`${tileID} > .letterS`).remove()
+          d3.selectAll(`${tileID} > .letterR`).remove()
           d3.select(`${tileID}`).append("polyline").attr("points", sirI).attr('class','letterI')
 
           // update the tile colors
@@ -406,7 +442,8 @@ export default function Module2() {
 
       } else if (status == "recovered"){
           // console.log("Recovered tiles: ", tileID)
-          d3.selectAll(`${tileID} > .letterS, .letterI`).remove()
+          d3.selectAll(`${tileID} > .letterS`).remove()
+          d3.selectAll(`${tileID} > .letterI`).remove()
           d3.select(`${tileID}`).append("path").attr("d", sirR).attr('class','letterR')
 
           // update the tile colors
@@ -418,7 +455,9 @@ export default function Module2() {
           d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
       } else if (status = "") {
           // console.log("tiles are not S, I, or R")
-          d3.selectAll(".letterS, .letterI, .letterR").remove()
+          d3.selectAll(`${tileID} > .letterS`).remove()
+          d3.selectAll(`${tileID} > .letterI`).remove()
+          d3.selectAll(`${tileID} > .letterR`).remove()
          
           d3.select(`${tileID} .topFace`).classed('susTileTop', true)
           d3.select(`${tileID} .sideProfile`).classed('susTileSide', true)
@@ -709,15 +748,25 @@ export default function Module2() {
         <p id="scrollText">{startSus}</p>
       </div> {/* closes scrollingTextContainer */}
       <div className="markers" id="module2markers" >
-          <div className="marker" id="step_5" style={{height: "50vh"}}></div>
-          <div className="marker" id="step_6" style={{height: "50vh"}}></div>
-          <div className="marker" id="step_7" style={{height: "45vh"}}></div>
-          <div className="marker" id="step_8" style={{height: "40vh"}}></div>
-          <div className="marker" id="step_9" style={{height: "95vh"}}></div>          
+          <div className="marker" id="step_5" style={{height: "75vh"}}></div>
+          <div className="marker" id="step_6" style={{height: "20vh"}}></div>
+          <div className="marker" id="step_7" style={{height: "20vh"}}></div>
+          <div className="marker" id="step_8" style={{height: "50vh"}}></div>
+          <div className="marker" id="step_9" style={{height: "80vh"}}></div>    
+          <div className="marker" id="step_buffer" style={{height: "75vh"}}></div>          
 
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
-    {/* <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p> */}
+    <p className = "moduleText">This type of categorization is the foundation of a group of models often used to study diseases called <b>compartmental models</b>.</p>
+    <p className = "moduleText">These models are handy because they are easily adapted to model different transmission scenarios.</p>
+    <p className = "moduleText">The model type most often used is a <b>Susceptible, Infected, Recovered Model</b> or an <b>SIR Model</b>.</p>
+  <Button component={Link} to ="/Module1" size="lg" round>
+  &#8592; Go back to Module 1
+  </Button>
+  <Button component={Link} to ="/Module3" size="lg" round>
+    Go to Module 3 &#8594;
+  </Button>
+
   </div> {/* closes mainContainer */}
   </div>
   </>);
