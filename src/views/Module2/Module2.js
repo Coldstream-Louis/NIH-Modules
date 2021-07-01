@@ -372,7 +372,7 @@ export default function Module2() {
           elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
           elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
           elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
-                      
+
             determineSIR("recovered")
             determineTileColor("#tile8", "recovered")
             determineTileColor("#tile9", "recovered")
@@ -408,7 +408,7 @@ export default function Module2() {
           },
         scrub: true,
         markers: true,
-        //pinSpacing: false
+        // pinSpacing: true
       },
     }); 
 
