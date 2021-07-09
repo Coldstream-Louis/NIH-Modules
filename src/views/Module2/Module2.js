@@ -231,8 +231,9 @@ export default function Module2() {
       x: 380, y: 0, scaleX:.6, scaleY: .6
     })
 
+    let moving_tl = gsap.timeline().paused(true)
     // move the person on the perpendicualr
-    master_tl.to(elem.querySelector('.perpendicularPerson'), {
+    moving_tl.to(elem.querySelector('.perpendicularPerson'), {
       scrollTrigger:{
         trigger: "#module2markers",
         start: "top 180",
@@ -247,7 +248,7 @@ export default function Module2() {
     });    
     // create a tween that moves the person and spotlight (full person) 
     // to the correct end position for Module 2
-    master_tl.to(elem.querySelector('.full_person'), {
+    moving_tl.to(elem.querySelector('.full_person'), {
       scrollTrigger: {
         trigger: "#module2markers",
         start: "top 180",
@@ -265,6 +266,9 @@ export default function Module2() {
       ease: "none"
     });
 
+    moving_tl.add(m2_legs_walking_tl)
+    moving_tl.add(wg_legs_walking_tl)
+    master_tl.add(moving_tl)
 
     // create a tween that updates the text based on scroll position
     // this tween also pauses and plays the legs walking
@@ -288,7 +292,6 @@ export default function Module2() {
             resetTileColors()
           } else if (currScroll > step_5.offsetTop && currScroll < (step_5.offsetTop + step_5.offsetHeight)) {
             //scroll is within step 5
-
             if (currScroll >= (step_5.offsetTop + step_5.offsetHeight)/2  && currScroll < (step_5.offsetTop + step_5.offsetHeight)){
               // console.log("hello i'm here")
 
@@ -299,7 +302,6 @@ export default function Module2() {
               determineSIR("susceptible")
               determineSIRPerp("infectious")
             } else {
-
                 determineTileColor("#tileH7", "susceptible")
 
                 determineTileColor("#tile1", "susceptible")   
@@ -315,7 +317,9 @@ export default function Module2() {
             }
 
           } else if (currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
-            
+            moving_tl.pause()
+            console.log("tl paused at 6?", moving_tl.paused())
+
             determineTileColor("#tileH1", "infected")
             determineTileColor("#tileH3", "infected")
             determineTileColor("#tileH5", "infected")  
@@ -331,7 +335,6 @@ export default function Module2() {
 
 
           } else if (currScroll >= step_7.offsetTop && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
-
             elem.querySelector("#scrollText").textContent = whenInf;
             elem.querySelector("#scrollHeader").textContent = headerWhenInf;
             determineSIR("infectious")
@@ -339,7 +342,7 @@ export default function Module2() {
 
             if (currScroll >= (step_7.offsetTop + step_7.offsetHeight)/2  && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
               // console.log("hello i need to be recovered")
-
+              console.log("tl paused at 7?",moving_tl.paused())
               determineSIRPerp("recovered")
               determineTileColor("#tileH2", "recovered")
               determineTileColor("#tileH4", "recovered")
@@ -361,6 +364,7 @@ export default function Module2() {
             }
 
           } else if (currScroll >= step_8.offsetTop && currScroll < (step_8.offsetTop + step_8.offsetHeight)){
+            // moving_tl.resume()
             determineSIR("infectious")
             determineSIRPerp("recovered")
             
@@ -393,6 +397,7 @@ export default function Module2() {
         elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
         elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
         elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
+        
         },
         onLeave: () =>{
           // elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
