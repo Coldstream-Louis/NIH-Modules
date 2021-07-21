@@ -242,12 +242,15 @@ export default function Module2() {
         markers: true,
         scrub: true,
       },
-      x:-360,
-      y:400,
+      x:200,
+      y:130,
       ease: "none",
     });    
     // create a tween that moves the person and spotlight (full person) 
     // to the correct end position for Module 2
+
+    //Move from Start to Intersection with infected 
+    //TODO Pause legs when here. 
     moving_tl.to(elem.querySelector('.full_person'), {
       scrollTrigger: {
         trigger: "#module2markers",
@@ -261,8 +264,8 @@ export default function Module2() {
         // pin: true,
         markers: true,
       },
-      x:850,
-      y:520,
+      x:200,
+      y:180,
       ease: "none"
     });
 
@@ -509,7 +512,7 @@ export default function Module2() {
       <p>Now that we've defined S (Susceptible), I (Infectious), and R (Recovered), let's look at what the SIR model looks like in practice.</p>
     </div> {/* closes textContainer */}
     <div id = "moduleSvgDiv" className="scrollingContainer">
-      <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">
+      <svg id="moduleSvg" width="50%" height="30%" viewBox="0 0 2000 1600">
         <g className="tilegroup">
         </g> 
         <g id="init_scene">
