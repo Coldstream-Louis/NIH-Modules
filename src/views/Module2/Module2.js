@@ -503,10 +503,10 @@ export default function Module2() {
 
 <div className="mainContainer fixedParent">
     <h1 className = "sectionTitle">
-      Module 1.2: SIR Model in Practice
+      Module 2: Walking Through the SIR Model
     </h1>
     <div className="textContainer">
-      <p>Now that we've defined S (Susceptible), I (Infectious), and R (Recovered), let's look at what the SIR model looks like in practice.</p>
+      <p>Let’s take a step by step walk through an SIR model.</p>
     </div> {/* closes textContainer */}
     <div id = "moduleSvgDiv" className="scrollingContainer">
       <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">

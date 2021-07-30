@@ -36,6 +36,7 @@ html, #root{
 }
 
 .scrollTextContainer{
+    min-width:45%;
     max-width: 45%;
     /* position: -webkit-sticky; */
     position: fixed;

@@ -12,7 +12,7 @@ import "assets/scss/material-kit-react.scss?v=1.9.0";
 import LandingPage from "views/LandingPage/LandingPage.js";
 import Module1 from "views/Module1/Module1.js";
 import Module2 from "views/Module2/Module2.js"
-
+import Module3 from "views/Module3/Module3.js"
 
 var hist = createBrowserHistory();
 
@@ -21,6 +21,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/module1" component={Module1} />
       <Route path="/module2" component={Module2} />
+      <Route path="/module3" component={Module3} />
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,

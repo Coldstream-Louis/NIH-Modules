@@ -36,11 +36,14 @@ export default function HeaderLinks(props) {
           }}
           dropdownList={[
             <Link to="/Module1" className={classes.dropdownLink}>
-            Module1
+            Module 1: What is SIR??
           </Link>,
           <Link to="/Module2" className={classes.dropdownLink}>
-            Module2
+            Module 2: Walking Through the SIR Model
           </Link>,
+          <Link to="/Module3" className={classes.dropdownLink}>
+          Module 3: Video
+        </Link>,          
           ]}
       />
 

@@ -12,7 +12,7 @@ import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 // import styles
 import './Mod1Styles.css';
-
+import SvgImg from './svgImg.js'
 // import d3
 import * as d3 from "d3";
 // import two functions: determineSIR and addTiles from external JS sources
@@ -26,9 +26,9 @@ export default function Module1() {
   const headerS = "S: Susceptible";
   const headerI = "I: Infectious";
   const headerR = "R: Removed";
-  const textS = "The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
-  const textI = "The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
-  const textR = "The number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
+  const textS = "Susceptible to an infection;";
+  const textI = "Being Infected and infectious;";
+  const textR = "And Recovered from the infection and removed from the group of people who are susceptible to the illness.";
   
 
   // letters on top of tiles
@@ -241,9 +241,6 @@ export default function Module1() {
           // change the background color and text color back:
           elem.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s; -webkit-transition: background-color 1s;"
 
-          // remove the perpendicular person
-          elem.querySelector(".perpendicularPerson").style="visibility: hidden;" 
-
           // because we have to move the svg around, we need to make sure 
           // it's back in the correct position when going
           // up the page
@@ -370,11 +367,11 @@ export default function Module1() {
        />
   <div className="mainContainer fixedParent">
     <h1 className = "sectionTitle">
-      Module 1.1: What is SIR?
+      Module 1: What is SIR?
     </h1>
     <div className="textContainer">
       <p>We will begin this section by learning how  to break up a disease’s natural history into discrete steps. </p>
-      <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments: </p>
+      <p>Broadly, we can think of existing in one of three states:</p>
     </div> {/* closes textContainer */}
     <div id = "moduleSvgDiv" className="scrollingContainer">
       <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">
@@ -537,6 +534,10 @@ export default function Module1() {
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
     <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p>
+    <p className = "moduleText">This type of categorization is the foundation of a type of models called a <b>compartmental model</b>.</p>
+    <SvgImg/>
+    <p className = "moduleText">These models are handy because they are easily adapted to simulate different transmission scenarios.</p>
+    <p className = "moduleText">The model type most often used is an Susceptible, Infected, Recovered Model or a SIR Model.</p>
     
     {/* <Link to="/Module2" className={classes.navLink}> */}
         <Button component={Link} to ="/Module2" size="lg" round>
