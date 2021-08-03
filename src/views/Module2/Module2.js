@@ -21,24 +21,6 @@ import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
 
 export default function Module2() {
-
-  // CONSTANTS //
-  // headers and text descriptions:
-  const headerStartSus = "Begin as Susceptible";
-  const startSus = "Professor F begins by being susceptible to a disease."
-
-  const headerBecomeInf = "Interacting with Infectious"
-  const becomeInf = "As they move about in their life, they may interact with someone who is infected with an agent — an infectious person"
-
-  const headerWhenInf = "Becoming Infected"
-  const whenInf = 'From this chance encounter, Professor F becomes infected with the illness too. Soon, Professor F begins to feel ill, and passes from the "susceptible" state to the "infected/ill" state'
-
-  const headerStaySick = "Remaining Ill and Infectious"
-  const staySick = 'Professor F will remain ill and infectious for a particular number of days that is specific to their illness'
-
-  const headerBecomeRec = "Recovering from the Illness"
-  const becomeRec = 'After a certain number of days, Professor F is no longer sick: their body has healed and they are now considered "recovered" — not able to get the illness again. They will stay in the removed state for the rest of their life.'
-  
   // letters on top of tiles
   // base = no letter
   const sirBase= ""
@@ -73,94 +55,89 @@ export default function Module2() {
     const elem = ref.current
 
     // place entire scene in correct position:
-    gsap.to(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
+    gsap.set(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
 
     // place things in the correct position and scale them if needed:
     // the tiles are moved:
     gsap.set(elem.querySelector(".tilegroup"),{x:0, y:20})
     // the spotlight is moved and scaled:
-    gsap.set(elem.querySelector("#spotlight"), {x:-40 , y:-100, scaleX:.8, scaleY:.8})
     // the spotlight and person are moved:
-    gsap.set(elem.querySelector(".full_person"),{x: -80, y: 0, scaleX:.6, scaleY: .6})    
+    gsap.set(elem.querySelector(".full_person"),{x: 0, y: 50, scaleX:.6, scaleY: .6})    
+    gsap.set(elem.querySelector("#spotlight"), {x:-40 , y:-100, scaleX:.8, scaleY:.8})
 
     // set the figure back to "susceptible" body state
     determineSIR("susceptible")    
     
+    //break these timelines down a bit more... 
     // create a timeline that moves the legs:
-    let m2_legs_walking_tl = gsap.timeline({
-      repeat: 20, 
-      scrollTrigger: {
-        trigger: "#module2markers",
-        markers: true,
-        scrub: true
-      }
-    })
-
-    m2_legs_walking_tl.addLabel("move_legs_1")
-      .to(".left_leg_group", {
-        // duration:15, 
-        rotation:15}, "move_legs_1")
-      .to(".right_leg_group", {
-        // duration:15, 
-        rotation:-15}, "move_legs_1")
-
-    m2_legs_walking_tl.addLabel("move_legs_2")
-      .to(".left_leg_group", {
-        // duration:15, 
-        rotation:-15}, "move_legs2")
-      .to(".right_leg_group", {
-        // duration:15, 
-        rotation:15 }, "move_legs2")
-
-    m2_legs_walking_tl.addLabel("move_legs_0")
-      .to(".left_leg_group", {
-        // duration:5, 
-        rotation:0, ease: "none"}, "move_legs_0")
-      .to(".right_leg_group", {
-        // duration:5, 
-        rotation:0, ease: "none"}, "move_legs_0")
+    var make_focal_leg_timeline = (rep) => {
+      let focal_legs = gsap.timeline({
+        repeat: rep, 
+        smoothChildTiming: true,
+      })
   
-    // create a timeline that moves the legs for the perpendicular person:
-    var wg_legs_walking_tl = gsap.timeline({
-      repeat: 20, 
-      scrollTrigger: {
-        trigger: '#module2markers',
-        // trigger: "#step_5",
-        markers: true,
-        scrub: true
-      }
-    });
-    wg_legs_walking_tl.addLabel("move_legs_1")
-      .to("#wg_left_leg_group", {
-        // duration:1, 
-        rotation:15}, "move_legs_1")
-      .to("#wg_right_leg_group", {
-        // duration:1, 
-        rotation:-15}, "move_legs_1")
+      focal_legs.addLabel("move_legs_1")
+        .to(".left_leg_group", {
+          // duration:15, 
+          rotation:15}, "move_legs_1")
+        .to(".right_leg_group", {
+          // duration:15, 
+          rotation:-15}, "move_legs_1")
+  
+      focal_legs.addLabel("move_legs_2")
+        .to(".left_leg_group", {
+          // duration:15, 
+          rotation:-15}, "move_legs2")
+        .to(".right_leg_group", {
+          // duration:15, 
+          rotation:15 }, "move_legs2")
+  
+      focal_legs.addLabel("move_legs_0")
+        .to(".left_leg_group", {
+          // duration:5, 
+          rotation:0, ease: "none"}, "move_legs_0")
+        .to(".right_leg_group", {
+          // duration:5, 
+          rotation:0, ease: "none"}, "move_legs_0")
 
-    wg_legs_walking_tl.addLabel("move_legs_2")
-      .to("#wg_left_leg_group", {
-        // duration:1, 
-        rotation:-15}, "move_legs2")
-      .to("#wg_right_leg_group", {
-        // duration:1, 
-        rotation:15 }, "move_legs2")
+      focal_legs.timeScale(2)
+      return focal_legs;
+    }
 
-    wg_legs_walking_tl.addLabel("move_legs_0")
-      .to("#wg_left_leg_group", {
-        // duration:1, 
-        rotation:0, ease: "none"}, "move_legs_0")
-      .to("#wg_right_leg_group", {
-        // duration:1, 
-        rotation:0, ease: "none"}, "move_legs_0")
+    var make_perp_legs_timeine = (rep) => {
+      // create a timeline that moves the legs for the perpendicular person:
+      var perp_legs = gsap.timeline({
+        repeat: rep
+      });
 
+      perp_legs.addLabel("move_legs_1")
+        .to("#wg_left_leg_group", {
+          // duration:1, 
+          rotation:15}, "move_legs_1")
+        .to("#wg_right_leg_group", {
+          // duration:1, 
+          rotation:-15}, "move_legs_1")
 
+      perp_legs.addLabel("move_legs_2")
+        .to("#wg_left_leg_group", {
+          // duration:1, 
+          rotation:-15}, "move_legs2")
+        .to("#wg_right_leg_group", {
+          // duration:1, 
+          rotation:15 }, "move_legs2")
 
-    // initialize a mater timeline to add other tweens and timelines to:
-    var master_tl = gsap.timeline();
-    
-
+      perp_legs.addLabel("move_legs_0")
+        .to("#wg_left_leg_group", {
+          // duration:1, 
+          rotation:0, ease: "none"}, "move_legs_0")
+        .to("#wg_right_leg_group", {
+          // duration:1, 
+          rotation:0, ease: "none"}, "move_legs_0")    
+          
+      perp_legs.timeScale(2)
+      return perp_legs;
+    }
     // because we want a long path for module 2, let's scale down tiles
     // let's also scale down the human
     
@@ -204,7 +181,7 @@ export default function Module2() {
       // if it's the an even tile, we add it 
       // to the left of the existing path
       // else, we add it to the right
-      gsap.to(allTilesH[i],{
+      gsap.set(allTilesH[i],{
           x: () => {
             if (i % 2 === 0){
               // console.log("i math at even", (i/2))
@@ -228,60 +205,121 @@ export default function Module2() {
 
     // position the person on the perpendicular
     gsap.set(elem.querySelector(".perpendicularPerson"),{
-      x: 380, y: 0, scaleX:.6, scaleY: .6
+      x: 440, y: 80, scaleX:.6, scaleY: .6
     })
 
-    let moving_tl = gsap.timeline().paused(true)
+    //we actually want this person to start infectious, otherwise
+    //we have to explain why he became infectious all of a sudden?
+    determineSIRPerp("infectious")
+
+
+    let perp_moving_tl = gsap.timeline()
     // move the person on the perpendicualr
-    moving_tl.to(elem.querySelector('.perpendicularPerson'), {
-      scrollTrigger:{
-        trigger: "#module2markers",
-        start: "top 180",
-        end: "+=2600",
-        // onEnter: ()=>{wg_legs_walking_tl.play()},
-        markers: true,
-        scrub: true,
-      },
-      x:200,
-      y:130,
+    perp_moving_tl.to(elem.querySelector('.perpendicularPerson'), {
+      x:240,
+      y:190,
+      duration:5,
       ease: "none",
     });    
     // create a tween that moves the person and spotlight (full person) 
     // to the correct end position for Module 2
 
     //Move from Start to Intersection with infected 
-    //TODO Pause legs when here. 
-    moving_tl.to(elem.querySelector('.full_person'), {
-      scrollTrigger: {
-        trigger: "#module2markers",
-        start: "top 180",
-        end: "+=2600",
-        // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
-        // onLeave: ()=>{master_tl.remove(legs_walking_tl)},
-        // onEnterBack: ()=>{},
-        // onLeaveBack: ()=>{legs_walking_tl.pause(); },
-        scrub: true,
-        // pin: true,
-        markers: true,
-      },
-      x:200,
+    let focal_moving_tl = gsap.timeline()
+
+    focal_moving_tl.to(elem.querySelector('.full_person'), {
+      x:240,
       y:180,
-      ease: "none"
+      duration:5,
+      ease: "none",
     });
 
-    moving_tl.add(m2_legs_walking_tl)
-    moving_tl.add(wg_legs_walking_tl)
-    master_tl.add(moving_tl)
+    var walk_to_infection = gsap.timeline({scrollTrigger: {
+      trigger: ".sus_step",
+      start:"top 20%",
+      end: "bottom top",
+      scrub: 1,
+      toggleActions: "reverse none none reset",
+      markers: true,
+    }})
+  
+    let focal_legs = make_focal_leg_timeline(6);
+    let perp_legs = make_perp_legs_timeine(6);
 
-    // create a tween that updates the text based on scroll position
-    // this tween also pauses and plays the legs walking
-    // it also updates the SVG for the person depending on SIR state
-    // for module 2
+    focal_moving_tl.add(focal_legs, "<")
+    perp_moving_tl.add(perp_legs, "<")
+
+    walk_to_infection.add(focal_moving_tl, "<")
+    walk_to_infection.add(perp_moving_tl, "<")
+    
+
+    // ####### Focal Infection! ########
+    ScrollTrigger.create({
+      trigger: ".infection_step",
+      start: "top 20%",
+      end: "bottom top",
+      onEnter: self => determineSIR("infectious"),
+      onLeaveBack: self => determineSIR("susceptible"),      
+    })
+
+    // ####### WALK TO PERP RECOVERY #####
+    var walk_to_recovery1 = gsap.timeline({scrollTrigger :{
+      trigger: ".infection_step",
+      start: "top 20%",
+      end: "bottom top",
+      makers: true,
+      toggleActions: "reverse none none reset",
+      scrub: 1
+    }});
+
+    var focal_recovery_tl = gsap.timeline();
+    var perp_recovery_tl = gsap.timeline();
+
+    focal_recovery_tl.to(elem.querySelector('.full_person'), {
+      x: 300,
+      y: 213,
+      duration: 5,
+      ease: "none",
+      immediateRender: false, 
+    });
+
+    perp_recovery_tl.to(elem.querySelector('.perpendicularPerson'), {
+      x: 200,
+      y: 213,
+      duration: 5,
+      ease: "none",
+      immediateRender: false,
+    });
+
+    let focal_legs_recover = make_focal_leg_timeline(3);
+    let perp_legs_recover = make_perp_legs_timeine(3);
+    
+    focal_recovery_tl.add(focal_legs_recover, "<")
+    perp_recovery_tl.add(perp_legs_recover, "<")
+
+    walk_to_recovery1.add(focal_recovery_tl, "<")
+    walk_to_recovery1.add(perp_recovery_tl, "<")
+
+    //### PERP recovers here...
+
+    ScrollTrigger.create({
+      trigger: ".perp_recovery",
+      start: "top 20%",
+      end: "bottom top",
+      onEnter: self => determineSIRPerp("removed"),
+      onLeaveBack: self => determineSIRPerp("infectious"),
+    })
+
+    
+    
+
+
+    /*
     master_tl.to(elem.querySelector("#moduleSvg"), {
       scrollTrigger: {
         trigger: "#module2markers",
-        start: "top 180",
-        end: "+=2600",
+        start: "center",
+        end: "bottom",
         onUpdate: () => {        
           const currScroll = window.scrollY + 160;
           const step_5 = elem.querySelector("#step_5") 
@@ -312,15 +350,13 @@ export default function Module2() {
                 determineTileColor("#tile3", "susceptible")   
                 determineTileColor("#tile4", "susceptible")
 
-                elem.querySelector("#scrollText").textContent = startSus;
-                elem.querySelector("#scrollHeader").textContent = headerStartSus;
                     
                 determineSIR("susceptible")
-                determineSIRPerp("susceptible")
+                determineSIRPerp("infectious")
             }
 
           } else if (currScroll >= step_6.offsetTop && currScroll < (step_6.offsetTop + step_6.offsetHeight)) {
-            moving_tl.pause()
+            //moving_tl.pause()
             console.log("tl paused at 6?", moving_tl.paused())
 
             determineTileColor("#tileH1", "infected")
@@ -330,16 +366,12 @@ export default function Module2() {
             determineTileColor("#tile6","infected")
             determineTileColor("#tile7","infected")
             // scroll is within step 6
-            elem.querySelector("#scrollText").textContent = becomeInf;
-            elem.querySelector("#scrollHeader").textContent = headerBecomeInf;
             // legs_walking_tl.pause();
 
             determineSIRPerp("infectious")
 
 
           } else if (currScroll >= step_7.offsetTop && currScroll < (step_7.offsetTop + step_7.offsetHeight)){
-            elem.querySelector("#scrollText").textContent = whenInf;
-            elem.querySelector("#scrollHeader").textContent = headerWhenInf;
             determineSIR("infectious")
             determineSIRPerp("infectious")
 
@@ -371,12 +403,10 @@ export default function Module2() {
             determineSIR("infectious")
             determineSIRPerp("recovered")
             
-            elem.querySelector("#scrollText").textContent = staySick;
-            elem.querySelector("#scrollHeader").textContent = headerStaySick;
+
 
           } else if (currScroll >= step_9.offsetTop && currScroll < (step_8.offsetTop + step_9.offsetHeight)){
           // transition in the contents
-          elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
           elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
           elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
 
@@ -385,11 +415,9 @@ export default function Module2() {
             determineTileColor("#tile9", "recovered")
             determineTileColor("#tile10", "recovered")
 
-            elem.querySelector("#scrollText").textContent = becomeRec;
-            elem.querySelector("#scrollHeader").textContent = headerBecomeRec;
+
           } else if (currScroll >=step_buffer.offsetTop){
             // transition out the contents
-            elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
             elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
             elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
 
@@ -397,20 +425,17 @@ export default function Module2() {
         },
         onEnter: () => {
         // transition in the contents
-        elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
         elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
         elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
         
         },
         onLeave: () =>{
-          // elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s; -webkit-transition: opacity .5s;"
           // elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;" 
           // elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity 2s; -webkit-transition: opacity 2s;"
           // elem.querySelector(".perpendicularPerson").style="visibility: hidden;" 
         },
         onEnterBack: () => {
           // transition in the contents
-          elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
           elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;" 
           elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s; -webkit-transition: opacity .5s;"
           },
@@ -419,6 +444,7 @@ export default function Module2() {
         // pinSpacing: true
       },
     }); 
+  */
 
     function determineTileColor(tileID, status){
       if (status == "susceptible"){
@@ -751,16 +777,45 @@ export default function Module2() {
           </g> {/* closes perpendicularPerson */}
         </g>  {/* closes init_scene group */}
       </svg>
-      <div className="scrollTextContainer">
-        <h2 id="scrollHeader">{headerStartSus}</h2>
-        <p id="scrollText">{startSus}</p>
-      </div> {/* closes scrollingTextContainer */}
       <div className="markers" id="module2markers" >
-          <div className="marker" id="step_5" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_6" style={{height: "20vh"}}></div>
-          <div className="marker" id="step_7" style={{height: "20vh"}}></div>
-          <div className="marker" id="step_8" style={{height: "50vh"}}></div>
-          <div className="marker" id="step_9" style={{height: "80vh"}}></div>    
+          <div className="sus_step marker" style={{height: "405vh"}}>
+            <div>
+              <h2>Begin as Susceptible</h2>
+              <p>test</p>
+            </div> 
+          </div>
+          <div className="" id="step_6" style={{height: "20vh"}}>
+            <div className="card">
+              <h2>Interacting with infectious</h2>
+              <p>test</p>
+            </div>
+          </div>
+          <div className="infection_step" id="step_7" style={{height: "80vh"}}>
+           <div>
+              <h2>Becoming Infected</h2>
+              <p>test</p>
+            </div>
+          </div>
+
+          <div className="perp_recovery" style={{height: "80vh"}}>
+          <div>
+              <h2>Perp recovers!</h2>
+              <p>test</p>
+            </div>
+          </div>
+
+          <div className="marker" id="step_8" style={{height: "50vh"}}>
+            <div>
+              <h2>Remaining Ill and Infected</h2>
+              <p>test</p>
+            </div>
+          </div>
+          <div className="marker" id="step_9" style={{height: "80vh"}}>
+            <div>
+              <h2>Recovering from the Illness</h2>
+              <p>test</p>
+            </div>
+          </div>    
           <div className="marker" id="step_buffer" style={{height: "75vh"}}></div>          
 
       </div> {/* closes marker */}
