@@ -21,11 +21,8 @@ export default function Module3() {
   // useRef to make sure each page loads its own content
   const ref = useRef(null)
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-  useEffect(() => {
     // // bump position to top of page
-    // window.scrollTo(0, 0)
+    window.scrollTo(0, 0)
 
     // the plugins to be used:
     gsap.registerPlugin(ScrollTrigger);
@@ -40,16 +37,16 @@ export default function Module3() {
     gsap.to(elem.querySelector('#video'),
     {
       scrollTrigger:{      
-        trigger: elem.querySelector('.vidDiv'),
+        trigger: elem.querySelector('.markers'),
         start: "top 70",
         end: "bottom top",
-        pin: true,
+        // pin: true,
         markers: true,
         onUpdate: () =>{
           var video = elem.querySelector('#video'),
           videoLength = video.duration,
           scrollPosition = window.scrollY-81; //scrollY triggered at 81 down from top, so subtracted this
-          let vidDiv = elem.querySelector('.vidDiv').clientHeight
+          let vidDiv = elem.querySelector('.markers').clientHeight
           // console.log('video length', videoLength)
           // console.log('scrollPosition', window.scrollY)
           // console.log('vidDiv height', vidDiv )
@@ -67,6 +64,36 @@ export default function Module3() {
           // video.currentTime = (scrollPosition / (elem.querySelector('.markers').clientHeight - window.cleintHeight)) * videoLength;
           // video.currentTime = myTime
         },
+        onEnter: () => {
+          console.log("enter")
+          var video = elem.querySelector('.vidDiv')
+          video.style.position="fixed"
+          video.style.top='70px'
+          video.style.left= 0
+          video.style.right= 0
+          video.style.padding = '15px'
+        },
+        onEnterBack: () => {
+          console.log("enterback")
+          var video = elem.querySelector('.vidDiv')
+          video.style.position="fixed"
+          video.style.top='70px'
+          video.style.left= 0
+          video.style.right= 0
+          video.style.padding = '15px'
+        },
+        onLeave: () => {
+          console.log("leave")
+          var video = elem.querySelector('.vidDiv')
+          video.style.position= 'relative'
+          video.style.padding = 0
+        },
+        onLeaveBack: () => {
+          console.log("leaveback")
+          var video = elem.querySelector('.vidDiv')
+          video.style.position= 'relative'
+          video.style.padding = 0
+        },
       }
     })
 
@@ -83,30 +110,45 @@ export default function Module3() {
             // routes={dashboardRoutes}
             rightLinks={<HeaderLinks />}
         />
+<div className="mainContainer fixedParent">
+    <h1 className = "sectionTitle">
+      Module 2: Walking Through the SIR Model
+    </h1>
+    <div className="textContainer">
+      <p>Let’s take a step by step walk through an SIR model.</p>
+    </div> {/* closes textContainer */}
+    <div className="scrollingContainer">
+    <div className="vidDiv">
+      <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" className="video-background" >
+      </video>      
 
-  <div className="mainContainer fixedParent">
+      </div>
+      <div className="scrollTextContainer">
+
+      </div> {/* closes scrollingTextContainer */}
+      <div className="markers" id="module3markers" >
+          <div className="marker" id="step_10" style={{height: "150vh"}}></div>
+          <div className="marker" id="step_11" style={{height: "150vh"}}></div>
+          <div className="marker" id="step_12" style={{height: "150vh"}}></div>
+          <div className="marker" id="step_13" style={{height: "150vh"}}></div>
+          <div className="marker" id="step_14" style={{height: "150vh"}}></div>            
+      </div>
+      
+
+    </div> {/* closes scrollingContainer */}
+  {/* <div className="mainContainer fixedParent">
       <h1 className = "sectionTitle">
         Module 3: Video
       </h1>
       <div className="textContainer">
         <p>Video stuff</p>
-      </div> {/* closes textContainer */}
-      <div className="vidDiv">
-      <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" className="video-background" >
-      </video>      
-      {/* <div className="markers" id="module3markers" >
-          <div className="marker" id="step_10" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_11" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_12" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_13" style={{height: "75vh"}}></div>
-          <div className="marker" id="step_14" style={{height: "75vh"}}></div>            
       </div> */}
-      </div>
+
 
     <Button component={Link} to ="/Module2" size="lg" round>
     &#8592; Go back to Module 2
     </Button>
-    </div> {/* closes mainContainer */}
+    </div>
   </div> {/* closes ref div */}
   </>);
 }
