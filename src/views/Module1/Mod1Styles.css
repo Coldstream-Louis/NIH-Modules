@@ -17,6 +17,7 @@ html, #root{
     color: white;
     padding: 15px;
     display: flex;
+    justify-content: space-between;
 }
 
 .textContainer > p{

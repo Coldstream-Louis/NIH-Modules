@@ -429,21 +429,6 @@ export default function Module2() {
     final_tl.add(perp_final, "<");
 
   
-    let allMarkers = gsap.utils.toArray(".marker")
-
-    allMarkers.forEach(marker => {
-      gsap.to(marker, {
-        scrollTrigger:{
-          trigger: marker,
-          start: "top 20%",
-          end: "bottom top",
-          // pin: true,
-        }
-      })
-    })
-    
-
-
     function determineTileColor(tileID, status){
       if (status == "susceptible"){
           d3.selectAll(`${tileID} > .letterR`).remove()
