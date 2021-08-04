@@ -7,6 +7,12 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import { Link } from "react-router-dom";
 import Button from "components/CustomButtons/Button.js";
 
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
+
+import Typography from "@material-ui/core/Typography/Typography.js";
+
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,18 +25,7 @@ import * as d3 from "d3";
 import {determineSIR} from 'utilityfunctions/determineSIR.js'
 import {addTiles} from 'utilityfunctions/addTiles.js'
 
-
 export default function Module1() {
-  // CONSTANTS //
-  // headers and text descriptions:
-  const headerS = "S: Susceptible";
-  const headerI = "I: Infectious";
-  const headerR = "R: Removed";
-  const textS = "The number of susceptible individuals. When a susceptible and an infectious individual come into \"infectious contact\", the susceptible individual contracts the disease and transitions to the infectious compartment. ";
-  const textI = "The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.";
-  const textR = "The number of removed (and immune) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called \"recovered\" or \"resistant\". ";
-  
-
   // letters on top of tiles
   // base = no letter
   const sirBase= ""
@@ -88,7 +83,7 @@ export default function Module1() {
     // the spotlight is moved and scaled:
     gsap.set(elem.querySelector("#spotlight"), {x:-50 , y:-150, scaleX:.9, scaleY:.9})
     // the spotlight and person are moved:
-    gsap.set(elem.querySelector(".full_person"),{x:-80, y: 0})
+    gsap.set(elem.querySelector(".full_person"),{x:-80, y: 10})
 
 
     // place entire scene in correct position:
@@ -149,14 +144,23 @@ export default function Module1() {
         markers: true,
       },
       x:450,
-      y:260,
+      y:300,
       ease: "none"
     });
+
+    /*
+    x: -80
+    y:  0
+
+    x: 450
+    y: 291
+    */
 
     // create a tween that updates the text based on scroll position
     // this tween also pauses and plays the legs walking
     // it also updates the SVG for the person depending on SIR state
     // for module 1
+    /*
     master_tl.to(elem.querySelector("#moduleSvg"), {
       scrollTrigger: {
         trigger: "#module1markers",
@@ -182,8 +186,7 @@ export default function Module1() {
             determineSIR("susceptible")
             determineTileColor("module1", "#tile1")
 
-            elem.querySelector("#scrollText").textContent = textS;
-            elem.querySelector("#scrollHeader").textContent = headerS;
+
             // legs_walking_tl.pause();
 
           } else if (currScroll >= step_2.offsetTop && currScroll < (step_2.offsetTop + step_2.offsetHeight)) {
@@ -193,8 +196,6 @@ export default function Module1() {
             determineSIR("infectious")
             determineTileColor("module1", "#tile2")
 
-            elem.querySelector("#scrollText").textContent = textI;
-            elem.querySelector("#scrollHeader").textContent = headerI;
             // legs_walking_tl.pause();
 
           } else if (currScroll >= step_3.offsetTop && currScroll < (step_3.offsetTop + step_3.offsetHeight) ) {
@@ -203,20 +204,16 @@ export default function Module1() {
             determineSIR("recovered")
             determineTileColor("module1", "#tile3")
 
-            elem.querySelector("#scrollText").textContent = textR;
-            elem.querySelector("#scrollHeader").textContent = headerR;
 
             // legs_walking_tl.pause();
 
             // if scroll is back, we want to show the text and scene
-            elem.querySelector(".scrollTextContainer").style = " opacity : 1; transition:opacity .5s;"    
             elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;"     
             elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"                       
           } else {
             // scroll is at or beyond the buffer div, so let's hide the scroller text and the scene
             // legs_walking_tl.pause();            
 
-            elem.querySelector(".scrollTextContainer").style = " opacity : 0; transition:opacity .5s;"
             elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
             elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
 
@@ -224,7 +221,6 @@ export default function Module1() {
         },
         onEnterBack: () =>{
           // change the background color and text color back:
-          elem.querySelector(".mainContainer").style = "background-color: #1c2530; transition:background-color: 1s; -webkit-transition: background-color 1s;"
 
           // remove the perpendicular person
           elem.querySelector(".perpendicularPerson").style="visibility: hidden;" 
@@ -275,7 +271,7 @@ export default function Module1() {
       },
     });
 
-
+  */
     function determineTileColor(module = "module1", tileID){
       let tileD3 = d3.select(tileID)
       
@@ -362,7 +358,7 @@ export default function Module1() {
       <p>The SIR model is one of the simplest compartmental models, and many models are derivatives of this basic form. The model consists of three compartments: </p>
     </div> {/* closes textContainer */}
     <div id = "moduleSvgDiv" className="scrollingContainer">
-      <svg id="moduleSvg" width={720} height={480} viewBox="0 0 2000 1600">
+      <svg id="moduleSvg" width="70%" height="50%" viewBox="0 0 2000 1600">
         <g className="tilegroup">
 
         </g> 
@@ -510,24 +506,46 @@ export default function Module1() {
           </g>  {/* closes full_person group */}
         </g>  {/* closes init_scene group */}
       </svg>
-      <div className="scrollTextContainer">
-        <h2 id="scrollHeader">{headerS}</h2>
-        <p id="scrollText">{textS}</p>
-      </div> {/* closes scrollingTextContainer */}
-      <div className="markers" id="module1markers" >
-        <div className="marker" id="step_s" style={{height: "75vh"}}>
-              
+
+      <div className="" id="" >
+
+        <div style={{height: "25vh"}}></div>
+
+        <div className="step_s" id="" style={{height: "75vh", width:"40vw"}}>
+          <Card>
+            <CardHeader color="primary"> <Typography variant="h3"> S: Susceptible</Typography> </CardHeader>
+            <CardBody>
+              <Typography variant="h5" component="p">
+              The number of susceptible individuals. When a susceptible and an infectious individual come into <b>infectious contact</b>, the susceptible individual contracts the disease and transitions to the infectious compartment.
+
+              </Typography>
+            </CardBody>
+          </Card>
         </div>
 
-        <div className="marker" id="step_i" style={{height: "75vh"}}>
-
+        <div className="step_i" id="" style={{height: "75vh", width:"40vw"}}>
+          <Card>
+            <CardHeader color="primary"> <Typography variant="h2"> I: Infectious</Typography> </CardHeader>
+            <CardBody>
+              <Typography variant="h5" component="p">
+                The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.
+              </Typography>
+            </CardBody>
+          </Card>
         </div>
 
-        <div className="marker" id="step_r" style={{height: "75vh"}}>
-
+        <div className="step_r" id="" style={{height: "75vh", width:"40vw"}}>
+          <Card>
+              <CardHeader color="primary"> <Typography variant="h2"> R: Removed</Typography> </CardHeader>
+              <CardBody>
+                <Typography variant="h5" component="p">
+                  The number of removed (and <b>immune</b>) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called <i>recovered</i> or <i>resistant</i>
+                </Typography>
+              </CardBody>
+            </Card>
         </div>
 
-        <div className="marker" id="step_buffer" style={{height: "80vh"}}>
+        <div style={{height: "75vh", width:"40vw"}}>
 
         </div>
       </div> {/* closes marker */}
