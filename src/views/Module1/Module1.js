@@ -94,58 +94,43 @@ export default function Module1() {
     // place entire scene in correct position:
     gsap.to(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
-    // create a timeline that moves the legs:
-    let m1_legs_walking_tl = gsap.timeline({
-      repeat: 6, 
-      scrollTrigger: {
-        trigger: "#module1markers",
-        markers: true,
-        scrub: true
-      }
-    })
+    var make_focal_leg_timeline = (rep) => {
+      let focal_legs = gsap.timeline({
+        repeat: rep, 
+        smoothChildTiming: true,
+      })
+  
+      focal_legs.addLabel("move_legs_1")
+        .to(".left_leg_group", {
+          // duration:15, 
+          rotation:15}, "move_legs_1")
+        .to(".right_leg_group", {
+          // duration:15, 
+          rotation:-15}, "move_legs_1")
+  
+      focal_legs.addLabel("move_legs_2")
+        .to(".left_leg_group", {
+          // duration:15, 
+          rotation:-15}, "move_legs2")
+        .to(".right_leg_group", {
+          // duration:15, 
+          rotation:15 }, "move_legs2")
+  
+      focal_legs.addLabel("move_legs_0")
+        .to(".left_leg_group", {
+          // duration:5, 
+          rotation:0, ease: "none"}, "move_legs_0")
+        .to(".right_leg_group", {
+          // duration:5, 
+          rotation:0, ease: "none"}, "move_legs_0")
+      
+      focal_legs.immediateRender = false;
+      focal_legs.timeScale(2)
+      return focal_legs;
+    }
+    
 
-    m1_legs_walking_tl.addLabel("move_legs_1")
-      .to(".left_leg_group", {
-        // duration:15, 
-        rotation:15}, "move_legs_1")
-      .to(".right_leg_group", {
-        // duration:15, 
-        rotation:-15}, "move_legs_1")
 
-    m1_legs_walking_tl.addLabel("move_legs_2")
-      .to(".left_leg_group", {
-        // duration:15, 
-        rotation:-15}, "move_legs2")
-      .to(".right_leg_group", {
-        // duration:15, 
-        rotation:15 }, "move_legs2")
-
-    m1_legs_walking_tl.addLabel("move_legs_0")
-      .to(".left_leg_group", {
-        // duration:5, 
-        rotation:0, ease: "none"}, "move_legs_0")
-      .to(".right_leg_group", {
-        // duration:5, 
-        rotation:0, ease: "none"}, "move_legs_0")
-
- 
-
-    // NOT USED: arms swinging as character walks.
-    // var arms_swinging_tl = gsap.timeline({repeat:-1,});
-    // arms_swinging_tl.pause();
-    // arms_swinging_tl.addLabel("move_arms_1")
-    //   .to(".leftarm", {duration:0.3, rotation:10}, "move_arms_1")
-    //   .to(".rightarm", {duration:0.3, rotation:-10}, "move_arms_1");
-
-    // arms_swinging_tl.addLabel("move_arms_2")
-    //   .to(".leftarm", {duration:0.3, rotation:-10}, "move_arms_2")
-    //   .to(".rightarm", {duration:0.3, rotation:10}, "move_arms_2");
-
-    // arms_swinging_tl.addLabel("move_arms_0")
-    //   .to(".leftarm", {duration:0.1, rotation:0, ease: "none"}, "move_arms_0")
-    //   .to(".rightarm", {duration:0.1, rotation:0, ease: "none"}, "move_arms_0");    
-
-    // initialize a mater timeline to add other tweens and timelines to:
     var master_tl = gsap.timeline();
     
     // create a tween that moves the person and spotlight (full person) 
@@ -530,10 +515,21 @@ export default function Module1() {
         <p id="scrollText">{textS}</p>
       </div> {/* closes scrollingTextContainer */}
       <div className="markers" id="module1markers" >
-        <div className="marker" id="step_s" style={{height: "75vh"}}></div>
-        <div className="marker" id="step_i" style={{height: "75vh"}}></div>
-        <div className="marker" id="step_r" style={{height: "75vh"}}></div>
-        <div className="marker" id="step_buffer" style={{height: "80vh"}}></div>
+        <div className="marker" id="step_s" style={{height: "75vh"}}>
+              
+        </div>
+
+        <div className="marker" id="step_i" style={{height: "75vh"}}>
+
+        </div>
+
+        <div className="marker" id="step_r" style={{height: "75vh"}}>
+
+        </div>
+
+        <div className="marker" id="step_buffer" style={{height: "80vh"}}>
+
+        </div>
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
     <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p>
