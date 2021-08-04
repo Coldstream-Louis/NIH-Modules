@@ -214,6 +214,23 @@ export default function Module2() {
     //we have to explain why he became infectious all of a sudden?
     determineSIRPerp("infectious")
 
+    determineTileColor("#tileH1", "infected")
+    determineTileColor("#tileH3", "infected")
+    determineTileColor("#tileH7", "infected")
+    determineTileColor("#tileH5", "infected") 
+
+    determineTileColor("#tileH2", "recovered") 
+    determineTileColor("#tileH4", "recovered") 
+    determineTileColor("#tileH6", "recovered") 
+    determineTileColor("#tileH8", "recovered") 
+
+
+    determineTileColor("#tile1", "susceptible") 
+    determineTileColor("#tile2", "susceptible") 
+    determineTileColor("#tile3", "susceptible") 
+    determineTileColor("#tile4", "susceptible") 
+
+
 
     let perp_moving_tl = gsap.timeline()
     // move the person on the perpendicualr
@@ -260,8 +277,26 @@ export default function Module2() {
       trigger: ".infection_step",
       start: "top 20%",
       end: "bottom top",
-      onEnter: self => determineSIR("infectious"),
-      onLeaveBack: self => determineSIR("susceptible"),      
+      onEnter: self => {
+        determineSIR("infectious");
+        determineTileColor("#tile6", "infected");
+        determineTileColor("#tile7", "infected");
+        determineTileColor("#tile8", "infected");
+        determineTileColor("#tile9", "recovered");
+        determineTileColor("#tile10", "recovered");
+
+
+      },
+      onLeaveBack: self => {
+        determineSIR("susceptible");
+        determineTileColor("#tile6", "") 
+        determineTileColor("#tile7", "") 
+        determineTileColor("#tile8", "") 
+        determineTileColor("#tile9", "") 
+        determineTileColor("#tile10", "") 
+        determineTileColor("#tile10", "") 
+
+      },    
     })
 
     // ####### WALK TO PERP RECOVERY #####
@@ -569,7 +604,7 @@ export default function Module2() {
           d3.select(`${tileID} .sideProfile`).classed('susTileSide', false)
           d3.select(`${tileID} .topFace`).classed('infTileTop', false)
           d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
-      } else if (status = "") {
+      } else if (status == "") {
           // console.log("tiles are not S, I, or R")
           d3.selectAll(`${tileID} > .letterS`).remove()
           d3.selectAll(`${tileID} > .letterI`).remove()
