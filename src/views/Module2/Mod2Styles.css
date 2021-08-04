@@ -1,21 +1,7 @@
 .markers{
     width: 35vw;
 }
-.card{
-    color: white !important;
-    background-color: #323a42 !important;
-}
 
-.stepHeader{
-    background-color: #282f36 !important;
-}
-.stepP {
-    font-size: 18px;
-}
-
-.stepH2{
-    font-weight: 700;
-}
 
 .perpendicularPerson{
     visibility: visible;

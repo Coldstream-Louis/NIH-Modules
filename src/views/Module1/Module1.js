@@ -11,8 +11,6 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 
-import Typography from "@material-ui/core/Typography/Typography.js";
-
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -509,37 +507,36 @@ export default function Module1() {
         <div style={{height: "25vh"}}></div>
 
         <div className="step_s" id="" style={{height: "75vh", width:"40vw"}}>
-          <Card>
-            <CardHeader color="primary"> <Typography variant="h3"> S: Susceptible</Typography> </CardHeader>
+          <Card className="card">
+            <CardHeader className="stepHeader">
+              <h2 className="stepH2">S: Susceptible</h2>
+            </CardHeader>
             <CardBody>
-              <Typography variant="h5" component="p">
-              The number of susceptible individuals. When a susceptible and an infectious individual come into <b>infectious contact</b>, the susceptible individual contracts the disease and transitions to the infectious compartment.
-
-              </Typography>
+            <p className="stepP"><b>Susceptible (S)</b> to an infection.</p>
             </CardBody>
           </Card>
         </div>
 
         <div className="step_i" id="" style={{height: "75vh", width:"40vw"}}>
-          <Card>
-            <CardHeader color="primary"> <Typography variant="h2"> I: Infectious</Typography> </CardHeader>
+          <Card className="card">
+            <CardHeader className="stepHeader">
+              <h2 className="stepH2">I: Infectious</h2>
+            </CardHeader>
             <CardBody>
-              <Typography variant="h5" component="p">
-                The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.
-              </Typography>
+            <p className="stepP">Being <b>infected</b> and <b>infectious (I)</b>.</p>
             </CardBody>
           </Card>
         </div>
 
         <div className="step_r" id="" style={{height: "75vh", width:"40vw"}}>
-          <Card>
-              <CardHeader color="primary"> <Typography variant="h2"> R: Removed</Typography> </CardHeader>
+          <Card className="card">
+              <CardHeader className="stepHeader">
+                <h2 className="stepH2">R: Removed</h2>
+              </CardHeader>
               <CardBody>
-                <Typography variant="h5" component="p">
-                  The number of removed (and <b>immune</b>) or deceased individuals. These are individuals who have been infected and have either recovered from the disease and entered the removed compartment, or died. It is assumed that the number of deaths is negligible with respect to the total population. This compartment may also be called <i>recovered</i> or <i>resistant</i>
-                </Typography>
+              <p className="stepP">And <b>recovered</b> from the infection and <b>removed (R)</b> from the group of people who are susceptible to the illness.</p>
               </CardBody>
-            </Card>
+            </Card>          
         </div>
 
         <div style={{height: "75vh", width:"40vw"}}>

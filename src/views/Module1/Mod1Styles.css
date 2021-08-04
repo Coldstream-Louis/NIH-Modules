@@ -76,18 +76,22 @@ html, #root{
     height: 100%;
 }
 
-/* #step_s{
-    background-color: blue;
+.card{
+    color: white !important;
+    background-color: #323a42 !important;
 }
-#step_i{
-    background-color: greenyellow;
+
+.stepHeader{
+    background-color: #282f36 !important;
 }
-#step_r{
-    background-color: green;
+.stepP {
+    font-size: 18px;
 }
-#step_buffer{
-    background-color: pink;
-} */
+
+.stepH2{
+    font-weight: 700;
+}
+
 .st0{fill:none;stroke:#C49A6C;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st1{fill:#231F20;stroke:#231F20;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st2{fill:#C3996C;}
