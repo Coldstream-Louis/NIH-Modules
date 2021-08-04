@@ -14,7 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import './Mod3Styles.css';
 
 // import video
-import Video from './all.mp4'
+import Video from './output.mp4'
 export default function Module3() {
 
 
@@ -40,7 +40,7 @@ export default function Module3() {
         trigger: elem.querySelector('.markers'),
         start: "top 70",
         end: "bottom top",
-        // pin: true,
+        pin: true,
         markers: true,
         onUpdate: () =>{
           var video = elem.querySelector('#video'),
@@ -127,11 +127,11 @@ export default function Module3() {
 
       </div> {/* closes scrollingTextContainer */}
       <div className="markers" id="module3markers" >
-          <div className="marker" id="step_10" style={{height: "150vh"}}></div>
-          <div className="marker" id="step_11" style={{height: "150vh"}}></div>
-          <div className="marker" id="step_12" style={{height: "150vh"}}></div>
-          <div className="marker" id="step_13" style={{height: "150vh"}}></div>
-          <div className="marker" id="step_14" style={{height: "150vh"}}></div>            
+          <div className="marker" id="step_10" style={{height: "250vh"}}></div>
+          <div className="marker" id="step_11" style={{height: "250vh"}}></div>
+          <div className="marker" id="step_12" style={{height: "250vh"}}></div>
+          <div className="marker" id="step_13" style={{height: "250vh"}}></div>
+          <div className="marker" id="step_14" style={{height: "250vh"}}></div>            
       </div>
       
 
