@@ -100,7 +100,8 @@ export default function Module2() {
         .to(".right_leg_group", {
           // duration:5, 
           rotation:0, ease: "none"}, "move_legs_0")
-
+      
+      focal_legs.immediateRender = false;
       focal_legs.timeScale(2)
       return focal_legs;
     }
@@ -135,7 +136,8 @@ export default function Module2() {
           // duration:1, 
           rotation:0, ease: "none"}, "move_legs_0")    
           
-      perp_legs.timeScale(2)
+      perp_legs.timeScale(2);
+      perp_legs.immediateRender = false;
       return perp_legs;
     }
     // because we want a long path for module 2, let's scale down tiles
@@ -272,13 +274,13 @@ export default function Module2() {
       scrub: 1
     }});
 
-    var focal_recovery_tl = gsap.timeline();
+    var focal_perp_recovery_tl = gsap.timeline();
     var perp_recovery_tl = gsap.timeline();
 
-    focal_recovery_tl.to(elem.querySelector('.full_person'), {
+    focal_perp_recovery_tl.to(elem.querySelector('.full_person'), {
       x: 300,
       y: 213,
-      duration: 5,
+      duration: 2,
       ease: "none",
       immediateRender: false, 
     });
@@ -286,18 +288,18 @@ export default function Module2() {
     perp_recovery_tl.to(elem.querySelector('.perpendicularPerson'), {
       x: 200,
       y: 213,
-      duration: 5,
+      duration: 2,
       ease: "none",
       immediateRender: false,
     });
 
-    let focal_legs_recover = make_focal_leg_timeline(3);
-    let perp_legs_recover = make_perp_legs_timeine(3);
+    let focal_legs_recover = make_focal_leg_timeline(2);
+    let perp_legs_recover = make_perp_legs_timeine(2);
     
-    focal_recovery_tl.add(focal_legs_recover, "<")
+    focal_perp_recovery_tl.add(focal_legs_recover, "<")
     perp_recovery_tl.add(perp_legs_recover, "<")
 
-    walk_to_recovery1.add(focal_recovery_tl, "<")
+    walk_to_recovery1.add(focal_perp_recovery_tl, "<")
     walk_to_recovery1.add(perp_recovery_tl, "<")
 
     //### PERP recovers here...
@@ -306,13 +308,93 @@ export default function Module2() {
       trigger: ".perp_recovery",
       start: "top 20%",
       end: "bottom top",
-      onEnter: self => determineSIRPerp("removed"),
+      onEnter: self => determineSIRPerp("recovered"),
       onLeaveBack: self => determineSIRPerp("infectious"),
     })
 
-    
-    
+    // ### Focal Person Recovery ### 
 
+    var focal_recovery_tl = gsap.timeline({scrollTrigger: {
+      trigger: ".focal_recovery",
+      start: "top 20%",
+      end: "bottom top",
+      ease: "none",
+      toggleActions: "reverse none none reset",
+      scrub: 1,
+      markers: true,
+    }});
+    
+    let focal_tl_penultimate = gsap.timeline();
+    let perp_tl_penultimate = gsap.timeline();
+
+    focal_tl_penultimate.to(elem.querySelector('.full_person'), {
+      x:480,
+      y:312,
+      duration:4,
+      ease: "none",
+      immediateRender: false,
+    });
+
+    perp_tl_penultimate.to(elem.querySelector('.perpendicularPerson'), {
+      x: 70,
+      y: 284,
+      duration: 4,
+      ease: "none",
+      immediateRender: false,
+    });
+
+    focal_tl_penultimate.add(make_focal_leg_timeline(4), "<");
+    perp_tl_penultimate.add(make_perp_legs_timeine(4), "<");
+
+    focal_recovery_tl.add(focal_tl_penultimate, "<");
+    focal_recovery_tl.add(perp_tl_penultimate, "<");
+
+    //### RECOVER FOCAL
+
+    ScrollTrigger.create({
+      trigger: ".focal_recovery_trigger",
+      start: "center",
+      end: "bottom",
+      onEnter: self => determineSIR("recovered"),
+      onLeaveBack: self => determineSIR("infectious"),
+    });
+
+    //#### Walk To End #####
+
+    var final_tl = gsap.timeline({scrollTrigger: {
+      trigger: ".final_end",
+      start: "top 20%",
+      end: "bottom top",
+      ease: "none",
+      toggleActions: "reverse none none reset",
+      scrub: 1,
+      markers: true,
+    }});
+    
+    let focal_final = gsap.timeline();
+    let perp_final = gsap.timeline();
+
+    focal_final.to(elem.querySelector('.full_person'), {
+      x:560,
+      y:356,
+      duration:3,
+      ease: "none",
+      immediateRender: false,
+    });
+
+    perp_final.to(elem.querySelector('.perpendicularPerson'), {
+      x: -10,
+      y: 328,
+      duration: 3,
+      ease: "none",
+      immediateRender: false,
+    });
+
+
+    focal_final.add(make_focal_leg_timeline(3), "<");
+    perp_final.add(make_perp_legs_timeine(3), "<");
+    final_tl.add(focal_final, "<");
+    final_tl.add(perp_final, "<");
 
     /*
     master_tl.to(elem.querySelector("#moduleSvg"), {
@@ -804,13 +886,14 @@ export default function Module2() {
             </div>
           </div>
 
-          <div className="marker" id="step_8" style={{height: "50vh"}}>
+          <div className="focal_recovery" id="step_8" style={{height: "90vh"}}>
             <div>
               <h2>Remaining Ill and Infected</h2>
               <p>test</p>
             </div>
           </div>
-          <div className="marker" id="step_9" style={{height: "80vh"}}>
+          <div className="focal_recovery_trigger" id="step_9" style={{height: "30vh"}}></div>
+          <div className="final_end" id="step_9" style={{height: "80vh"}}>
             <div>
               <h2>Recovering from the Illness</h2>
               <p>test</p>
