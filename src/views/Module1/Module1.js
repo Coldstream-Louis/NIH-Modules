@@ -227,153 +227,6 @@ export default function Module1() {
     });
 
 
-
-
-    /*
-    var master_tl = gsap.timeline();
-    
-    // create a tween that moves the person and spotlight (full person) 
-    // to the correct end position for Module 1
-    master_tl.to(elem.querySelector('.full_person'), {
-        scrollTrigger: {
-          trigger: "#module1markers",
-          start: "top 180",
-          end: "+=2600",
-          // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
-          // onLeave: ()=>{legs_walking_tl.pause();},
-          // onEnterBack: ()=>{legs_walking_tl.play();},
-          // onLeaveBack: ()=>{legs_walking_tl.pause(); },
-          scrub: true,
-          // pin: true,
-          markers: true,
-        },
-        x:450,
-        y:300,
-        ease: "none"
-      });
-
-    /*
-    x: -80
-    y:  0
-
-    x: 450
-    y: 291
-    */
-
-    // create a tween that updates the text based on scroll position
-    // this tween also pauses and plays the legs walking
-    // it also updates the SVG for the person depending on SIR state
-    // for module 1
-    /*
-    master_tl.to(elem.querySelector("#moduleSvg"), {
-      scrollTrigger: {
-        trigger: "#module1markers",
-        start: "top 180",
-        end: '+=2600',
-        onUpdate: () => {
-          const currScroll = window.scrollY + 160;
-          const step_1 = elem.querySelector("#step_s");
-          const step_2 = elem.querySelector("#step_i");
-          const step_3 = elem.querySelector("#step_r");
-
-          // legs_walking_tl.play();
-          if(currScroll < step_1.offsetTop) {
-            //scroll is between the top and step 1
-
-            determineSIR("susceptible")
-            determineTileColor("module1", "not")
-
-            // legs_walking_tl.pause();
-          } else if(currScroll >= step_1.offsetTop && currScroll < (step_1.offsetTop + step_1.offsetHeight)) {
-            // scroll is between or equal to the top step 1 and the top of step 2
-
-            determineSIR("susceptible")
-            determineTileColor("module1", "#tile1")
-
-
-            // legs_walking_tl.pause();
-
-          } else if (currScroll >= step_2.offsetTop && currScroll < (step_2.offsetTop + step_2.offsetHeight)) {
-
-            // scroll is between or equal to the top of step 2 and the top of step 3
-
-            determineSIR("infectious")
-            determineTileColor("module1", "#tile2")
-
-            // legs_walking_tl.pause();
-
-          } else if (currScroll >= step_3.offsetTop && currScroll < (step_3.offsetTop + step_3.offsetHeight) ) {
-            // scroll is between or equal to the top of step 3 and the top of step buffer
-
-            determineSIR("recovered")
-            determineTileColor("module1", "#tile3")
-
-
-            // legs_walking_tl.pause();
-
-            // if scroll is back, we want to show the text and scene
-            elem.querySelector("#init_scene").style = " opacity : 1; transition:opacity .5s;"     
-            elem.querySelector(".tilegroup").style = " opacity : 1; transition:opacity .5s;"                       
-          } else {
-            // scroll is at or beyond the buffer div, so let's hide the scroller text and the scene
-            // legs_walking_tl.pause();            
-
-            elem.querySelector("#init_scene").style = " opacity : 0; transition:opacity .5s;" 
-            elem.querySelector(".tilegroup").style = " opacity : 0; transition:opacity .5s;" 
-
-          }
-        },
-        onEnterBack: () =>{
-          // change the background color and text color back:
-
-          // because we have to move the svg around, we need to make sure 
-          // it's back in the correct position when going
-          // up the page
-          let svgModule = elem.querySelector("#moduleSvg")
-          elem.querySelector("#moduleSvgDiv").append(svgModule)
-
-          // we also add back the correct number of tiles for
-          // module 1
-          // add tiles to SVG so there are 3 total tiles
-          addTiles("moduleSvg", 3)
-          let allTiles = gsap.utils.toArray(".tile")
-
-          // programmatically set each tile the correct distance apart
-          for (let i=0; i < allTiles.length; i++){
-            let myX = 0
-            let myY = 360
-            let scale = 2.5
-            let xIncrement = 90 * 1.5 * scale
-            let yIncrement = 50 * 1.5 * scale
-            gsap.set(allTiles[i],{
-              x: myX + xIncrement*i,
-              y: myY + yIncrement*i,
-              scaleX: scale,
-              scaleY: scale,
-            })
-          }    
-
-          // place things in the correct position and scale them if needed:
-          // the tiles are moved:
-          gsap.set(".tilegroup",{x:60, y: 400})
-          // the spotlight is moved and scaled:
-          gsap.set("#spotlight", {x:-50 , y:-150, scaleX:.9, scaleY:.9})
-          // the spotlight and person are moved:
-          gsap.set(".full_person",{x:-80, y: 0, scaleX:1, scaleY:1})  
-          // also set the tile color
-          determineTileColor("module1","#tile1")
-          determineTileColor("module1","#tile2")
-          determineTileColor("module1","#tile3")
-        },
-        scrub: true,
-        // pin: true,
-        markers: true,
-        // pinSpacing: false
-      },
-    });
-
-  */
-    
     function determineTileColor(tileID, status){
       if (status == "susceptible"){
           d3.selectAll(`${tileID} > .letterR`).remove()
@@ -620,7 +473,7 @@ export default function Module1() {
 
         <div style={{height: "25vh"}} className="pre_s"></div>
 
-        <div className="step_s" id="" style={{height: "75vh", width:"40vw"}}>
+        <div className="step_s" id="" style={{height: "60vh", width:"40vw"}}>
           <Card className="card">
             <CardHeader className="stepHeader">
               <h2 className="stepH2">S: Susceptible</h2>
@@ -631,7 +484,7 @@ export default function Module1() {
           </Card>
         </div>
 
-        <div className="step_i" id="" style={{height: "75vh", width:"40vw"}}>
+        <div className="step_i" id="" style={{height: "60vh", width:"40vw"}}>
           <Card className="card">
             <CardHeader className="stepHeader">
               <h2 className="stepH2">I: Infectious</h2>
@@ -642,7 +495,7 @@ export default function Module1() {
           </Card>
         </div>
 
-        <div className="step_r" id="" style={{height: "75vh", width:"40vw"}}>
+        <div className="step_r" id="" style={{height: "60vh", width:"40vw"}}>
           <Card className="card">
               <CardHeader className="stepHeader">
                 <h2 className="stepH2">R: Removed</h2>
@@ -662,7 +515,7 @@ export default function Module1() {
     <p className = "moduleText">This type of categorization is the foundation of a type of models called a <b>compartmental model</b>.</p>
     <SvgImg/>
     <p className = "moduleText">These models are handy because they are easily adapted to simulate different transmission scenarios.</p>
-    <p className = "moduleText">The model type most often used is an Susceptible, Infected, Recovered Model or a SIR Model.</p>
+    <p className = "moduleText">The model type most often used is a <b>Susceptible, Infected, Recovered</b> Model or an <b>SIR Model</b>.</p>
     
     {/* <Link to="/Module2" className={classes.navLink}> */}
         <Button component={Link} to ="/Module2" size="lg" round>
