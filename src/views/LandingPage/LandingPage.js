@@ -14,13 +14,19 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
 
-// import Button from "components/CustomButtons/Button.js";
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
+
+import { Link } from "react-router-dom";
+import Button from "components/CustomButtons/Button.js";
 // import Parallax from "components/Parallax/Parallax.js";
 // import Footer from "components/Footer/Footer.js";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 
 // Sections for this page
+import Dude from "./Sections/dude.js"
 // import ProductSection from "./Sections/ProductSection.js";
 // import TeamSection from "./Sections/TeamSection.js";
 // import WorkSection from "./Sections/WorkSection.js";
@@ -39,12 +45,32 @@ export default function LandingPage() {
        />
       <div className={classNames(classes.container)}>
           <GridContainer className = {classes.main}>
-            <GridItem xs={12} sm={12} md={6}>
+            <GridItem xs={12} sm={12} md={12}>
               <h1 className={classes.title}>COVID Learning Modules</h1>
-              <h4 className = {classes.h4}>
-                Welcome to COVID Learning Modules
-              </h4>
+              <h2 className = {classes.subtitle}>
+                Welcome to COVID Learning Modules!
+              </h2>
               <br />
+            </GridItem>
+            <GridItem xs={4} sm={4} md={4}>
+              <Dude></Dude>
+            </GridItem>
+            <GridItem xs={8} sm={8} md={8} className={classes.withButton}>
+            <Card className="card">
+              <CardHeader className="stepHeader">
+              <h4 className={classes.h4}>Learn about different data models using this easy-to-follow visual journey.</h4>
+              </CardHeader>
+              <CardBody className={classes.theButton}>
+              <Button component={Link} to ="/Module1" size="lg" round>
+                Go to Module 1 &#8594;
+              </Button>
+              </CardBody>
+            </Card>  
+
+
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <p className={classes.p}>Built by ZEEE Lab.</p>
             </GridItem>
           </GridContainer>
         </div>
