@@ -1,135 +1,29 @@
-/* .mainContainer{
-    margin: 15px;
-    background-color: #1c2530;
-    color: white;
-    text-align: center;
-}
-
-.fixedParent{
-    padding-top: 80px;
-}
-
-.scrollingContainer {
-    width: 100%;
-    height: 100%;
-    color: white;
-    padding: 15px;
+.srollingContainer{
     display: flex;
+    align-items: center !important;
+    justify-content: space-between !important;
 }
-
-.textContainer{
-    padding: 15px;
-}
-.textContainer > p{
-    font-size: 18px;
-    margin: 15px;
-} */
-
-/* .scrollTextContainer{
-    max-width: 45%;
-
-    position: fixed;
-    right: 0;
-
-    align-self: flex-start;
-    padding: 15px;
-    margin-top:30px;
-    vertical-align: middle;
-}
-
-.sectionTitle{
-    padding: 15px 0px;
-}
-
-.moduleText{
-    font-size:18px;
-}
-
-#scrollText{
-    font-size: 18px;
-    padding: 15px;
-}
-#scrollHeader{
-    font-weight: bold;
-    margin: 0;
-}
-
 .markers{
-    display: block;
-    width:30%;
+    width: 35vw;
 }
-.marker{
-    width: 30%;
-    color: #00e5ff;
-    height: 100%;
-} */
-
-
-#step_5{
-    background-color: red;
+.card{
+    color: white;
+    background-color: #323a42;
+    border-radius: 20px;
+    padding: 15px;
 }
-
-#step_6{
-    background-color: yellow;
-}
-#step_7{
-    background-color: teal;
-}
-#step_8{
-    background-color: orange;
-}
-#step_9{
-    background-color:magenta;
-}
-/* 
-.st0{fill:none;stroke:#C49A6C;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
-.st1{fill:#231F20;stroke:#231F20;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
-.st2{fill:#C3996C;}
-.st3{fill:#985EA6;}
-.st4{fill:#F4CB45;}
-.st5{fill:#C7AA56;}
-.st6{fill:#3C2517;}
-.st7{fill:#802A34;}
-.st8{fill:#C49A6C;}
-.st9{fill:#985DA6;}
-.st10{fill:#3C2415;}
-.st11{fill:#7F2933;}
-
-.lightbeam_st{
-    opacity:0.72;
-    fill:url(#lightbeam_1_);
+.stepP {
+    padding: 0px 15px;
+    margin: 0;
+    font-size: 18px;
 }
 
-#lightstop1{
-    stop-color:#FFFFFF;
-    stop-opacity:0
+.stepH2{
+    padding: 0px 15px;
+    padding-bottom: 10px;
+    margin: 0;
+    font-weight: 700;
 }
-
-#lightstop2{
-    stop-color:#FFFFFF;
-}
-
-#susceptible{
-    opacity: 0;
-}
-#infected{
-    opacity: 0;
-}
-#recovered{
-    opacity: 0;
-}
-
-#base{
-    opacity:1;
-}
-
-#lightnings{
-    opacity: 0;
-}
-
-#spotlightpath{
-    fill:url(#a)
-} */
 
 .perpendicularPerson{
     visibility: visible;
@@ -160,40 +54,3 @@
 #wglightning{
     opacity: 0;
 }
-
-/* tiles */
-/* .topFace{
-    fill:#4484c5;
-}
-
-.sideProfile{
-    fill: #295481;
-}
-
-.susTileTop{
-    fill:#4484c5;
-}
-.susTileSide{
-    fill: #295481;
-}
-.letterS{
-    fill:#A8BCDE;
-}
-.infTileTop{
-    fill: #ea7526;
-}
-.infTileSide{
-    fill: #9f4f12;
-}
-.letterI{
-    fill: #eebd9b;
-}
-.recTileTop{
-    fill: #59b25f;
-}
-.recTileSide{
-    fill: #377b40;
-}
-.letterR{
-    fill:#b3d6b5;
-} */
