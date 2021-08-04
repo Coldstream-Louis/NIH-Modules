@@ -6,18 +6,25 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import { Link } from "react-router-dom";
 import Button from "components/CustomButtons/Button.js";
 
+// import card stuff for material UI
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
+
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // import d3
 import * as d3 from "d3";
+
 // import two functions: determineSIR and addTiles from external JS sources
 import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
 
 // import styles
 import './Mod2Styles.css';
+
 
 export default function Module2() {
   // letters on top of tiles
@@ -500,10 +507,12 @@ export default function Module2() {
       allTiles.selectAll('.letterS, .letterI, .letterR').remove()
       allTiles.selectAll('polyline').remove()
     }
+
   }, []);
 
   // what is rendered:
   return (<>
+
   <div ref={ref}>
   <Header
           brand="COVID-19 Modules"
@@ -762,44 +771,69 @@ export default function Module2() {
       </svg>
       <div className="markers" id="module2markers" >
           <div className="sus_step marker" style={{height: "200vh"}}>
-            <div className="card">
-              <h2 className="stepH2">Begin as Susceptible</h2>
-              <p className="stepP">We begin by being susceptible to a disease.</p>
-            </div> 
+              <Card className="card">
+                <CardHeader className="stepHeader">
+                    <h2 className="stepH2">Begin as Susceptible</h2>
+                  </CardHeader>                
+                <CardBody>
+                  <p className="stepP">We begin by being susceptible to a disease.</p>
+                </CardBody>
+              </Card>
           </div>
           <div className="marker" id="step_6" style={{height: "40vh"}}>
-            <div className="card">
-              <h2 className="stepH2">Interacting with infectious</h2>
-              <p className="stepP">As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
-            </div>
+            <Card className="card">
+              <CardHeader className="stepHeader">
+                  <h2 className="stepH2">Interacting with infectious</h2>
+                </CardHeader>              
+              <CardBody>
+                <p className="stepP">As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
+              </CardBody>
+            </Card>
+
           </div>
           <div className="infection_step marker" id="step_7" style={{height: "80vh"}}>
-           <div className="card">
-              <h2 className="stepH2">Becoming Infected</h2>
-              <p className="stepP">From this chance encounter, we become infected with the illness too. Soon we begin to feel ill, and pass from the “susceptible” state to the “infected/ill” state. </p>
-            </div>
+            <Card className="card">
+              <CardHeader className="stepHeader">
+                  <h2 className="stepH2">Becoming Infected</h2>
+                </CardHeader>              
+              <CardBody>
+                <p className="stepP">From this chance encounter, we become infected with the illness too. Soon we begin to feel ill, and pass from the “susceptible” state to the “infected/ill” state. </p>
+              </CardBody>
+            </Card>
           </div>
 
           <div className="perp_recovery marker" style={{height: "80vh"}}>
-          <div className="card">
-              <h2 className="stepH2">Perp recovers!</h2>
-              <p className="stepP">test</p>
-            </div>
+            <Card className="card">
+              <CardHeader className="stepHeader">
+                  <h2 className="stepH2">Perp recovers!</h2>
+                </CardHeader>              
+              <CardBody>
+                <p className="stepP">test</p>
+              </CardBody>
+            </Card>
           </div>
 
           <div className="focal_recovery marker" id="step_8" style={{height: "90vh"}}>
-            <div className="card">
-              <h2 className="stepH2">Remaining Ill and Infected</h2>
-              <p className="stepP">We will then remain ill and infectious for a particular number of days that are specific to our illness.</p>
-            </div>
+            <Card className="card">
+              <CardHeader className="stepHeader">
+                  <h2 className="stepH2">Remaining Ill and Infected</h2>
+                </CardHeader>
+              <CardBody>
+                <p className="stepP">We will then remain ill and infectious for a particular number of days that are specific to our illness.</p>
+              </CardBody>
+            </Card>
           </div>
           <div className="focal_recovery_trigger marker" id="step_9" style={{height: "30vh"}}></div>
           <div className="final_end marker" id="step_9" style={{height: "80vh"}}>
-            <div className="card">
-              <h2 className="stepH2">Recovering from the Illness</h2>
-              <p className="stepP">After a certain number of days we are no longer sick, our body has healed and we are now considered “recovered” and “removed” - not able to get the illness again. We transition to the ”removed” state, where we will remain for the rest of our life.</p>
-            </div>
-          </div>    
+            <Card className="card">
+              <CardHeader className="stepHeader">
+                <h2 className="stepH2">Recovering from the Illness</h2>
+              </CardHeader>
+              <CardBody>
+                <p className="stepP">After a certain number of days we are no longer sick, our body has healed and we are now considered “recovered” and “removed” - not able to get the illness again. We transition to the ”removed” state, where we will remain for the rest of our life.</p>
+              </CardBody>
+            </Card>
+          </div>
           <div className="marker" id="step_buffer" style={{height: "75vh"}}></div>          
 
       </div> {/* closes marker */}

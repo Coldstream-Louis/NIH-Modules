@@ -2,21 +2,18 @@
     width: 35vw;
 }
 .card{
-    color: white;
-    background-color: #323a42;
-    border-radius: 20px;
-    padding: 15px;
+    color: white !important;
+    background-color: #323a42 !important;
+}
+
+.stepHeader{
+    background-color: #282f36 !important;
 }
 .stepP {
-    padding: 0px 15px;
-    margin: 0;
     font-size: 18px;
 }
 
 .stepH2{
-    padding: 0px 15px;
-    padding-bottom: 10px;
-    margin: 0;
     font-weight: 700;
 }
 
