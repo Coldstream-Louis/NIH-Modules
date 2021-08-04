@@ -56,6 +56,9 @@ export default function Module1() {
     // grab the current content
     const elem = ref.current
 
+    // place entire scene in correct position:
+    gsap.to(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
+
     // add tiles to SVG so there are 3 total tiles
     addTiles("moduleSvg", 3)
     let allTiles = gsap.utils.toArray(".tile")
@@ -84,8 +87,6 @@ export default function Module1() {
     gsap.set(elem.querySelector(".full_person"),{x:-80, y: 10})
 
 
-    // place entire scene in correct position:
-    gsap.to(elem.querySelector("#init_scene"), {scaleX: 2.6, scaleY: 2.6, x:40, y: 0});
 
     var make_focal_leg_timeline = (rep) => {
       let focal_legs = gsap.timeline({
@@ -122,29 +123,134 @@ export default function Module1() {
       return focal_legs;
     }
     
+    // ### To S ###
+    var to_s = gsap.timeline({scrollTrigger: {
+      trigger: ".pre_s",
+      start: "top 20%",
+      end: "bottom top",
+      scrub: 1,
+      toggleActions: "reverse none none reset", 
+      markers: true,
+    }});
+
+    var focal_to_s = gsap.timeline();
+    focal_to_s.to(elem.querySelector('.full_person'), {
+      x: -15,
+      y: 45,
+      duration: 2,
+      ease: "none",
+      immediateRender: false,
+    });
+    to_s.add(focal_to_s, "<");
+    to_s.add(make_focal_leg_timeline(2), "<");
+
+    ScrollTrigger.create( {
+      trigger: ".step_s",
+      start: "top 20%",
+      end: "bottom top",
+      onEnter: self => {
+        determineTileColor("#tile1", "susceptible");
+      },
+      onLeaveBack: self => {
+        determineTileColor("#tile1", "");
+      }
+    });
+
+    // ### To I ###
+    var to_i = gsap.timeline({scrollTrigger: {
+      trigger: ".step_s",
+      start: "top 20%",
+      end: "bottom top",
+      scrub: 1,
+      toggleActions: "reverse none none reset", 
+      markers: true,
+    }});
+
+    var focal_to_i = gsap.timeline();
+    focal_to_i.to(elem.querySelector('.full_person'), {
+      x: 115, 
+      y: 114,
+      duration: 2,
+      ease: "none",
+      immediateRender: false,
+    });
+    to_i.add(focal_to_i, "<");
+    to_i.add(make_focal_leg_timeline(2), "<");
+
+    ScrollTrigger.create( {
+      trigger: ".step_i",
+      start: "top 20%",
+      end: "bottom top",
+      onEnter: self => {
+        determineSIR("infectious");
+        determineTileColor("#tile2", "infected");
+      },
+      onLeaveBack: self => {
+        determineSIR("susceptible");
+        determineTileColor("#tile2", "");
+      }
+    });
+
+     // ### To R ######
+     var to_r = gsap.timeline({scrollTrigger: {
+      trigger: ".step_i",
+      start: "top 20%",
+      end: "bottom top",
+      scrub: 1,
+      toggleActions: "reverse none none reset", 
+      markers: true,
+    }});
+
+    var focal_to_r = gsap.timeline();
+    focal_to_r.to(elem.querySelector('.full_person'), {
+      x: 235, 
+      y: 186,
+      duration: 2,
+      ease: "none",
+      immediateRender: false,
+    });
+    to_r.add(focal_to_r, "<");
+    to_r.add(make_focal_leg_timeline(2), "<");
+
+    ScrollTrigger.create( {
+      trigger: ".step_r",
+      start: "top 20%",
+      end: "bottom top",
+      onEnter: self => {
+        determineSIR("recovered");
+        determineTileColor("#tile3", "recovered");
+      },
+      onLeaveBack: self => {
+        determineSIR("infectious");
+        determineTileColor("#tile3", "");
+      }
+    });
 
 
+
+
+    /*
     var master_tl = gsap.timeline();
     
     // create a tween that moves the person and spotlight (full person) 
     // to the correct end position for Module 1
-   master_tl.to(elem.querySelector('.full_person'), {
-      scrollTrigger: {
-        trigger: "#module1markers",
-        start: "top 180",
-        end: "+=2600",
-        // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
-        // onLeave: ()=>{legs_walking_tl.pause();},
-        // onEnterBack: ()=>{legs_walking_tl.play();},
-        // onLeaveBack: ()=>{legs_walking_tl.pause(); },
-        scrub: true,
-        // pin: true,
-        markers: true,
-      },
-      x:450,
-      y:300,
-      ease: "none"
-    });
+    master_tl.to(elem.querySelector('.full_person'), {
+        scrollTrigger: {
+          trigger: "#module1markers",
+          start: "top 180",
+          end: "+=2600",
+          // onEnter: ()=>{legs_walking_tl.play(); master_tl.add(legs_walking_tl); },
+          // onLeave: ()=>{legs_walking_tl.pause();},
+          // onEnterBack: ()=>{legs_walking_tl.play();},
+          // onLeaveBack: ()=>{legs_walking_tl.pause(); },
+          scrub: true,
+          // pin: true,
+          markers: true,
+        },
+        x:450,
+        y:300,
+        ease: "none"
+      });
 
     /*
     x: -80
@@ -267,69 +373,77 @@ export default function Module1() {
     });
 
   */
-    function determineTileColor(module = "module1", tileID){
-      let tileD3 = d3.select(tileID)
-      
-      // console.log("tileID is", tileID)
-      if (module === "module1"){
-        if (tileID === "#tile1"){
-            // console.log("within S")
-            d3.selectAll(".letterR, .letterI").remove()
+    
+    function determineTileColor(tileID, status){
+      if (status == "susceptible"){
+          d3.selectAll(`${tileID} > .letterR`).remove()
+          d3.selectAll(`${tileID} > .letterI`).remove()
+          d3.select(`${tileID}`).append("path").attr("d", sirS).attr('class','letterS')
 
-            tileD3.append('path').attr('d', sirS).attr('class', 'letterS')
+          // update the tile colors
+          d3.select(`${tileID} .topFace`).classed('susTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('recTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
+      } else if (status == "infected"){
+          // console.log("Infected Tiles: ", tileID)
+          // console.log(tileD3)
+          d3.selectAll(`${tileID} > .letterS`).remove()
+          d3.selectAll(`${tileID} > .letterR`).remove()
+          d3.select(`${tileID}`).append("polyline").attr("points", sirI).attr('class','letterI')
 
-            // tile 1 is active, add the fully saturated colors to it
-            d3.select("#tile1 .topFace").classed('susTileTop', true).attr('opacity', 1)
-            d3.select("#tile1 .sideProfile").classed('susTileSide', true).attr('opacity', 1)
+          // update the tile colors
+          d3.select(`${tileID} .topFace`).classed('infTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('susTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('recTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
 
-            // add the colors to tile 2 and 3, but decrease the opacity
-            d3.select("#tile2 .topFace").classed('infTileTop', true).attr('opacity', 0.5)
-            d3.select("#tile2 .sideProfile").classed('infTileSide', true).attr('opacity', 0.5)
-            d3.select("#tile3 .topFace").classed('recTileTop', true).attr('opacity', 0.5)
-            d3.select("#tile3 .sideProfile").classed('recTileSide', true).attr('opacity', 0.5)
+      } else if (status == "recovered"){
+          // console.log("Recovered tiles: ", tileID)
+          d3.selectAll(`${tileID} > .letterS`).remove()
+          d3.selectAll(`${tileID} > .letterI`).remove()
+          d3.select(`${tileID}`).append("path").attr("d", sirR).attr('class','letterR')
 
-        } else if (tileID  === "#tile2"){
-              // console.log("within I")
-              d3.selectAll(".letterS, .letterR").remove()
+          // update the tile colors
+          d3.select(`${tileID} .topFace`).classed('recTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('susTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
+      } else if (status == "") {
+          // console.log("tiles are not S, I, or R")
+          d3.selectAll(`${tileID} > .letterS`).remove()
+          d3.selectAll(`${tileID} > .letterI`).remove()
+          d3.selectAll(`${tileID} > .letterR`).remove()
+         
+          d3.select(`${tileID} .topFace`).classed('susTileTop', true)
+          d3.select(`${tileID} .sideProfile`).classed('susTileSide', true)
+          d3.select(`${tileID} .topFace`).classed('infTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('infTileSide', false)
+          d3.select(`${tileID} .topFace`).classed('recTileTop', false)
+          d3.select(`${tileID} .sideProfile`).classed('recTileSide', false)
+      }
 
-              tileD3.append("polyline").attr("points", sirI).attr('class','letterI')
+    }
+    function resetTileColors(){
+      // console.log("resetTileColors is called")
+      let allTiles = d3.selectAll('.tile')
+      let allTops = d3.selectAll('.topFace')
+      let allSides = d3.selectAll('.sideProfile')
+      allTops.classed('susTileTop', true)
+      allSides.classed('susTileSide', true)
+      allTops.classed('infTileTop', false)
+      allSides.classed('infTileSide', false)
+      allTops.classed('recTileTop', false)
+      allSides.classed('recTileSide', false)
 
-              // tile 2 is active, add the fully saturated colors to it
-              d3.select("#tile2 .topFace").attr('opacity', 1)
-              d3.select("#tile2 .sideProfile").attr('opacity', 1)
-
-              // decrease the opacity of inactive tiles
-              d3.select("#tile1 .topFace").attr('opacity', 0.5)
-              d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-              d3.select("#tile3 .topFace").attr('opacity', 0.5)
-              d3.select("#tile3 .sideProfile").attr('opacity', 0.5)
-
-        } else if (tileID === "#tile3") {
-            // console.log("within R")
-            d3.selectAll(".letterS, .letterI").remove()
-
-            tileD3.append("path").attr("d", sirR).attr('class','letterR')
-
-            // tile 3 is active, add the fully saturated colors to it
-            d3.select("#tile3 .topFace").attr('opacity', 1)
-            d3.select("#tile3 .sideProfile").attr('opacity',1 )
-
-
-            // decrease the opacity of inactive tiles
-            d3.select("#tile1 .topFace").attr('opacity', 0.5)
-            d3.select("#tile1 .sideProfile").attr('opacity', 0.5)
-            d3.select("#tile2 .topFace").attr('opacity', 0.5)
-            d3.select("#tile2 .sideProfile").attr('opacity', 0.5)
-        } else {
-            // console.log("not within SIR")
-            d3.selectAll(".letterS, .letterI, .letterR").remove()
-
-            // if no tiles are active, remove any existing classes and return opacity to 1
-            d3.selectAll(".topFace").attr('class', null).attr('class', 'topFace').attr('opacity', 1)
-            d3.selectAll(".sideProfile").attr('class', null).attr('class', 'sideProfile').attr('opacity', 1)
-        }
-      } //close if module1
-
+      allTiles.selectAll('.letterS, .letterI, .letterR').remove()
+      allTiles.selectAll('polyline').remove()
     }
     
   }, []);
@@ -504,7 +618,7 @@ export default function Module1() {
 
       <div className="" id="" >
 
-        <div style={{height: "25vh"}}></div>
+        <div style={{height: "25vh"}} className="pre_s"></div>
 
         <div className="step_s" id="" style={{height: "75vh", width:"40vw"}}>
           <Card className="card">

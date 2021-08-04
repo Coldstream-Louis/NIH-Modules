@@ -393,7 +393,7 @@ export default function Module2() {
     ScrollTrigger.create({
       trigger: ".focal_recovery_trigger",
       start: "center",
-      end: "bottom",
+      end: "bottom top",
       onEnter: self => determineSIR("recovered"),
       onLeaveBack: self => determineSIR("infectious"),
     });
