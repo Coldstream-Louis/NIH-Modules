@@ -763,40 +763,40 @@ export default function Module2() {
         </g>  {/* closes init_scene group */}
       </svg>
       <div className="markers" id="module2markers" >
-          <div className="sus_step marker" style={{height: "405vh"}}>
+          <div className="sus_step marker" style={{height: "200vh"}}>
             <div>
               <h2>Begin as Susceptible</h2>
               <p>test</p>
             </div> 
           </div>
-          <div className="" id="step_6" style={{height: "20vh"}}>
+          <div className="marker" id="step_6" style={{height: "40vh"}}>
             <div className="card">
               <h2>Interacting with infectious</h2>
               <p>test</p>
             </div>
           </div>
-          <div className="infection_step" id="step_7" style={{height: "80vh"}}>
+          <div className="infection_step marker" id="step_7" style={{height: "80vh"}}>
            <div>
               <h2>Becoming Infected</h2>
               <p>test</p>
             </div>
           </div>
 
-          <div className="perp_recovery" style={{height: "80vh"}}>
+          <div className="perp_recovery marker" style={{height: "80vh"}}>
           <div>
               <h2>Perp recovers!</h2>
               <p>test</p>
             </div>
           </div>
 
-          <div className="focal_recovery" id="step_8" style={{height: "90vh"}}>
+          <div className="focal_recovery marker" id="step_8" style={{height: "90vh"}}>
             <div>
               <h2>Remaining Ill and Infected</h2>
               <p>test</p>
             </div>
           </div>
-          <div className="focal_recovery_trigger" id="step_9" style={{height: "30vh"}}></div>
-          <div className="final_end" id="step_9" style={{height: "80vh"}}>
+          <div className="focal_recovery_trigger marker" id="step_9" style={{height: "30vh"}}></div>
+          <div className="final_end marker" id="step_9" style={{height: "80vh"}}>
             <div>
               <h2>Recovering from the Illness</h2>
               <p>test</p>
