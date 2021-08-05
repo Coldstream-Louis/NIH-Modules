@@ -15,6 +15,7 @@ import './Mod3Styles.css';
 
 // import video
 import Video from './output.mp4'
+
 export default function Module3() {
   // useRef to make sure each page loads its own content
   const ref = useRef(null)
