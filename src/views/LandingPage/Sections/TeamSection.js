@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -23,14 +23,19 @@ import team3 from "assets/img/faces/kendall.jpg";
 const useStyles = makeStyles(styles);
 
 export default function TeamSection() {
+  const ref = useRef(null)
+  
   const classes = useStyles();
   const imageClasses = classNames(
     classes.imgRaised,
     classes.imgRoundedCircle,
     classes.imgFluid
   );
+  useEffect(() =>{
+    window.scrollTo(0, 0)
+  })
   return (
-    <div className={classes.section}>
+    <div className={classes.section} ref={ref}>
       <h2 className={classes.title}>Here is our team</h2>
       <div>
         <GridContainer>

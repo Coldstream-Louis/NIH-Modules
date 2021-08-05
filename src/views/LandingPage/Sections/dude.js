@@ -13,7 +13,7 @@ export default function Dude(props) {
   const classes = useStyles();
   return (
     <div className={classes.parentC}>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.8523 222.5376">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.8523 222.5376" width={'80%'} height={'80%'}>
         <line x1="32.4041" y1="156.7001" x2="32.4041" y2="215.1001" className={classes.st0}/>
         
         <path d="M36.7,217.5l-3.6-2.1a2.1121,2.1121,0,0,1-.8-2.8l.1-.1a2.1121,2.1121,0,0,1,2.8-.8l3.6,2.1a2.1121,2.1121,0,0,1,.8,2.8l-.1.1A2.0852,2.0852,0,0,1,36.7,217.5Z" transform="translate(0.0041 1.3001)" className={classes.st1}/>

@@ -1,6 +1,6 @@
 const dudeStyle = {
   dude : {
-    width: "100%"
+    width: '20%'
   },
   parentC:{
     // width:"80%",

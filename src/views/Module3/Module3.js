@@ -19,6 +19,7 @@ import Video from './output.mp4'
 export default function Module3() {
   // useRef to make sure each page loads its own content
   const ref = useRef(null)
+  
   useEffect(() => {
     // // bump position to top of page
     window.scrollTo(0, 0)
