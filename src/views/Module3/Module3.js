@@ -16,8 +16,6 @@ import './Mod3Styles.css';
 // import video
 import Video from './output.mp4'
 export default function Module3() {
-
-
   // useRef to make sure each page loads its own content
   const ref = useRef(null)
   useEffect(() => {
@@ -37,8 +35,8 @@ export default function Module3() {
     gsap.to(elem.querySelector('#video'),
     {
       scrollTrigger:{      
-        trigger: elem.querySelector('.markers'),
-        start: "top 70",
+        trigger: elem.querySelector('.scrollingContainerM3'),
+        start: "top top",
         end: "bottom top",
         pin: true,
         markers: true,
@@ -81,18 +79,24 @@ export default function Module3() {
           video.style.left= 0
           video.style.right= 0
           video.style.padding = '15px'
+          // var markers = elem.querySelector("#module3markers")
+          // markers.style.height = "1250vh"
         },
         onLeave: () => {
           console.log("leave")
           var video = elem.querySelector('.vidDiv')
           video.style.position= 'relative'
           video.style.padding = 0
+          // var markers = elem.querySelector("#module3markers")
+          // markers.style.height = 0
         },
         onLeaveBack: () => {
           console.log("leaveback")
           var video = elem.querySelector('.vidDiv')
           video.style.position= 'relative'
           video.style.padding = 0
+          // var markers = elem.querySelector("#module3marker")
+          // markers.style.height = 0
         },
       }
     })
@@ -117,7 +121,7 @@ export default function Module3() {
     <div className="textContainer">
       <p>Let’s take a step by step walk through an SIR model.</p>
     </div> {/* closes textContainer */}
-    <div className="scrollingContainer">
+    <div className="scrollingContainerM3">
     <div className="vidDiv">
       <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" className="video-background" >
       </video>      
