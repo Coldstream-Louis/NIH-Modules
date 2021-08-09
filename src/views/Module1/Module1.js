@@ -14,18 +14,27 @@ import CardBody from "components/Card/CardBody.js";
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import styles
+
+// import styles (svg)
 import './Mod1Styles.css';
+// @material-ui/core components
+// make styles
+import { makeStyles } from "@material-ui/core/styles";
+import styles from "assets/jss/material-kit-react/views/mod1styles.js";
+
+// import compartmental model svg
 import SvgImg from './svgImg.js'
-// import d3
-import * as d3 from "d3";
 
 // import three functions: determineSIR, addTiles, and determineTileColor from external JS sources
 import {determineSIR} from 'utilityfunctions/determineSIR.js'
 import {addTiles} from 'utilityfunctions/addTiles.js'
 import {determineTileColor} from "utilityfunctions/determineTileColor.js"
 
+const useStyles = makeStyles(styles);
+
 export default function Module1() {
+  // classes = styles; each style called by using {classes._classname_}
+  const classes = useStyles();
   // useState to set if figure is on S, I, or R
   // const [stepSIR, setSIR] = useState(sirBase);
 
@@ -171,11 +180,11 @@ export default function Module1() {
       start: "top 20%",
       end: "bottom top",
       onEnter: self => {
-        determineSIR("infectious");
+        determineSIR("mod1","infectious");
         determineTileColor("#tile2", "infected");
       },
       onLeaveBack: self => {
-        determineSIR("susceptible");
+        determineSIR("mod1","susceptible");
         determineTileColor("#tile2", "");
       }
     });
@@ -206,11 +215,11 @@ export default function Module1() {
       start: "top 20%",
       end: "bottom top",
       onEnter: self => {
-        determineSIR("recovered");
+        determineSIR("mod1","recovered");
         determineTileColor("#tile3", "recovered");
       },
       onLeaveBack: self => {
-        determineSIR("infectious");
+        determineSIR("mod1","infectious");
         determineTileColor("#tile3", "");
       }
     });
@@ -229,15 +238,15 @@ export default function Module1() {
           // routes={dashboardRoutes}
           rightLinks={<HeaderLinks />}
        />
-  <div className="mainContainer fixedParent">
-    <h1 className = "sectionTitle">
+  <div className={classes.mainContainer}>
+    <h1 className = {classes.sectionTitle}>
       Module 1: What is SIR?
     </h1>
-    <div className="textContainer">
+    <div className={classes.textContainer}>
       <p>We will begin this section by learning how  to break up a disease’s natural history into discrete steps. </p>
       <p>Broadly, we can think of existing in one of three states:</p>
     </div> {/* closes textContainer */}
-    <div id = "moduleSvgDiv" className="scrollingContainer">
+    <div id = "moduleSvgDiv" className={classes.scrollingContainer}>
       <svg id="moduleSvg" width="70%" height="50%" viewBox="0 0 2000 1600">
         <g className="tilegroup">
         </g> 
@@ -369,18 +378,6 @@ export default function Module1() {
               </linearGradient>
               <path id="lightbeam" className="lightbeam_st" d="M163.9,402.5H53.3C5,402.5-12.7,310.4,9.4,235L78,0h61.2l68.6,235
                 C229.8,310.4,212.2,402.5,163.9,402.5z"/>
-              {/* <defs>
-                <linearGradient id="a" x1="106.0809" x2="106.0809" y2="353.0612" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stopColor="#fff"/>
-                  <stop offset="0.1244" stopColor="#fff" stopOpacity="0.8137"/>
-                  <stop offset="0.3042" stopColor="#fff" stopOpacity="0.5696"/><stop offset="0.4768" stopColor="#fff" stopOpacity="0.3661"/>
-                  <stop offset="0.6372" stopColor="#fff" stopOpacity="0.2075"/>
-                  <stop offset="0.7827" stopColor="#fff" stopOpacity="0.0937"/>
-                  <stop offset="0.9084" stopColor="#fff" stopOpacity="0.0245"/>
-                  <stop offset="1" stopColor="#fff" stopOpacity="0"/>
-                </linearGradient>
-              </defs>
-              <path id="spotlightpath" d="M106.0809,0,6.0487,243.3674C-15.45,295.6717,23.0093,353.0612,79.56,353.0612h53.0427c56.55,0,95.01-57.3895,73.5108-109.6938Z"/> */}
             </g> {/* closes spotlight group */}
           </g>  {/* closes full_person group */}
         </g>  {/* closes init_scene group */}
@@ -391,34 +388,34 @@ export default function Module1() {
         <div style={{height: "25vh"}} className="pre_s"></div>
 
         <div className="step_s" id="" style={{height: "60vh", width:"40vw"}}>
-          <Card className="card">
-            <CardHeader className="stepHeader">
-              <h2 className="stepH2">S: Susceptible</h2>
+          <Card className={classes.card}>
+            <CardHeader className={classes.stepHeader}>
+              <h2 className={classes.stepH2}>S: Susceptible</h2>
             </CardHeader>
             <CardBody>
-            <p className="stepP"><b>Susceptible (S)</b> to an infection.</p>
+            <p className={classes.stepP}><b>Susceptible (S)</b> to an infection.</p>
             </CardBody>
           </Card>
         </div>
 
         <div className="step_i" id="" style={{height: "60vh", width:"40vw"}}>
-          <Card className="card">
-            <CardHeader className="stepHeader">
-              <h2 className="stepH2">I: Infectious</h2>
+          <Card className={classes.card}>
+            <CardHeader className={classes.stepHeader}>
+              <h2 className={classes.stepH2}>I: Infectious</h2>
             </CardHeader>
             <CardBody>
-            <p className="stepP">Being <b>infected</b> and <b>infectious (I)</b>.</p>
+            <p className={classes.stepP}>Being <b>infected</b> and <b>infectious (I)</b>.</p>
             </CardBody>
           </Card>
         </div>
 
         <div className="step_r" id="" style={{height: "60vh", width:"40vw"}}>
-          <Card className="card">
-              <CardHeader className="stepHeader">
-                <h2 className="stepH2">R: Removed</h2>
+          <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                <h2 className={classes.stepH2}>R: Removed</h2>
               </CardHeader>
               <CardBody>
-              <p className="stepP">And <b>recovered</b> from the infection and <b>removed (R)</b> from the group of people who are susceptible to the illness.</p>
+              <p className={classes.stepP}>And <b>recovered</b> from the infection and <b>removed (R)</b> from the group of people who are susceptible to the illness.</p>
               </CardBody>
             </Card>          
         </div>
@@ -428,11 +425,11 @@ export default function Module1() {
         </div>
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
-    <p className = "moduleText">We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p>
-    <p className = "moduleText">This type of categorization is the foundation of a type of models called a <b>compartmental model</b>.</p>
+    <p className={classes.moduleText}>We will discuss situations in which this isn't always the case later, but for our purposes now, these three categories are sufficient.</p>
+    <p className={classes.moduleText}>This type of categorization is the foundation of a type of models called a <b>compartmental model</b>.</p>
     <SvgImg/>
-    <p className = "moduleText">These models are handy because they are easily adapted to simulate different transmission scenarios.</p>
-    <p className = "moduleText">The model type most often used is a <b>Susceptible, Infected, Recovered</b> Model or an <b>SIR Model</b>.</p>
+    <p className={classes.moduleText}>These models are handy because they are easily adapted to simulate different transmission scenarios.</p>
+    <p className={classes.moduleText}>The model type most often used is a <b>Susceptible, Infected, Recovered</b> Model or an <b>SIR Model</b>.</p>
     
     {/* <Link to="/Module2" className={classes.navLink}> */}
         <Button component={Link} to ="/Module2" size="lg" round>

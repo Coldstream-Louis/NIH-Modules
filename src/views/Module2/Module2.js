@@ -15,9 +15,6 @@ import CardBody from "components/Card/CardBody.js";
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// import d3
-import * as d3 from "d3";
-
 // import three functions: determineSIR, addTiles (horizontal and regular), and determineTileColor from external JS sources
 import {determineSIR, determineSIRPerp} from 'utilityfunctions/determineSIR.js'
 import {addTiles, addTilesHorizontal} from 'utilityfunctions/addTiles.js'
@@ -25,10 +22,17 @@ import {determineTileColor} from "utilityfunctions/determineTileColor.js"
 
 // import styles
 import './Mod2Styles.css';
+// @material-ui/core components
+// make styles
+import { makeStyles } from "@material-ui/core/styles";
+import styles from "assets/jss/material-kit-react/views/mod2styles.js";
 
+const useStyles = makeStyles(styles);
 
 export default function Module2() {
- 
+   // classes = styles; each style called by using {classes._classname_}
+   const classes = useStyles();
+
   // useState to set if figure is on S, I, or R
   // const [stepSIR, setSIR] = useState(sirBase);
 
@@ -62,7 +66,7 @@ export default function Module2() {
     gsap.set(elem.querySelector("#spotlight"), {x:-40 , y:-100, scaleX:.8, scaleY:.8})
 
     // set the figure back to "susceptible" body state
-    determineSIR("susceptible")    
+    determineSIR("mod2","susceptible")    
     
     //break these timelines down a bit more... 
     // create a timeline that moves the legs:
@@ -207,7 +211,7 @@ export default function Module2() {
 
     //we actually want this person to start infectious, otherwise
     //we have to explain why he became infectious all of a sudden?
-    determineSIRPerp("infectious")
+    determineSIRPerp("mod2","infectious")
 
     determineTileColor("#tileH1", "infected")
     determineTileColor("#tileH3", "infected")
@@ -271,7 +275,7 @@ export default function Module2() {
       start: "top 20%",
       end: "bottom top",
       onEnter: self => {
-        determineSIR("infectious");
+        determineSIR("mod2","infectious");
         determineTileColor("#tile6", "infected");
         determineTileColor("#tile7", "infected");
         determineTileColor("#tile8", "infected");
@@ -281,7 +285,7 @@ export default function Module2() {
 
       },
       onLeaveBack: self => {
-        determineSIR("susceptible");
+        determineSIR("mod2","susceptible");
         determineTileColor("#tile6", "") 
         determineTileColor("#tile7", "") 
         determineTileColor("#tile8", "") 
@@ -336,8 +340,8 @@ export default function Module2() {
       trigger: elem.querySelector(".perp_recovery"),
       start: "top 20%",
       end: "bottom top",
-      onEnter: self => determineSIRPerp("recovered"),
-      onLeaveBack: self => determineSIRPerp("infectious"),
+      onEnter: self => determineSIRPerp("mod2","recovered"),
+      onLeaveBack: self => determineSIRPerp("mod2","infectious"),
     })
 
     // ### Focal Person Recovery ### 
@@ -383,8 +387,8 @@ export default function Module2() {
       trigger: elem.querySelector(".focal_recovery_trigger"),
       start: "center",
       end: "bottom top",
-      onEnter: self => determineSIR("recovered"),
-      onLeaveBack: self => determineSIR("infectious"),
+      onEnter: self => determineSIR("mod2","recovered"),
+      onLeaveBack: self => determineSIR("mod2","infectious"),
     });
 
     //#### Walk To End #####
@@ -438,14 +442,14 @@ export default function Module2() {
           rightLinks={<HeaderLinks />}
        />
 
-<div className="mainContainer fixedParent">
-    <h1 className = "sectionTitle">
+<div className={classes.mainContainer}>
+    <h1 className = {classes.sectionTitle}>
       Module 2: Walking Through the SIR Model
     </h1>
-    <div className="textContainer">
+    <div className={classes.textContainer}>
       <p>Let’s take a step by step walk through an SIR model.</p>
     </div> {/* closes textContainer */}
-    <div id = "moduleSvgDiv" className="scrollingContainer">
+    <div id = "moduleSvgDiv" className={classes.scrollingContainer}>
       <svg id="moduleSvg" width="50%" height="30%" viewBox="0 0 2000 1600">
         <g className="tilegroup">
         </g> 
@@ -685,68 +689,68 @@ export default function Module2() {
           </g> {/* closes perpendicularPerson */}
         </g>  {/* closes init_scene group */}
       </svg>
-      <div className="markers" id="module2markers" >
+      <div className={classes.markers}>
           <div className="sus_step marker" style={{height: "200vh"}}>
-              <Card className="card">
-                <CardHeader className="stepHeader">
-                    <h2 className="stepH2">Begin as Susceptible</h2>
+              <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Begin as Susceptible</h2>
                   </CardHeader>                
                 <CardBody>
-                  <p className="stepP">We begin by being susceptible to a disease.</p>
+                  <p className={classes.stepP}>We begin by being susceptible to a disease.</p>
                 </CardBody>
               </Card>
           </div>
           <div className="marker" id="step_6" style={{height: "40vh"}}>
-            <Card className="card">
-              <CardHeader className="stepHeader">
-                  <h2 className="stepH2">Interacting with infectious</h2>
+            <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                  <h2 className={classes.stepH2}>Interacting with infectious</h2>
                 </CardHeader>              
               <CardBody>
-                <p className="stepP">As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
+                <p className={classes.stepP}>As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
               </CardBody>
             </Card>
 
           </div>
           <div className="infection_step marker" id="step_7" style={{height: "80vh"}}>
-            <Card className="card">
-              <CardHeader className="stepHeader">
-                  <h2 className="stepH2">Becoming Infected</h2>
+            <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                  <h2 className={classes.stepH2}>Becoming Infected</h2>
                 </CardHeader>              
               <CardBody>
-                <p className="stepP">From this chance encounter, we become infected with the illness too. Soon we begin to feel ill, and pass from the “susceptible” state to the “infected/ill” state. </p>
+                <p className={classes.stepP}>From this chance encounter, we become infected with the illness too. Soon we begin to feel ill, and pass from the “susceptible” state to the “infected/ill” state. </p>
               </CardBody>
             </Card>
           </div>
 
           <div className="perp_recovery marker" style={{height: "80vh"}}>
-            <Card className="card">
-              <CardHeader className="stepHeader">
-                  <h2 className="stepH2">Perp recovers!</h2>
+            <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                  <h2 className={classes.stepH2}>Perp recovers!</h2>
                 </CardHeader>              
               <CardBody>
-                <p className="stepP">test</p>
+                <p className={classes.stepP}>test</p>
               </CardBody>
             </Card>
           </div>
 
           <div className="focal_recovery marker" id="step_8" style={{height: "90vh"}}>
-            <Card className="card">
-              <CardHeader className="stepHeader">
-                  <h2 className="stepH2">Remaining Ill and Infected</h2>
+            <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                  <h2 className={classes.stepH2}>Remaining Ill and Infected</h2>
                 </CardHeader>
               <CardBody>
-                <p className="stepP">We will then remain ill and infectious for a particular number of days that are specific to our illness.</p>
+                <p className={classes.stepP}>We will then remain ill and infectious for a particular number of days that are specific to our illness.</p>
               </CardBody>
             </Card>
           </div>
           <div className="focal_recovery_trigger marker" id="step_9" style={{height: "30vh"}}></div>
           <div className="final_end marker" id="step_9" style={{height: "80vh"}}>
-            <Card className="card">
-              <CardHeader className="stepHeader">
-                <h2 className="stepH2">Recovering from the Illness</h2>
+            <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                <h2 className={classes.stepH2}>Recovering from the Illness</h2>
               </CardHeader>
               <CardBody>
-                <p className="stepP">After a certain number of days we are no longer sick, our body has healed and we are now considered “recovered” and “removed” - not able to get the illness again. We transition to the ”removed” state, where we will remain for the rest of our life.</p>
+                <p className={classes.stepP}>After a certain number of days we are no longer sick, our body has healed and we are now considered “recovered” and “removed” - not able to get the illness again. We transition to the ”removed” state, where we will remain for the rest of our life.</p>
               </CardBody>
             </Card>
           </div>
@@ -754,9 +758,9 @@ export default function Module2() {
 
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
-    <p className = "moduleText">This type of categorization is the foundation of a group of models often used to study diseases called <b>compartmental models</b>.</p>
-    <p className = "moduleText">These models are handy because they are easily adapted to model different transmission scenarios.</p>
-    <p className = "moduleText">The model type most often used is a <b>Susceptible, Infected, Recovered Model</b> or an <b>SIR Model</b>.</p>
+    <p className={classes.moduleText}>This type of categorization is the foundation of a group of models often used to study diseases called <b>compartmental models</b>.</p>
+    <p className={classes.moduleText}>These models are handy because they are easily adapted to model different transmission scenarios.</p>
+    <p className={classes.moduleText}>The model type most often used is a <b>Susceptible, Infected, Recovered Model</b> or an <b>SIR Model</b>.</p>
   <Button component={Link} to ="/Module1" size="lg" round>
   &#8592; Go back to Module 1
   </Button>

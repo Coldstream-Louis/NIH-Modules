@@ -1,4 +1,4 @@
-const mod1Style = {
+const mod2Style = {
   mainContainer:{
     margin: '15px',
     backgroundColor: '#1c2530',
@@ -39,6 +39,9 @@ const mod1Style = {
   moduleText:{
       fontSize:'18px',
   },
+  markers:{
+    width: "35vw",
+  }
 }
 
-export default mod1Style;
+export default mod2Style;

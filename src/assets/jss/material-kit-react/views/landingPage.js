@@ -47,7 +47,14 @@ const landingPageStyle = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
-  }
+  },
+  card: {
+    color: "white",
+    backgroundColor:"#323a42"
+  },
+  stepHeader:{
+      backgroundColor: "#282f36"
+  },
 };
 
 export default landingPageStyle;

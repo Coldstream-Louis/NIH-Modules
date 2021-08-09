@@ -1,30 +1,6 @@
 html, #root{
     background-color: #1c2530;
 }
-.mainContainer{
-    margin: 15px;
-    color: white;
-    text-align: center;
-}
-
-.fixedParent{
-    padding-top: 80px;
-}
-
-.scrollingContainer {
-    width: 100%;
-    height: 100%;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.textContainer > p{
-    font-size: 18px;
-    margin: 15px;
-}
-
 #moduleSvg{
     /* background-color: white; */
     position: -webkit-sticky; 
@@ -36,61 +12,6 @@ html, #root{
     /* align-self: flex-start; */
 }
 
-.scrollTextContainer{
-    min-width:45%;
-    max-width: 45%;
-    /* position: -webkit-sticky; */
-    position: fixed;
-    right: 0;
-    /* overflow: "visible"; */
-    /* height: 200px; */
-    align-self: flex-start;
-    padding: 15px;
-    vertical-align: middle;
-}
-
-.sectionTitle{
-    padding: 15px 0px;
-}
-
-.moduleText{
-    font-size:18px;
-}
-
-#scrollText{
-    font-size: 18px;
-    padding: 15px;
-}
-#scrollHeader{
-    font-weight: bold;
-    margin: 0;
-}
-
-.markers{
-    display: block;
-    width:1vh;
-}
-.marker{
-    width: 100%;
-    /* color: #00e5ff; */
-    height: 100%;
-}
-
-.card{
-    color: white !important;
-    background-color: #323a42 !important;
-}
-
-.stepHeader{
-    background-color: #282f36 !important;
-}
-.stepP {
-    font-size: 18px;
-}
-
-.stepH2{
-    font-weight: 700;
-}
 
 .st0{fill:none;stroke:#C49A6C;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
 .st1{fill:#231F20;stroke:#231F20;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
@@ -139,11 +60,6 @@ html, #root{
 
 #spotlightpath{
     fill:url(#a)
-}
-
-/* no visibility default for wg */
-.perpendicularPerson{
-    visibility: hidden;
 }
 
 /* tiles */

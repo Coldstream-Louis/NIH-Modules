@@ -56,8 +56,8 @@ export default function LandingPage() {
               <Dude></Dude>
             </GridItem>
             <GridItem xs={8} sm={8} md={8} className={classes.withButton}>
-            <Card className="card">
-              <CardHeader className="stepHeader">
+            <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
               <h4 className={classes.h4}>Learn about different data models using this easy-to-follow visual journey.</h4>
               </CardHeader>
               <CardBody className={classes.theButton}>
