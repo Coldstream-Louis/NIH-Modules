@@ -9,6 +9,10 @@ import Button from "components/CustomButtons/Button.js";
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
+
 
 // import styles
 import './Mod3Styles.css';
@@ -38,15 +42,15 @@ export default function Module3() {
     {
       scrollTrigger:{      
         trigger: elem.querySelector('.scrollingContainerM3'),
-        start: "top top",
+        start: "top 20%",
         end: "bottom top",
         pin: true,
         markers: true,
         onUpdate: () =>{
           var video = elem.querySelector('#video'),
           videoLength = video.duration,
-          scrollPosition = window.scrollY-81; //scrollY triggered at 81 down from top, so subtracted this
-          let vidDiv = elem.querySelector('.markers').clientHeight
+          scrollPosition = window.scrollY; //scrollY triggered at 81 down from top, so subtracted this
+          let vidDiv = elem.querySelector('.scrollingContainerM3').clientHeight
           // console.log('video length', videoLength)
           // console.log('scrollPosition', window.scrollY)
           // console.log('vidDiv height', vidDiv )
@@ -130,16 +134,15 @@ export default function Module3() {
 
       </div>
       <div className="scrollTextContainer">
-
+        <Card className="card">
+                <CardHeader className="stepHeader">
+                    <h2 className="">Interacting with infectious</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className="">As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
+                </CardBody>
+        </Card>
       </div> {/* closes scrollingTextContainer */}
-      <div className="markers" id="module3markers" >
-          <div className="marker" id="step_10" style={{height: "250vh"}}></div>
-          <div className="marker" id="step_11" style={{height: "250vh"}}></div>
-          <div className="marker" id="step_12" style={{height: "250vh"}}></div>
-          <div className="marker" id="step_13" style={{height: "250vh"}}></div>
-          <div className="marker" id="step_14" style={{height: "250vh"}}></div>            
-      </div>
-      
 
     </div> {/* closes scrollingContainer */}
   {/* <div className="mainContainer fixedParent">
