@@ -17,7 +17,8 @@ import AboutUs from "views/AboutUs/AboutUs.js"
 function App() {
   return (
     <div>
-      <Router forceRefresh={true}>
+      <Router forceRefresh={true}> 
+      {/* forceRefresh!! this solves the page loading the previous code issue */}
         <Switch>
           <Route exact path="/module1" >
             <Module1 />
