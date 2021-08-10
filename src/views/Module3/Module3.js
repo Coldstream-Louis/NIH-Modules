@@ -9,9 +9,9 @@ import Button from "components/CustomButtons/Button.js";
 // import GSAP and necessary plugins
 import {gsap, CSSPlugin} from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import Card from "components/Card/Card.js";
-// import CardHeader from "components/Card/CardHeader.js";
-// import CardBody from "components/Card/CardBody.js";
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
 
 // import video
 import Video from './output.mp4'
@@ -19,7 +19,7 @@ import Video from './output.mp4'
 // @material-ui/core components
 // make styles
 import { makeStyles } from "@material-ui/core/styles";
-import styles from "assets/jss/material-kit-react/views/mod2styles.js";
+import styles from "assets/jss/material-kit-react/views/mod3styles.js";
 
 const useStyles = makeStyles(styles);
 export default function Module3() {
@@ -75,7 +75,6 @@ export default function Module3() {
         },
         onEnter: () => {
           console.log("enter")
-
           // var video = elem.querySelector('#vidDiv')
           // video.style.position="fixed"
           // video.style.top='70px'
@@ -91,24 +90,21 @@ export default function Module3() {
           // video.style.left= 0
           // video.style.right= 0
           // video.style.padding = '15px'
-          // var markers = elem.querySelector("#module3markers")
-          // markers.style.height = "1250vh"
+
         },
         onLeave: () => {
           console.log("leave")
           // var video = elem.querySelector('#vidDiv')
           // video.style.position= 'relative'
           // video.style.padding = 0
-          // var markers = elem.querySelector("#module3markers")
-          // markers.style.height = 0
+
         },
         onLeaveBack: () => {
           console.log("leaveback")
           // var video = elem.querySelector('#vidDiv')
           // video.style.position= 'relative'
           // video.style.padding = 0
-          // var markers = elem.querySelector("#module3marker")
-          // markers.style.height = 0
+
         },
       }
     })
@@ -134,12 +130,20 @@ export default function Module3() {
       <p>Let’s take a step by step walk through an SIR model.</p>
     </div> {/* closes textContainer */}
     <div className={classes.scrollingContainer} id="scrollingContainer">
-    <div className={classes.vidDiv} id="vidDiv">
+      <div className={classes.vidDiv} id="vidDiv">
       <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="100%" >
       </video>      
-
       </div>
-
+      <div className={classes.scrollingTextContainer}>
+        <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Interacting with infectious</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
+                </CardBody>
+        </Card>
+      </div> {/* closes scrollingTextContainer */}
     </div> {/* closes scrollingContainer */}
 
     <Button component={Link} to ="/Module2" size="lg" round>

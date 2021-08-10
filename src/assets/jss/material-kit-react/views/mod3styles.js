@@ -15,6 +15,15 @@ const mod3Style = {
       justifyContent: 'center',
       alignItems:"flex-start"
   },
+  scrollingTextContainer: {
+    minWidth:"45%",
+    maxWidth: "45%",
+    position: "fixed",
+    right: 0,
+    alignSelf: "flex-start",
+    padding: '15px',
+    verticalAlign: "middle",
+  },
   textContainer:{ 
       '& p':{
         fontSize: '18px',
