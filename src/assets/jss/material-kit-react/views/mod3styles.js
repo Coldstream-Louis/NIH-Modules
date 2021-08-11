@@ -7,22 +7,12 @@ const mod3Style = {
     paddingTop: '80px',
   },
   scrollingContainer :{
-      width: '100%',
-      color: 'white',
-      padding: '15px',
-      display: 'flex',
-      flexDirection:"column",
-      justifyContent: 'center',
-      alignItems:"flex-start"
-  },
-  scrollingTextContainer: {
-    minWidth:"45%",
-    maxWidth: "45%",
-    position: "fixed",
-    right: 0,
-    alignSelf: "flex-start",
+    width: '100%',
+    height: '100%',
+    color: 'white',
     padding: '15px',
-    verticalAlign: "middle",
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   textContainer:{ 
       '& p':{

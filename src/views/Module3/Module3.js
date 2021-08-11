@@ -74,38 +74,30 @@ export default function Module3() {
           // video.currentTime = myTime
         },
         onEnter: () => {
-          console.log("enter")
-          // var video = elem.querySelector('#vidDiv')
-          // video.style.position="fixed"
-          // video.style.top='70px'
-          // video.style.left= 0
-          // video.style.right= 0
-          // video.style.padding = '15px'
-        },
-        onEnterBack: () => {
-          console.log("enterback")
-          // var video = elem.querySelector('#vidDiv')
-          // video.style.position="fixed"
-          // video.style.top='70px'
-          // video.style.left= 0
-          // video.style.right= 0
-          // video.style.padding = '15px'
+            // video trigger create
+            ScrollTrigger.create( {
+              trigger: elem.querySelector(".text1div"),
+              start: "top 20%",
+              end: "bottom top",
+              scrub: true,
+              marker: true,
+            });
+            ScrollTrigger.create( {
+              trigger: elem.querySelector(".text2div"),
+              start: "top 20%",
+              end: "bottom top",
+              scrub: true,
+              marker: true,
+            });
+            ScrollTrigger.create( {
+              trigger: elem.querySelector(".text3div"),
+              start: "top 20%",
+              end: "bottom top",
+              scrub: true,
+              marker: true,
+            });
 
-        },
-        onLeave: () => {
-          console.log("leave")
-          // var video = elem.querySelector('#vidDiv')
-          // video.style.position= 'relative'
-          // video.style.padding = 0
-
-        },
-        onLeaveBack: () => {
-          console.log("leaveback")
-          // var video = elem.querySelector('#vidDiv')
-          // video.style.position= 'relative'
-          // video.style.padding = 0
-
-        },
+        }
       }
     })
 
@@ -124,26 +116,49 @@ export default function Module3() {
         />
 <div className={classes.mainContainer}>
     <h1 className = {classes.sectionTitle}>
-      Module 2: Walking Through the SIR Model
+      Module 3: SIR on a Larger Scale
     </h1>
     <div className={classes.textContainer}>
-      <p>Let’s take a step by step walk through an SIR model.</p>
+      <p>Let's see what the SIR model looks like at a larger scale.</p>
     </div> {/* closes textContainer */}
     <div className={classes.scrollingContainer} id="scrollingContainer">
       <div className={classes.vidDiv} id="vidDiv">
       <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="100%" >
       </video>      
       </div>
-      <div className={classes.scrollingTextContainer}>
+      <div className="cardsDiv">
+        <div className="text1div" id="" style={{height: "60vh", width:"40vw"}}>
+          <Card className={classes.card}>
+            <CardHeader className={classes.stepHeader}>
+                <h2 className={classes.stepH2}>Card 1</h2>
+              </CardHeader>              
+            <CardBody>
+              <p className={classes.stepP}>Card 1 text.</p>
+            </CardBody>
+          </Card>
+        </div>
+        <div className="text2div" id="" style={{height: "60vh", width:"40vw"}}>
         <Card className={classes.card}>
-                <CardHeader className={classes.stepHeader}>
-                    <h2 className={classes.stepH2}>Interacting with infectious</h2>
-                  </CardHeader>              
-                <CardBody>
-                  <p className={classes.stepP}>As we move about our life, we may interact with someone who is infected with an agent and is able to transmit it to others.</p>
-                </CardBody>
-        </Card>
-      </div> {/* closes scrollingTextContainer */}
+            <CardHeader className={classes.stepHeader}>
+                <h2 className={classes.stepH2}>Card 2</h2>
+              </CardHeader>              
+            <CardBody>
+              <p className={classes.stepP}>Card 2 text.</p>
+            </CardBody>
+          </Card>
+        </div>
+        <div className="text3div" id="" style={{height: "60vh", width:"40vw"}}>
+        <Card className={classes.card}>
+            <CardHeader className={classes.stepHeader}>
+                <h2 className={classes.stepH2}>Card 3</h2>
+              </CardHeader>              
+            <CardBody>
+              <p className={classes.stepP}>Card 3 text.</p>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+
     </div> {/* closes scrollingContainer */}
 
     <Button component={Link} to ="/Module2" size="lg" round>

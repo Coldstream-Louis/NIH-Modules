@@ -41,6 +41,36 @@ const mod2Style = {
   },
   markers:{
     width: "35vw",
+  },
+  toMod3Buffer: {
+    display: "flex",
+    flexDirection:"column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // backgroundColor: "white",
+    // backgroundImage:"linear-gradient(180deg, rgba(28, 37, 48,1), rgba(0,0,0,0)) !important"
+  },
+  toM3Other:{
+    display: "flex",
+    flexDirection:"column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // backgroundColor: "white",
+    // backgroundImage:"linear-gradient(180deg, rgba(28, 37, 48,1), rgba(0,0,0,0)) !important"
+    '& p':{
+      padding: '0px 90px',
+      color:'#1c2530'
+    },
+  },
+  vidImg: {
+    width:"60%",
+    padding: "15px"
+  },
+  whiteTransitionDiv:{
+    height: "20vh",
+    width: "100%",
+    // border: "2px solid red",
+
   }
 }
 

@@ -42,7 +42,7 @@ export default function HeaderLinks(props) {
             Module 2: Walking Through the SIR Model
           </Link>,
           <Link to="/Module3" className={classes.dropdownLink}>
-          Module 3: Video
+          Module 3: SIR on a Larger Scale
         </Link>,          
           ]}
       />

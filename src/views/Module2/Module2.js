@@ -27,6 +27,9 @@ import './Mod2Styles.css';
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-kit-react/views/mod2styles.js";
 
+// import frame 1 of video for mod 3
+import * as vidImg from 'assets/img/module2/mod3screen.jpg'
+
 const useStyles = makeStyles(styles);
 
 export default function Module2() {
@@ -428,6 +431,51 @@ export default function Module2() {
     final_tl.add(focal_final, "<");
     final_tl.add(perp_final, "<");
 
+    // step_buffer hides and shows the svg
+    ScrollTrigger.create({
+      trigger: elem.querySelector("#step_buffer"),
+      start: "center",
+      end: "bottom top",
+      onEnter: () => {
+        let svgStuff = elem.querySelector("#moduleSvg")
+        svgStuff.style.opacity = 0
+        svgStuff.style.transition = "opacity 1.5s ease"
+      },
+      onLeaveBack: () => {
+        let svgStuff = elem.querySelector("#moduleSvg")
+        svgStuff.style.opacity = 1
+        svgStuff.style.transition = "opacity 1.5s ease"
+      },
+    });
+
+    // fade to white div
+    ScrollTrigger.create({
+      trigger: elem.querySelector("#toM3Buffer"),
+      start: "top bottom",
+      end: "bottom bottom",
+      markers: true,
+      onEnter: () => {
+        console.log("entered")
+        let wtd = elem.querySelector("#whiteTransitionDiv")
+        wtd.style.backgroundImage = "linear-gradient(180deg, rgba(28, 37, 48,1), rgba(0,0,0,0))"
+        wtd.style.backgroundColor = "white"
+        wtd.style.transition = "background 1.5s ease"
+        let m3Other = elem.querySelector("#toM3Other")
+        m3Other.style.backgroundColor = "white"
+        m3Other.style.transition = "background 1.5s ease"
+      },
+      onLeaveBack: () => {
+        console.log("left")
+        let wtd = elem.querySelector("#whiteTransitionDiv")
+        wtd.style.backgroundColor = '#1c2530'
+        wtd.style.transition = "background 1.5s ease"
+        let m3Other = elem.querySelector("#toM3Other")
+        m3Other.style.backgroundColor = "#1c2530"
+        m3Other.style.transition = "background 1.5s ease"        
+      }
+    });
+
+
   }, []);
 
   // what is rendered:
@@ -754,13 +802,21 @@ export default function Module2() {
               </CardBody>
             </Card>
           </div>
-          <div className="marker" id="step_buffer" style={{height: "75vh"}}></div>          
+          <div className="marker" id="step_buffer" style={{height: "150vh"}}></div>          
 
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
     <p className={classes.moduleText}>This type of categorization is the foundation of a group of models often used to study diseases called <b>compartmental models</b>.</p>
     <p className={classes.moduleText}>These models are handy because they are easily adapted to model different transmission scenarios.</p>
     <p className={classes.moduleText}>The model type most often used is a <b>Susceptible, Infected, Recovered Model</b> or an <b>SIR Model</b>.</p>
+    <div className={classes.toMod3Buffer} id="toM3Buffer">
+      <div className={classes.whiteTransitionDiv} id="whiteTransitionDiv"></div>
+      <div className={classes.toM3Other} id="toM3Other">
+        <p className={classes.moduleText}>In this module, we took a look at the SIR model and how it affects people at the <b>individual level</b>. In the next module, we will look at what the SIR model looks like at the <b>population level</b>.</p>
+      <img src={vidImg} className={classes.vidImg}></img>
+      </div>
+
+    </div> 
   <Button component={Link} to ="/Module1" size="lg" round>
   &#8592; Go back to Module 1
   </Button>
