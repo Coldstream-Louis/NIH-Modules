@@ -1,8 +1,8 @@
 const mod3Style = {
   mainContainer:{
     margin: '15px',
-    backgroundColor: '#1c2530',
-    color: 'white',
+    color: '#1c2530',
+    backgroundColor: 'white',
     textAlign: 'center',
     paddingTop: '80px',
   },
@@ -11,8 +11,9 @@ const mod3Style = {
     height: '100%',
     color: 'white',
     padding: '15px',
-    display: 'flex',
-    justifyContent: 'space-between',
+    // display: 'flex',
+    // justifyContent: 'space-between',
+    border: "3px solid red"
   },
   textContainer:{ 
       '& p':{
@@ -43,12 +44,10 @@ const mod3Style = {
     width: "35vw",
   },
   vidDiv:{
-    width: '55% !important',
-    backgroundColor: "beige",
-    display: 'flex',
-    justifySelf: 'center',
-    alignSelf: 'flex-start',
-    padding: 0,
+    backgroundColor: "white",
+    padding: '15px',
+    width: "100%",
+    height: "auto",
   },
 }
 

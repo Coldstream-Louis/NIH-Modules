@@ -46,24 +46,26 @@ export default function Module3() {
     gsap.to(elem.querySelector('#video'),
     {
       scrollTrigger:{      
-        trigger: elem.querySelector('#scrollingContainer'),
-        start: "top 20%",
+        trigger: elem.querySelector('#vidDiv'),
+        start: "top 10%",
         end: "bottom top",
         pin: true,
         markers: true,
+        scrub:true,
         onUpdate: () =>{
           var video = elem.querySelector('#video'),
           videoLength = video.duration,
-          scrollPosition = window.scrollY; //scrollY triggered at 81 down from top, so subtracted this
-          let vidDiv = elem.querySelector('#scrollingContainer').clientHeight
+          scrollPosition = window.scrollY - 279; //scrollY 
+          let vidDiv = elem.querySelector('#vidDiv').clientHeight
           // console.log('video length', videoLength)
           // console.log('scrollPosition', window.scrollY)
           // console.log('vidDiv height', vidDiv )
 
-          if (0<=scrollPosition <= vidDiv){
+          if (0 <= scrollPosition <= vidDiv){
             // percent of scroll down the vidDiv
             let myPercent = scrollPosition / vidDiv
             if (myPercent <=1){
+              console.log("my percent", myPercent)
               // if percent is between 0 and 100%, nav the video to the timestamp at that percent
               video.currentTime = myPercent * videoLength
             }
@@ -73,30 +75,8 @@ export default function Module3() {
           // video.currentTime = (scrollPosition / (elem.querySelector('.markers').clientHeight - window.cleintHeight)) * videoLength;
           // video.currentTime = myTime
         },
-        onEnter: () => {
-            // video trigger create
-            ScrollTrigger.create( {
-              trigger: elem.querySelector(".text1div"),
-              start: "top 20%",
-              end: "bottom top",
-              scrub: true,
-              marker: true,
-            });
-            ScrollTrigger.create( {
-              trigger: elem.querySelector(".text2div"),
-              start: "top 20%",
-              end: "bottom top",
-              scrub: true,
-              marker: true,
-            });
-            ScrollTrigger.create( {
-              trigger: elem.querySelector(".text3div"),
-              start: "top 20%",
-              end: "bottom top",
-              scrub: true,
-              marker: true,
-            });
-
+        onEnter: ()=>{
+          console.log("scroll position on enter",window.scrollY)
         }
       }
     })
@@ -123,9 +103,12 @@ export default function Module3() {
     </div> {/* closes textContainer */}
     <div className={classes.scrollingContainer} id="scrollingContainer">
       <div className={classes.vidDiv} id="vidDiv">
-      <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="100%" >
-      </video>      
+        <div className="topBuffer" style={{height: "10vh", border: "3px solid blue"}}></div>
+        <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="90%" height="auto" valign="top">
+        </video> 
+        <div className="bottomBuffer" style={{height: "50vh", border: "3px solid green"}}></div>     
       </div>
+
       <div className="cardsDiv">
         <div className="text1div" id="" style={{height: "60vh", width:"40vw"}}>
           <Card className={classes.card}>
