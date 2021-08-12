@@ -11,11 +11,14 @@ const mod3Style = {
     width: '100%',
     height: '100%',
     color: 'white',
+    backgroundColor: "yellowgreen",
     padding: '15px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems:"flex-start",
-    border: "3px solid red"
+    border: "3px solid red",
+    overflowY: "visible"
+    // paddingBottom: "50px"
   },
   textContainer:{ 
       '& p':{
@@ -48,11 +51,11 @@ const mod3Style = {
   vidDiv:{
     position: 'sticky',
     top: 45,
-    backgroundColor: "white",
+    backgroundColor: "orange",
     padding: '15px',
     // width: "100%",
     width: "80vw",
-    // height: "auto",
+    height: "100%",
     border: "3px solid yellow"
   },
   cardsDiv:{

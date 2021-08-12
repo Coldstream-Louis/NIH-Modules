@@ -43,20 +43,28 @@ export default function Module3() {
     // grab the current content
     const elem = ref.current
 
+
+
+
     gsap.to(elem.querySelector('#video'),
-    {
-      scrollTrigger:{      
-        trigger: elem.querySelector('#scrollingContainer'),
+    {scrollTrigger:{      
+        trigger: elem.querySelector('.biggerscrollingContainer'),
         start: "top 10%",
         end: "bottom top",
         // pin: true,
         markers: true,
         scrub:true,
         onUpdate: () =>{
-          var video = elem.querySelector('#video'),
-          videoLength = video.duration,
-          scrollPosition = window.scrollY - 279; //scrollY 
+          let video = elem.querySelector('#video')
+          let videoLength = video.duration
+          let offsetTopDiv = elem.querySelector('#scrollingContainer').offsetTop
+          let scrollPosition = window.scrollY 
+          // - offsetTopDiv //scrollY 
+          // - 189; 
           let vidDiv = elem.querySelector('#scrollingContainer').clientHeight
+
+
+          // console.log(offsetTopDiv)
           // console.log('video length', videoLength)
           // console.log('scrollPosition', window.scrollY)
           // console.log('vidDiv height', vidDiv )
@@ -64,10 +72,13 @@ export default function Module3() {
           if (0 <= scrollPosition <= vidDiv){
             // percent of scroll down the vidDiv
             let myPercent = scrollPosition / vidDiv
-            if (myPercent <=1){
+            if (myPercent <=1 && !isNaN(videoLength)){
+            
               console.log("my percent", myPercent)
               // if percent is between 0 and 100%, nav the video to the timestamp at that percent
               video.currentTime = myPercent * videoLength
+            } else {
+              video.currentTime = 0
             }
           }
 
@@ -76,7 +87,11 @@ export default function Module3() {
           // video.currentTime = myTime
         },
         onEnter: ()=>{
-          console.log("scroll position on enter",window.scrollY)
+          // console.log("scroll position on enter",window.scrollY)
+
+        },
+        onLeaveBack: () => {
+
         }
       }
     })
@@ -101,46 +116,63 @@ export default function Module3() {
     <div className={classes.textContainer}>
       <p>Let's see what the SIR model looks like at a larger scale.</p>
     </div> {/* closes textContainer */}
-    <div className={classes.scrollingContainer} id="scrollingContainer">
-      <div className={classes.vidDiv} id="vidDiv">
-        {/* <div className="topBuffer" style={{height: "10vh", border: "3px solid blue"}}></div> */}
-        <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="90%" height="auto" valign="top">
-        </video> 
-        {/* <div className="bottomBuffer" style={{height: "120vh", border: "3px solid green"}}></div>      */}
-      </div>
-      <div className={classes.cardsDiv}>
-        <div className="text1div" id="" style={{height: "60vh", width:"20vw"}}>
-          <Card className={classes.card}>
-            <CardHeader className={classes.stepHeader}>
-                <h2 className={classes.stepH2}>Card 1</h2>
-              </CardHeader>              
-            <CardBody>
-              <p className={classes.stepP}>Card 1 text.</p>
-            </CardBody>
-          </Card>
+    <div className="biggerScrollingContainer">
+      <div className={classes.scrollingContainer} id="scrollingContainer">
+        <div className={classes.vidDiv} id="vidDiv">
+          {/* <div className="topBuffer" style={{height: "10vh", border: "3px solid blue"}}></div> */}
+          <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="90%" height="auto" valign="top">
+          </video> 
+          {/* <div className="bottomBuffer" style={{height: "120vh", border: "3px solid green"}}></div>      */}
         </div>
-        <div className="text2div" id="" style={{height: "60vh", width:"20vw"}}>
-        <Card className={classes.card}>
-            <CardHeader className={classes.stepHeader}>
-                <h2 className={classes.stepH2}>Card 2</h2>
-              </CardHeader>              
-            <CardBody>
-              <p className={classes.stepP}>Card 2 text.</p>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="text3div" id="" style={{height: "60vh", width:"20vw"}}>
-          <Card className={classes.card}>
+        <div className={classes.cardsDiv}>
+          <div className="text1div" id="" style={{height: "120vh", width:"20vw"}}>
+            <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
-                  <h2 className={classes.stepH2}>Card 3</h2>
+                  <h2 className={classes.stepH2}>Card 1</h2>
                 </CardHeader>              
               <CardBody>
-                <p className={classes.stepP}>Card 3 text.</p>
+                <p className={classes.stepP}>Card 1 text.</p>
               </CardBody>
-          </Card>
-        </div>
+            </Card>
+          </div>
+          <div className="text2div" id="" style={{height: "90vh", width:"20vw"}}>
+          <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                  <h2 className={classes.stepH2}>Card 2</h2>
+                </CardHeader>              
+              <CardBody>
+                <p className={classes.stepP}>Card 2 text.</p>
+              </CardBody>
+            </Card>
+          </div>
+          <div className="text3div" id="" style={{height: "60vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Card 3</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>Card 3 text.</p>
+                </CardBody>
+            </Card>
+          </div>
+          <div className="stepBuff" style={{height: '100vh'}}></div>
+          <div className="text4div" id="" style={{height: "80vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Card 4</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>Card 4 text.</p>
+                </CardBody>
+            </Card>
+          </div>
+          <div className="stepBuff" style={{height: '100vh'}}></div>
+      </div>
+      </div> {/* closes scrollingContainer */}
+      <div className="bottomBuff" style={{height: "50vh", backgroundColor:"violet"}}></div>
     </div>
-    </div> {/* closes scrollingContainer */}
+
+    <div className="bottomBufferDiv" style={{height: "120vh"}}></div>
     <Button component={Link} to ="/Module2" size="lg" round>
     &#8592; Go back to Module 2
     </Button>
