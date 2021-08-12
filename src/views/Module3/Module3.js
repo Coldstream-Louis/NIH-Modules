@@ -44,56 +44,60 @@ export default function Module3() {
     const elem = ref.current
 
 
-
-
-    gsap.to(elem.querySelector('#video'),
-    {scrollTrigger:{      
-        trigger: elem.querySelector('.biggerscrollingContainer'),
-        start: "top 10%",
-        end: "bottom top",
-        // pin: true,
-        markers: true,
-        scrub:true,
-        onUpdate: () =>{
-          let video = elem.querySelector('#video')
-          let videoLength = video.duration
-          let offsetTopDiv = elem.querySelector('#scrollingContainer').offsetTop
-          let scrollPosition = window.scrollY 
-          // - offsetTopDiv //scrollY 
-          // - 189; 
-          let vidDiv = elem.querySelector('#scrollingContainer').clientHeight
-
-
-          // console.log(offsetTopDiv)
-          // console.log('video length', videoLength)
-          // console.log('scrollPosition', window.scrollY)
-          // console.log('vidDiv height', vidDiv )
-
-          if (0 <= scrollPosition <= vidDiv){
-            // percent of scroll down the vidDiv
-            let myPercent = scrollPosition / vidDiv
-            if (myPercent <=1 && !isNaN(videoLength)){
-            
-              console.log("my percent", myPercent)
-              // if percent is between 0 and 100%, nav the video to the timestamp at that percent
-              video.currentTime = myPercent * videoLength
-            } else {
-              video.currentTime = 0
+    ScrollTrigger.create({  
+      trigger: elem.querySelector('.biggerScrollingContainer'),
+      start: "top 10%",
+      end: self => elem.querySelector('#scrollingContainer').clientHeight + elem.querySelector('#scrollingContainer').offsetTop,
+      // pin: true,
+      markers: true,
+      scrub:true,
+      onEnter: ()=>{
+        ScrollTrigger.create({
+          trigger: elem.querySelector("#video"),
+          start:"top 10%",
+          end: self => elem.querySelector('#scrollingContainer').clientHeight + elem.querySelector('#scrollingContainer').offsetTop,
+          pin: true,
+          markers: true,
+          onUpdate: () =>{
+            let video = elem.querySelector('#video')
+            let videoLength = video.duration
+            let offsetTopDiv = elem.querySelector('#scrollingContainer').offsetTop
+            let scrollPosition = window.scrollY 
+            // - offsetTopDiv //scrollY 
+            // - 189; 
+            let vidDiv = elem.querySelector('#scrollingContainer').clientHeight
+    
+    
+            // console.log(offsetTopDiv)
+            // console.log('video length', videoLength)
+            // console.log('scrollPosition', window.scrollY)
+            // console.log('vidDiv height', vidDiv )
+    
+            if (0 <= scrollPosition <= vidDiv){
+              // percent of scroll down the vidDiv
+              let myPercent = scrollPosition / vidDiv
+              if (myPercent <=1 && !isNaN(videoLength)){
+              
+                console.log("my percent", myPercent)
+                // if percent is between 0 and 100%, nav the video to the timestamp at that percent
+                video.currentTime = myPercent * videoLength
+              } else {
+                video.currentTime = 0
+              }
             }
-          }
+    
+    
+            // video.currentTime = (scrollPosition / (elem.querySelector('.markers').clientHeight - window.cleintHeight)) * videoLength;
+            // video.currentTime = myTime
+          },
+        })
+        // console.log("scroll position on enter",window.scrollY)
 
+      },
+      onLeaveBack: () => {
 
-          // video.currentTime = (scrollPosition / (elem.querySelector('.markers').clientHeight - window.cleintHeight)) * videoLength;
-          // video.currentTime = myTime
-        },
-        onEnter: ()=>{
-          // console.log("scroll position on enter",window.scrollY)
-
-        },
-        onLeaveBack: () => {
-
-        }
       }
+
     })
 
 
@@ -169,7 +173,6 @@ export default function Module3() {
           <div className="stepBuff" style={{height: '100vh'}}></div>
       </div>
       </div> {/* closes scrollingContainer */}
-      <div className="bottomBuff" style={{height: "50vh", backgroundColor:"violet"}}></div>
     </div>
 
     <div className="bottomBufferDiv" style={{height: "120vh"}}></div>

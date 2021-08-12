@@ -5,19 +5,19 @@ const mod3Style = {
     backgroundColor: 'white',
     textAlign: 'center',
     paddingTop: '80px',
-    overflowY: 'visible',
+    // overflowY: 'visible',
   },
   scrollingContainer :{
     width: '100%',
     height: '100%',
     color: 'white',
-    backgroundColor: "yellowgreen",
+    // backgroundColor: "yellowgreen",
     padding: '15px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems:"flex-start",
-    border: "3px solid red",
-    overflowY: "visible"
+    // border: "3px solid red",
+    // overflowY: "visible"
     // paddingBottom: "50px"
   },
   textContainer:{ 
@@ -49,21 +49,21 @@ const mod3Style = {
     width: "35vw",
   },
   vidDiv:{
-    position: 'sticky',
-    top: 45,
-    backgroundColor: "orange",
+    // position: 'sticky',
+    // top: 45,
+    // backgroundColor: "orange",
     padding: '15px',
     // width: "100%",
     width: "80vw",
     height: "100%",
-    border: "3px solid yellow"
+    // border: "3px solid yellow"
   },
   cardsDiv:{
     width: "20vw",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    border:"3px solid magenta",
+    // border:"3px solid magenta",
   },
 }
 
