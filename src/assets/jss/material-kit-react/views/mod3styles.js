@@ -5,12 +5,15 @@ const mod3Style = {
     backgroundColor: 'white',
     textAlign: 'center',
     paddingTop: '80px',
+    overflowY: 'visible',
   },
   scrollingContainer :{
     width: '100%',
     height: '100%',
     color: 'white',
     padding: '15px',
+    position: 'sticky',
+    top: 15,
     // display: 'flex',
     // justifyContent: 'space-between',
     border: "3px solid red"
@@ -48,6 +51,11 @@ const mod3Style = {
     padding: '15px',
     width: "100%",
     height: "auto",
+  },
+  cardsDiv:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end'
   },
 }
 

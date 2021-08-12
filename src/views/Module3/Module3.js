@@ -46,17 +46,17 @@ export default function Module3() {
     gsap.to(elem.querySelector('#video'),
     {
       scrollTrigger:{      
-        trigger: elem.querySelector('#vidDiv'),
+        trigger: elem.querySelector('#scrollingContainer'),
         start: "top 10%",
         end: "bottom top",
-        pin: true,
+        // pin: true,
         markers: true,
         scrub:true,
         onUpdate: () =>{
           var video = elem.querySelector('#video'),
           videoLength = video.duration,
           scrollPosition = window.scrollY - 279; //scrollY 
-          let vidDiv = elem.querySelector('#vidDiv').clientHeight
+          let vidDiv = elem.querySelector('#scrollingContainer').clientHeight
           // console.log('video length', videoLength)
           // console.log('scrollPosition', window.scrollY)
           // console.log('vidDiv height', vidDiv )
@@ -103,13 +103,13 @@ export default function Module3() {
     </div> {/* closes textContainer */}
     <div className={classes.scrollingContainer} id="scrollingContainer">
       <div className={classes.vidDiv} id="vidDiv">
-        <div className="topBuffer" style={{height: "10vh", border: "3px solid blue"}}></div>
+        {/* <div className="topBuffer" style={{height: "10vh", border: "3px solid blue"}}></div> */}
         <video id="video" src={Video} playsInline={true} webkit-playsinline="true" preload="auto" muted="muted" width="90%" height="auto" valign="top">
         </video> 
-        <div className="bottomBuffer" style={{height: "50vh", border: "3px solid green"}}></div>     
+        {/* <div className="bottomBuffer" style={{height: "120vh", border: "3px solid green"}}></div>      */}
       </div>
-
-      <div className="cardsDiv">
+    </div> {/* closes scrollingContainer */}
+    <div className={classes.cardsDiv}>
         <div className="text1div" id="" style={{height: "60vh", width:"40vw"}}>
           <Card className={classes.card}>
             <CardHeader className={classes.stepHeader}>
@@ -131,19 +131,16 @@ export default function Module3() {
           </Card>
         </div>
         <div className="text3div" id="" style={{height: "60vh", width:"40vw"}}>
-        <Card className={classes.card}>
-            <CardHeader className={classes.stepHeader}>
-                <h2 className={classes.stepH2}>Card 3</h2>
-              </CardHeader>              
-            <CardBody>
-              <p className={classes.stepP}>Card 3 text.</p>
-            </CardBody>
+          <Card className={classes.card}>
+              <CardHeader className={classes.stepHeader}>
+                  <h2 className={classes.stepH2}>Card 3</h2>
+                </CardHeader>              
+              <CardBody>
+                <p className={classes.stepP}>Card 3 text.</p>
+              </CardBody>
           </Card>
         </div>
-      </div>
-
-    </div> {/* closes scrollingContainer */}
-
+    </div>
     <Button component={Link} to ="/Module2" size="lg" round>
     &#8592; Go back to Module 2
     </Button>
