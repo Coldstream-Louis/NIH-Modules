@@ -12,10 +12,9 @@ const mod3Style = {
     height: '100%',
     color: 'white',
     padding: '15px',
-    position: 'sticky',
-    top: 15,
-    // display: 'flex',
-    // justifyContent: 'space-between',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems:"flex-start",
     border: "3px solid red"
   },
   textContainer:{ 
@@ -47,15 +46,21 @@ const mod3Style = {
     width: "35vw",
   },
   vidDiv:{
+    position: 'sticky',
+    top: 45,
     backgroundColor: "white",
     padding: '15px',
-    width: "100%",
-    height: "auto",
+    // width: "100%",
+    width: "80vw",
+    // height: "auto",
+    border: "3px solid yellow"
   },
   cardsDiv:{
+    width: "20vw",
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    border:"3px solid magenta",
   },
 }
 

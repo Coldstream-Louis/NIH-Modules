@@ -108,9 +108,8 @@ export default function Module3() {
         </video> 
         {/* <div className="bottomBuffer" style={{height: "120vh", border: "3px solid green"}}></div>      */}
       </div>
-    </div> {/* closes scrollingContainer */}
-    <div className={classes.cardsDiv}>
-        <div className="text1div" id="" style={{height: "60vh", width:"40vw"}}>
+      <div className={classes.cardsDiv}>
+        <div className="text1div" id="" style={{height: "60vh", width:"20vw"}}>
           <Card className={classes.card}>
             <CardHeader className={classes.stepHeader}>
                 <h2 className={classes.stepH2}>Card 1</h2>
@@ -120,7 +119,7 @@ export default function Module3() {
             </CardBody>
           </Card>
         </div>
-        <div className="text2div" id="" style={{height: "60vh", width:"40vw"}}>
+        <div className="text2div" id="" style={{height: "60vh", width:"20vw"}}>
         <Card className={classes.card}>
             <CardHeader className={classes.stepHeader}>
                 <h2 className={classes.stepH2}>Card 2</h2>
@@ -130,7 +129,7 @@ export default function Module3() {
             </CardBody>
           </Card>
         </div>
-        <div className="text3div" id="" style={{height: "60vh", width:"40vw"}}>
+        <div className="text3div" id="" style={{height: "60vh", width:"20vw"}}>
           <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
                   <h2 className={classes.stepH2}>Card 3</h2>
@@ -141,6 +140,7 @@ export default function Module3() {
           </Card>
         </div>
     </div>
+    </div> {/* closes scrollingContainer */}
     <Button component={Link} to ="/Module2" size="lg" round>
     &#8592; Go back to Module 2
     </Button>
