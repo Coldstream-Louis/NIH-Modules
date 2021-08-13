@@ -53,7 +53,7 @@ const mod2Style = {
   toM3Other:{
     display: "flex",
     flexDirection:"column",
-    justifyContent: "space-between",
+    //justifyContent: "space-between",
     alignItems: "center",
     // backgroundColor: "white",
     // backgroundImage:"linear-gradient(180deg, rgba(28, 37, 48,1), rgba(0,0,0,0)) !important"
@@ -64,7 +64,7 @@ const mod2Style = {
   },
   vidImg: {
     width:"60%",
-    padding: "15px"
+    padding: "20px",
   },
   whiteTransitionDiv:{
     height: "20vh",
