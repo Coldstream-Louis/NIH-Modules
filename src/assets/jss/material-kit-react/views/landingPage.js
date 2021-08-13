@@ -55,6 +55,10 @@ const landingPageStyle = {
   stepHeader:{
       backgroundColor: "#282f36"
   },
+  link: {
+    textDecoration: "underline",
+    color:"white"
+  }
 };
 
 export default landingPageStyle;

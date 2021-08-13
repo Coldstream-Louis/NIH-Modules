@@ -70,7 +70,7 @@ export default function LandingPage() {
 
             </GridItem>
             <GridItem xs={12} sm={12} md={12}>
-              <p className={classes.p}>Built by ZEEE Lab.</p>
+              <p className={classes.p}>Built by <Link to="/AboutUs" className={classes.link}>ZEEE Lab</Link>.</p>
             </GridItem>
           </GridContainer>
         </div>
