@@ -200,7 +200,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text8div" id="" style={{height: "120vh", width:"20vw"}}>
+          <div className="text8div" id="" style={{height: "180vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Many People are Infected</h2>
