@@ -129,48 +129,108 @@ export default function Module3() {
           {/* <div className="bottomBuffer" style={{height: "120vh", border: "3px solid green"}}></div>      */}
         </div>
         <div className={classes.cardsDiv}>
-          <div className="text1div" id="" style={{height: "120vh", width:"20vw"}}>
+        <div className="stepBuff" style={{height: '40vh'}}></div>
+          <div className="text1div" id="" style={{height: "180vh", width:"20vw"}}>
             <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
-                  <h2 className={classes.stepH2}>Card 1</h2>
+                  <h2 className={classes.stepH2}>Someone Introduces Infection</h2>
                 </CardHeader>              
               <CardBody>
-                <p className={classes.stepP}>Card 1 text.</p>
+                <p className={classes.stepP}>Someone in the community is infected.</p>
               </CardBody>
             </Card>
           </div>
           <div className="text2div" id="" style={{height: "90vh", width:"20vw"}}>
           <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
-                  <h2 className={classes.stepH2}>Card 2</h2>
+                  <h2 className={classes.stepH2}>A Transmission Event Occurs</h2>
                 </CardHeader>              
               <CardBody>
-                <p className={classes.stepP}>Card 2 text.</p>
+                <p className={classes.stepP}>The infected person comes in contact with a susceptible person.</p>
               </CardBody>
             </Card>
           </div>
-          <div className="text3div" id="" style={{height: "60vh", width:"20vw"}}>
+          <div className="text3div" id="" style={{height: "240vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
-                    <h2 className={classes.stepH2}>Card 3</h2>
+                    <h2 className={classes.stepH2}>A Susceptible Person becomes Infected</h2>
                   </CardHeader>              
                 <CardBody>
-                  <p className={classes.stepP}>Card 3 text.</p>
+                  <p className={classes.stepP}>The susceptible person becomes infected due to this encounter.</p>
                 </CardBody>
             </Card>
           </div>
-          <div className="stepBuff" style={{height: '100vh'}}></div>
-          <div className="text4div" id="" style={{height: "80vh", width:"20vw"}}>
+          <div className="text4div" id="" style={{height: "90vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
-                    <h2 className={classes.stepH2}>Card 4</h2>
+                    <h2 className={classes.stepH2}>One Transmission Event Occurs</h2>
                   </CardHeader>              
                 <CardBody>
-                  <p className={classes.stepP}>Card 4 text.</p>
+                  <p className={classes.stepP}>Another transmission event occurs. Luckily for one of the infected people, they do not transmit their disease to someone else.</p>
                 </CardBody>
             </Card>
           </div>
-          <div className="stepBuff" style={{height: '100vh'}}></div>
+          <div className="text5div" id="" style={{height: "100vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Another Person is Infected</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>Another person is added to the pool of infected people.</p>
+                </CardBody>
+            </Card>
+          </div>
+          <div className="text6div" id="" style={{height: "150vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Time Passes</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>As time passes, the days left in which a person is infectious decrease.</p>
+                </CardBody>
+            </Card>
+          </div>
+          <div className="text7div" id="" style={{height: "90vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Transmission Events Occur</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>Two transmission events occur. The more infectious people there are moving about in a population, the more chances there are of a transmission event occuring.</p>
+                </CardBody>
+            </Card>
+          </div>
+          <div className="text8div" id="" style={{height: "120vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>Many People are Infected</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>Now most of our population has been infected.</p>
+                </CardBody>
+            </Card>
+          </div>
+          <div className="text9div" id="" style={{height: "80vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>No Transmissions</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>Luckily, there were no transmission events this round.</p>
+                </CardBody>
+            </Card>
+          </div> 
+          <div className="text9div" id="" style={{height: "10vh", width:"20vw"}}>
+            <Card className={classes.card}>
+                <CardHeader className={classes.stepHeader}>
+                    <h2 className={classes.stepH2}>The First Infected Person Recovers</h2>
+                  </CardHeader>              
+                <CardBody>
+                  <p className={classes.stepP}>The first infected person recovers from their illness and is no longer infectious.</p>
+                </CardBody>
+            </Card>
+          </div>          
+          <div className="stepBuff" style={{height: '150vh'}}></div>
       </div>
       </div> {/* closes scrollingContainer */}
     </div>

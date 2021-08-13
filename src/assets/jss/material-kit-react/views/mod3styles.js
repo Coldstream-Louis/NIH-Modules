@@ -34,13 +34,14 @@ const mod3Style = {
     backgroundColor:"#323a42"
   },
   stepHeader:{
-      backgroundColor: "#282f36"
+      backgroundColor: "#282f36",
   },
   stepP:{
     fontSize:"18px",
   },
   stepH2:{
     fontWeight: "700",
+    fontSize: "24px",
   },
   moduleText:{
       fontSize:'18px',
