@@ -128,7 +128,7 @@ export default function Module1() {
       end: "bottom top",
       scrub: 1,
       toggleActions: "reverse none none reset", 
-      markers: true,
+      markers: false,
     }});
 
     var focal_to_s = gsap.timeline();
@@ -161,7 +161,7 @@ export default function Module1() {
       end: "bottom top",
       scrub: 1,
       toggleActions: "reverse none none reset", 
-      markers: true,
+      markers: false,
     }});
 
     var focal_to_i = gsap.timeline();
@@ -196,7 +196,7 @@ export default function Module1() {
       end: "bottom top",
       scrub: 1,
       toggleActions: "reverse none none reset", 
-      markers: true,
+      markers: false,
     }});
 
     var focal_to_r = gsap.timeline();

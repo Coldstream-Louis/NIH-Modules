@@ -259,7 +259,7 @@ export default function Module2() {
       end: "bottom top",
       scrub: 1,
       toggleActions: "reverse none none reset",
-      markers: true,
+      markers: false,
     }})
   
     let focal_legs = make_focal_leg_timeline(6);
@@ -356,7 +356,7 @@ export default function Module2() {
       ease: "none",
       toggleActions: "reverse none none reset",
       scrub: 1,
-      markers: true,
+      markers: false,
     }});
     
     let focal_tl_penultimate = gsap.timeline();
@@ -403,7 +403,7 @@ export default function Module2() {
       ease: "none",
       toggleActions: "reverse none none reset",
       scrub: 1,
-      markers: true,
+      markers: false,
     }});
     
     let focal_final = gsap.timeline();
@@ -454,7 +454,7 @@ export default function Module2() {
       trigger: elem.querySelector("#toM3Buffer"),
       start: "top bottom",
       end: "bottom bottom",
-      markers: true,
+      markers: false,
       onEnter: () => {
         console.log("entered")
         let wtd = elem.querySelector("#whiteTransitionDiv")
@@ -471,7 +471,7 @@ export default function Module2() {
         m3Buffer.style.transition = "background 2.5s ease"
 
         let m3img = elem.querySelector("#vidImg")
-        gsap.to(m3img, {opacity: 1, duration: 2.5})
+        gsap.to(m3img, {opacity: 1, duration: 3})
       },
       onLeaveBack: () => {
         console.log("left")
@@ -489,11 +489,11 @@ export default function Module2() {
 
         let m3img = elem.querySelector("#vidImg")
         gsap.to(m3img, {opacity: 0, duration: 0.1})
-
-
       }
     });
 
+    let m3img = elem.querySelector("#vidImg")
+    gsap.set(m3img, {opacity: 0})
   }, []);
 
   // what is rendered:
