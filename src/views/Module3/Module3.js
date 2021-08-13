@@ -118,7 +118,8 @@ export default function Module3() {
       Module 3: SIR on a Larger Scale
     </h1>
     <div className={classes.textContainer}>
-      <p>Let's see what the SIR model looks like at a larger scale.</p>
+      <p>In Module 2, we took a look at what the SIR model looks like on an <b>individual</b> level.</p>
+      <p>Now, let's see what the SIR model looks like at a larger scale — at the <b>population</b> level.</p>
     </div> {/* closes textContainer */}
     <div className="biggerScrollingContainer">
       <div className={classes.scrollingContainer} id="scrollingContainer">

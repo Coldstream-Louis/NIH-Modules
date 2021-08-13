@@ -22,7 +22,7 @@ const mod3Style = {
   },
   textContainer:{ 
       '& p':{
-        fontSize: '18px',
+        fontSize: '20px',
         margin: '15px',
       }
   },
@@ -65,7 +65,7 @@ const mod3Style = {
     flexDirection: 'column',
     alignItems: 'flex-end',
     // border:"3px solid magenta",
-  },
+  }
 }
 
 export default mod3Style;

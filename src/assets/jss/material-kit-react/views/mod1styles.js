@@ -16,7 +16,7 @@ const mod1Style = {
   },
   textContainer:{ 
       '& p':{
-        fontSize: '18px',
+        fontSize: "20px",
         margin: '15px',
       }
   },

@@ -1,6 +1,7 @@
 html, #root{
     background-color: #1c2530;
 }
+
 #moduleSvg{
     /* background-color: white; */
     position: -webkit-sticky; 

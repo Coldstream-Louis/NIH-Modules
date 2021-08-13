@@ -791,10 +791,10 @@ export default function Module2() {
           <div className="perp_recovery marker" style={{height: "80vh"}}>
             <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
-                  <h2 className={classes.stepH2}>Perp recovers!</h2>
+                  <h2 className={classes.stepH2}>The Perpetrator Recovers</h2>
                 </CardHeader>              
               <CardBody>
-                <p className={classes.stepP}>test</p>
+                <p className={classes.stepP}>The person that got us infected eventually recovers from the illness.</p>
               </CardBody>
             </Card>
           </div>

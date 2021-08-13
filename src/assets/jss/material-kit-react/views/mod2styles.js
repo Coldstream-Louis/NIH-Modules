@@ -16,7 +16,7 @@ const mod2Style = {
   },
   textContainer:{ 
       '& p':{
-        fontSize: '18px',
+        fontSize: '20px',
         margin: '15px',
       }
   },
@@ -70,7 +70,6 @@ const mod2Style = {
     height: "20vh",
     width: "100%",
     // border: "2px solid red",
-
   }
 }
 
