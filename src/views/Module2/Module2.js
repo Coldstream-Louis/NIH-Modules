@@ -791,10 +791,10 @@ export default function Module2() {
           <div className="perp_recovery marker" style={{height: "80vh"}}>
             <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
-                  <h2 className={classes.stepH2}>The Perpetrator Recovers</h2>
+                  <h2 className={classes.stepH2}>Infection Chains</h2>
                 </CardHeader>              
               <CardBody>
-                <p className={classes.stepP}>The person that got us infected eventually recovers from the illness.</p>
+                <p className={classes.stepP}>Even though the original infected individual has recovered, their chain of transmission has continued now that we are infectious.</p>
               </CardBody>
             </Card>
           </div>

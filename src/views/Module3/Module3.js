@@ -49,7 +49,7 @@ export default function Module3() {
       start: "top 10%",
       end: self => elem.querySelector('#scrollingContainer').clientHeight + elem.querySelector('#scrollingContainer').offsetTop,
       // pin: true,
-      markers: true,
+      markers: false,
       scrub:true,
       onEnter: ()=>{
         ScrollTrigger.create({
@@ -57,7 +57,7 @@ export default function Module3() {
           start:"top 10%",
           end: self => elem.querySelector('#scrollingContainer').clientHeight + elem.querySelector('#scrollingContainer').offsetTop,
           pin: true,
-          markers: true,
+          markers: false,
           onUpdate: () =>{
             let video = elem.querySelector('#video')
             let videoLength = video.duration
