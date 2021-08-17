@@ -12,7 +12,7 @@ import Module1 from "views/Module1/Module1.js";
 import Module2 from "views/Module2/Module2.js"
 import Module3 from "views/Module3/Module3.js"
 import AboutUs from "views/AboutUs/AboutUs.js"
-
+import Documents from "views/Documents/Documents.js"
 
 function App() {
   return (
@@ -31,7 +31,9 @@ function App() {
           <Route exact path="/module3"> 
             <Module3 />
           </Route>
-
+          <Route exact path="/documents"> 
+            <Documents />
+          </Route>
           <Route exact path="/aboutus"> 
             <AboutUs />
           </Route>
