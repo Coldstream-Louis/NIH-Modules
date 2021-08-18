@@ -72,7 +72,8 @@ const docPageStyle = {
     justifyContent:"center",
   },
   h3:{
-    color:"white"
+    color:"white",
+    fontWeight:700
   }
 };
 
