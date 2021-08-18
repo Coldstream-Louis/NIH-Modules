@@ -41,10 +41,10 @@ export default function Documents() {
       <div className={classNames(classes.container)}>
           <GridContainer className = {classes.main}>
             <GridItem xs={12} sm={12} md={12}>
-              <h1 className={classes.title}>Storyboards</h1>
+              <h1 className={classes.title}>Storyboards and Drafts</h1>
               <h2 className = {classes.subtitle}>A peek into the design process!</h2>
             </GridItem>
-            <GridItem xs={12} sm={4} md={4} className={classes.pdfComp}>
+            <GridItem xs={12} sm={12} md={6} className={classes.pdfComp}>
               <h3 className={classes.h3}>Module 1 and 2 Storyboard</h3>
               <img src={m12Img} className={classes.pdfImg}></img>
               <p className={classes.p}>Created by Emily Andrus. An overview of the SIR model on the individual and scale.</p>
@@ -52,7 +52,7 @@ export default function Documents() {
                   Download Storyboard
               </Button>
             </GridItem>
-            <GridItem xs={12} sm={4} md={4} className={classes.pdfComp}>
+            <GridItem xs={12} sm={12} md={6} className={classes.pdfComp}>
               <h3 className={classes.h3}>R<sub>0</sub></h3>
               <img src={rnaughtImg} className={classes.pdfImg}></img>
               <p className={classes.p}>Created by Emily Andrus. An overview of the concept of R<sub>0</sub>.</p>
