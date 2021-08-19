@@ -48,15 +48,15 @@ export default function Documents() {
               <h3 className={classes.h3}>Module 1 and 2 Storyboard</h3>
               <img src={m12Img} className={classes.pdfImg}></img>
               <p className={classes.p}>Created by Emily Andrus. An overview of the SIR model on the individual and scale.</p>
-              <Button component={Link} to ="module1_2_storyboard.pdf" size="lg" round>
+              <Button component={Link} to ="module1_2_storyboard.pdf" size="lg" target="_blank" round download>
                   Download Storyboard
               </Button>
             </GridItem>
             <GridItem xs={12} sm={12} md={6} className={classes.pdfComp}>
-              <h3 className={classes.h3}>R<sub>0</sub></h3>
+              <h3 className={classes.h3}>R<sub>0</sub> Storyboard</h3>
               <img src={rnaughtImg} className={classes.pdfImg}></img>
               <p className={classes.p}>Created by Emily Andrus. An overview of the concept of R<sub>0</sub>.</p>
-              <Button component={Link} to ="r_naught_draft.pdf" size="lg" round>
+              <Button component={Link} to ="ro_storyboard.pdf" size="lg" target="_blank" round download> 
                   Download Document
               </Button>
             </GridItem>
