@@ -824,14 +824,10 @@ export default function Module2() {
 
       </div> {/* closes marker */}
     </div> {/* closes scrollingContainer */}
-    <p className={classes.moduleText}>This type of categorization is the foundation of a group of models often used to study diseases called <b>compartmental models</b>.</p>
-    <p className={classes.moduleText}>These models are handy because they are easily adapted to model different transmission scenarios.</p>
-    <p className={classes.moduleText}>The model type most often used is a <b>Susceptible, Infected, Recovered Model</b> or an <b>SIR Model</b>.</p>
-
     <div className={classes.toMod3Buffer} id="toM3Buffer">
       <div className={classes.whiteTransitionDiv} id="whiteTransitionDiv"></div>
       <div className={classes.toM3Other} id="toM3Other">
-        <p className={classes.moduleText}>In this module, we took a look at the SIR model and how it affects people at the <b>individual level</b>. In the next module, we will look at what the SIR model looks like at the <b>population level</b>.</p>
+        <p className={classes.moduleText}>In this module, we investigated how the SIR model affects people at the <b>individual level</b>. In the next module, we will look at what the SIR model looks like at the <b>population level</b>.</p>
         <img src={vidImg} className={classes.vidImg} id="vidImg"></img>
       </div>
     </div>
