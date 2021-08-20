@@ -43,6 +43,130 @@ export default function Module3() {
     // grab the current content
     const elem = ref.current
 
+    // video and videoLength are defined out here so we can update it? 
+    let video = elem.querySelector('#video')
+    let currentTimeTracker = 0
+
+    let videoTL = gsap.timeline()
+    videoTL.to(elem.querySelector(".stepBuffTop"),{
+      scrollTrigger:{
+        trigger: elem.querySelector(".stepBuffTop"),
+        start: "top 20%",
+        end: "bottom top",
+        markers:true,
+        onUpdate: () => {
+          let videoTo = 2;
+          let divHeight = elem.querySelector('.stepBuffTop').clientHeight + elem.querySelector('.stepBuffTop').offsetTop;
+          let scrollPosition = window.scrollY;
+          // console.log("div top buff scrollPosition", scrollPosition);
+          // console.log("div top buff div height", divHeight)
+          if (0 <= scrollPosition <= divHeight){
+            // percent of scroll down the vidDiv
+            let myPercent = scrollPosition / divHeight
+            if (myPercent <=1 && !isNaN(videoTo)){
+            
+              // if percent is between 0  and 100%, nav the video to the timestamp at that percent
+              video.currentTime = myPercent * videoTo
+              currentTimeTracker = myPercent * videoTo
+              console.log("vidTracker Time at buffer top", currentTimeTracker)
+            } 
+            // else {
+            //   video.currentTime = 0
+            // }
+          }
+        }
+      }
+    }).to(elem.querySelector(".text1div"),{
+      scrollTrigger:{
+        trigger: elem.querySelector(".text1div"),
+        start: "top 20%",
+        end: "bottom top",
+        markers:true,
+        onUpdate: () => {
+          let videoTo = 4;
+          let divHeight = elem.querySelector('.text1div').clientHeight + elem.querySelector('.text1div').offsetTop;
+          let scrollPosition = window.scrollY;
+          // console.log("div 1 scrollPosition", scrollPosition);
+          // console.log("div 1 div height", divHeight)
+          if (0 <= scrollPosition <= divHeight){
+            // percent of scroll down the vidDiv
+            let myPercent = scrollPosition / divHeight
+            if (myPercent <=1 && !isNaN(videoTo)){
+            
+              // if percent is between 0 and 100%, nav the video to the timestamp at that percent
+              video.currentTime = myPercent * videoTo
+              currentTimeTracker = myPercent * videoTo
+              console.log("vidTracker Time at div1", currentTimeTracker)
+            } 
+            // else {
+            //   video.currentTime = 0
+            // }
+          }
+        }
+      }
+    }).to(elem.querySelector(".text2div"),{
+      scrollTrigger:{
+        trigger: elem.querySelector(".text2div"),
+        start: "top 20%",
+        end: "bottom top",
+        markers:true,
+        onUpdate: () => {
+          let videoTo = 9;
+          let divHeight = elem.querySelector('.text2div').clientHeight + elem.querySelector('.text2div').offsetTop+ elem.querySelector('.text2div').offsetTop;;
+          let scrollPosition = window.scrollY;
+  
+          // console.log("divHeight is", divHeight)
+          // console.log("scrollPosition is", scrollPosition)
+  
+          if (0 <= scrollPosition <= divHeight){
+            // percent of scroll down the vidDiv
+            let myPercent = scrollPosition / divHeight
+            if (myPercent <=1 && !isNaN(videoTo)){
+          
+              // if percent is between 0 and 100%, nav the video to the timestamp at that percent
+              video.currentTime = myPercent * videoTo
+              currentTimeTracker = myPercent * videoTo
+              console.log("vidTracker Time at div2", currentTimeTracker)
+            } 
+            // else {
+            //   video.currentTime = 0
+            // }
+          }
+        }
+      }
+    }).to(elem.querySelector(".text3div"),{
+      scrollTrigger:{
+        trigger: elem.querySelector(".text3div"),
+        start: "top 20%",
+        end: "bottom top",
+        markers:true,
+        onUpdate: () => {
+          let videoTo = 13;
+          let divHeight = elem.querySelector('.text3div').clientHeight + elem.querySelector('.text3div').offsetTop+ elem.querySelector('.text3div').offsetTop;;
+          let scrollPosition = window.scrollY;
+  
+          // console.log("divHeight is", divHeight)
+          // console.log("scrollPosition is", scrollPosition)
+  
+          if (0 <= scrollPosition <= divHeight){
+            // percent of scroll down the vidDiv
+            let myPercent = scrollPosition / divHeight
+            if (myPercent <=1 && !isNaN(videoTo)){
+          
+              // if percent is between 0 and 100%, nav the video to the timestamp at that percent
+              video.currentTime = myPercent * videoTo
+              currentTimeTracker = myPercent * videoTo
+              console.log("vidTracker Time at div3", currentTimeTracker)
+            } 
+            // else {
+            //   video.currentTime = 0
+            // }
+          }
+        }
+      }
+    })
+
+
 
     ScrollTrigger.create({  
       trigger: elem.querySelector('.biggerScrollingContainer'),
@@ -67,35 +191,20 @@ export default function Module3() {
             // - 189; 
             let vidDiv = elem.querySelector('#scrollingContainer').clientHeight
     
-    
-            // console.log(offsetTopDiv)
-            // console.log('video length', videoLength)
-            // console.log('scrollPosition', window.scrollY)
-            // console.log('vidDiv height', vidDiv )
-    
-            if (0 <= scrollPosition <= vidDiv){
-              // percent of scroll down the vidDiv
-              let myPercent = scrollPosition / vidDiv
-              if (myPercent <=1 && !isNaN(videoLength)){
+            // if (0 <= scrollPosition <= vidDiv){
+            //   // percent of scroll down the vidDiv
+            //   let myPercent = scrollPosition / vidDiv
+            //   if (myPercent <=1 && !isNaN(videoLength)){
               
-                // console.log("my percent", myPercent)
-                // if percent is between 0 and 100%, nav the video to the timestamp at that percent
-                video.currentTime = myPercent * videoLength
-              } else {
-                video.currentTime = 0
-              }
-            }
-    
-    
-            // video.currentTime = (scrollPosition / (elem.querySelector('.markers').clientHeight - window.cleintHeight)) * videoLength;
-            // video.currentTime = myTime
+            //     console.log("my percent", myPercent)
+            //     // if percent is between 0 and 100%, nav the video to the timestamp at that percent
+            //     video.currentTime = myPercent * videoLength
+            //   } else {
+            //     video.currentTime = 0
+            //   }
+            // }
           },
         })
-        // console.log("scroll position on enter",window.scrollY)
-
-      },
-      onLeaveBack: () => {
-
       }
 
     })
@@ -130,8 +239,8 @@ export default function Module3() {
           {/* <div className="bottomBuffer" style={{height: "120vh", border: "3px solid green"}}></div>      */}
         </div>
         <div className={classes.cardsDiv}>
-        <div className="stepBuff" style={{height: '40vh'}}></div>
-          <div className="text1div" id="" style={{height: "180vh", width:"20vw"}}>
+        <div className="stepBuffTop" style={{height: '40vh'}}></div>
+          <div className="text1div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
                   <h2 className={classes.stepH2}>Someone Introduces Infection</h2>
@@ -141,7 +250,7 @@ export default function Module3() {
               </CardBody>
             </Card>
           </div>
-          <div className="text2div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text2div" id="" style={{height: "50vh", width:"20vw"}}>
           <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
                   <h2 className={classes.stepH2}>A Transmission Event Occurs</h2>
@@ -151,7 +260,7 @@ export default function Module3() {
               </CardBody>
             </Card>
           </div>
-          <div className="text3div" id="" style={{height: "240vh", width:"20vw"}}>
+          <div className="text3div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>A Susceptible Person becomes Infected</h2>
@@ -161,7 +270,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text4div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text4div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>One Transmission Event Occurs</h2>
@@ -171,7 +280,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text5div" id="" style={{height: "100vh", width:"20vw"}}>
+          <div className="text5div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Another Person is Infected</h2>
@@ -181,7 +290,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text6div" id="" style={{height: "150vh", width:"20vw"}}>
+          <div className="text6div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Time Passes</h2>
@@ -191,7 +300,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text7div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text7div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Transmission Events Occur</h2>
@@ -201,7 +310,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text8div" id="" style={{height: "180vh", width:"20vw"}}>
+          <div className="text8div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Many People are Infected</h2>
@@ -211,7 +320,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text9div" id="" style={{height: "80vh", width:"20vw"}}>
+          <div className="text9div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>No Transmissions</h2>
@@ -221,7 +330,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div> 
-          <div className="text9div" id="" style={{height: "10vh", width:"20vw"}}>
+          <div className="text10div" id="" style={{height: "50vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>The First Infected Person Recovers</h2>

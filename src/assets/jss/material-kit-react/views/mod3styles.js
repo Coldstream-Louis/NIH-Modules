@@ -68,48 +68,48 @@ const mod3Style = {
     alignItems: 'flex-end',
     // border:"3px solid magenta",
   },
-      // medium size
-      '@media only screen and (min-width: 768px)': {
-        moduleText: {
-          fontSize: '20px',
-        },
-        stepH2: {
-          fontSize: "24px",
-          // color:"teal"
-        },
-        stepP: {
-          fontSize: "20px",
-        },
-        sectionTitle: {
-          fontSize: "32px",
-        },
-        textContainer:{
-          '& p': {
-            fontSize: "20px",
-          },
-        },
+  // medium size
+  '@media only screen and (min-width: 768px)': {
+    moduleText: {
+      fontSize: '18px',
+    },
+    stepH2: {
+      fontSize: "24px",
+      // color:"teal"
+    },
+    stepP: {
+      fontSize: "18px",
+    },
+    sectionTitle: {
+      fontSize: "32px",
+    },
+    textContainer:{
+      '& p': {
+        fontSize: "18px",
       },
-      // large size
-      '@media only screen and (min-width: 992px)': {
-        moduleText: {
-          fontSize: '24px',
-        },
-        stepH2: {
-          fontSize: "28px",
-          // color:"magenta"
-        },
-        stepP: {
-          fontSize: "20px",
-        },
-        sectionTitle: {
-          fontSize: "32px",
-        },
-        textContainer:{
-          '& p': {
-            fontSize: "20px",
-          },
-        },
-      },  
+    },
+  },
+  // large size
+  '@media only screen and (min-width: 992px)': {
+    moduleText: {
+      fontSize: '18px',
+    },
+    stepH2: {
+      fontSize: "28px",
+      // color:"magenta"
+    },
+    stepP: {
+      fontSize: "18px",
+    },
+    sectionTitle: {
+      fontSize: "32px",
+    },
+    textContainer:{
+      '& p': {
+        fontSize: "18px",
+      },
+    },
+  },  
 }
 
 export default mod3Style;
