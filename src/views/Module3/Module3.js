@@ -78,7 +78,7 @@ export default function Module3() {
               let myPercent = scrollPosition / vidDiv
               if (myPercent <=1 && !isNaN(videoLength)){
               
-                console.log("my percent", myPercent)
+                // console.log("my percent", myPercent)
                 // if percent is between 0 and 100%, nav the video to the timestamp at that percent
                 video.currentTime = myPercent * videoLength
               } else {

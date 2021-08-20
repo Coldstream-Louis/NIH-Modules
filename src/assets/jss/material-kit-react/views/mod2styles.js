@@ -15,13 +15,15 @@ const mod2Style = {
       justifyContent: 'space-between',
   },
   textContainer:{ 
-      '& p':{
-        fontSize: '20px',
-        margin: '15px',
-      }
+    '& p':{
+      fontSize: "14px",
+      margin: '15px',
+    },
   },
   sectionTitle:{
-      padding: '15px 0px',
+    padding: '15px 0px',
+    fontSize: "20px",
+    fontWeight: "bold", 
   },
   card: {
     color: "white",
@@ -31,13 +33,14 @@ const mod2Style = {
       backgroundColor: "#282f36"
   },
   stepP:{
-    fontSize:"18px",
+    fontSize:"14px",
   },
   stepH2:{
     fontWeight: "700",
+    fontSize: "18px",
   },
   moduleText:{
-      fontSize:'18px',
+      fontSize:"14px",
   },
   markers:{
     width: "35vw",
@@ -70,7 +73,49 @@ const mod2Style = {
     height: "20vh",
     width: "100%",
     // border: "2px solid red",
-  }
+  },
+    // medium size
+  '@media only screen and (min-width: 768px)': {
+    moduleText: {
+      fontSize: '20px',
+    },
+    stepH2: {
+      fontSize: "24px",
+      // color:"teal"
+    },
+    stepP: {
+      fontSize: "20px",
+    },
+    sectionTitle: {
+      fontSize: "32px",
+    },
+    textContainer:{
+      '& p': {
+        fontSize: "20px",
+      },
+    },
+  },
+  // large size
+  '@media only screen and (min-width: 992px)': {
+    moduleText: {
+      fontSize: '24px',
+    },
+    stepH2: {
+      fontSize: "28px",
+      // color:"magenta"
+    },
+    stepP: {
+      fontSize: "20px",
+    },
+    sectionTitle: {
+      fontSize: "32px",
+    },
+    textContainer:{
+      '& p': {
+        fontSize: "20px",
+      },
+    },
+  },  
 }
 
 export default mod2Style;
