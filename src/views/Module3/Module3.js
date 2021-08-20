@@ -87,7 +87,8 @@ export default function Module3() {
 
           // scrollPosition = the "progress" through the "whole" unit of div
           let scrollPosition = window.scrollY - 125;
-
+          console.log("div height at stepBuffTop", myDivHeight)
+          console.log("scrollPosition at stepBuffTop", scrollPosition)
           // a ratio (percent) of how much "progress" is made within the div
           let percentProgress = scrollPosition / myDivHeight;
 
@@ -122,16 +123,17 @@ export default function Module3() {
         scrub: true,
         onUpdate: () => {
           // one "whole" unit of div
-          let myDivHeight = elem.querySelector(".text1div").offsetHeight;
+          let myDivHeight = elem.querySelector(".text1div").offsetHeight + elem.querySelector(".text1div").offsetTop;
 
           // scrollPosition = the "progress" through the "whole" unit of div
           let scrollPosition = window.scrollY - 125;
-
+          console.log("div height at div1", myDivHeight)
+          console.log("scrollPosition at div1", scrollPosition)
           // a ratio (percent) of how much "progress" is made within the div
           let percentProgress = scrollPosition / myDivHeight;
 
           // the start and end times are going to be used to find the "whole" unit of video I want
-          let end = 5;
+          let end = 9;
           let start = 3;
           
           // how many seconds I'm looking at parsing through
@@ -155,17 +157,18 @@ export default function Module3() {
         scrub: true,
         onUpdate: () => {
           // one "whole" unit of div
-          let myDivHeight = elem.querySelector(".text2div").offsetHeight;
+          let myDivHeight = elem.querySelector(".text2div").offsetHeight + elem.querySelector(".text2div").offsetTop;
 
           // scrollPosition = the "progress" through the "whole" unit of div
           let scrollPosition = window.scrollY - 125;
-
+          console.log("div height at div2", myDivHeight)
+          console.log("scrollPosition at div2", scrollPosition)
           // a ratio (percent) of how much "progress" is made within the div
           let percentProgress = scrollPosition / myDivHeight;
 
           // the start and end times are going to be used to find the "whole" unit of video I want
-          let end = 9;
-          let start = 5;
+          let end = 12;
+          let start = 9;
           
           // how many seconds I'm looking at parsing through
           let durationLength = end - start;
@@ -188,17 +191,18 @@ export default function Module3() {
         scrub: true,
         onUpdate: () => {
           // one "whole" unit of div
-          let myDivHeight = elem.querySelector(".text3div").offsetHeight;
+          let myDivHeight = elem.querySelector(".text3div").offsetHeight + elem.querySelector(".text3div").offsetTop;
 
           // scrollPosition = the "progress" through the "whole" unit of div
           let scrollPosition = window.scrollY - 125;
-
+          console.log("div height at div3", myDivHeight)
+          console.log("scrollPosition at div3", scrollPosition)
           // a ratio (percent) of how much "progress" is made within the div
           let percentProgress = scrollPosition / myDivHeight;
 
           // the start and end times are going to be used to find the "whole" unit of video I want
-          let end = 15;
-          let start = 9;
+          let end = 18;
+          let start = 12;
           
           // how many seconds I'm looking at parsing through
           let durationLength = end - start;
@@ -288,7 +292,7 @@ export default function Module3() {
         </div>
         <div className={classes.cardsDiv}>
         <div className="stepBuffTop" style={{height: '40vh'}}></div>
-          <div className="text1div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text1div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
                   <h2 className={classes.stepH2}>Someone Introduces Infection</h2>
@@ -298,7 +302,7 @@ export default function Module3() {
               </CardBody>
             </Card>
           </div>
-          <div className="text2div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text2div" id="" style={{height: "120vh", width:"20vw"}}>
           <Card className={classes.card}>
               <CardHeader className={classes.stepHeader}>
                   <h2 className={classes.stepH2}>A Transmission Event Occurs</h2>
@@ -308,7 +312,7 @@ export default function Module3() {
               </CardBody>
             </Card>
           </div>
-          <div className="text3div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text3div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>A Susceptible Person becomes Infected</h2>
@@ -318,7 +322,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text4div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text4div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>One Transmission Event Occurs</h2>
@@ -328,7 +332,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text5div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text5div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Another Person is Infected</h2>
@@ -338,7 +342,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text6div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text6div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Time Passes</h2>
@@ -348,7 +352,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text7div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text7div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Transmission Events Occur</h2>
@@ -358,7 +362,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text8div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text8div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>Many People are Infected</h2>
@@ -368,7 +372,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div>
-          <div className="text9div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text9div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>No Transmissions</h2>
@@ -378,7 +382,7 @@ export default function Module3() {
                 </CardBody>
             </Card>
           </div> 
-          <div className="text10div" id="" style={{height: "90vh", width:"20vw"}}>
+          <div className="text10div" id="" style={{height: "120vh", width:"20vw"}}>
             <Card className={classes.card}>
                 <CardHeader className={classes.stepHeader}>
                     <h2 className={classes.stepH2}>The First Infected Person Recovers</h2>
