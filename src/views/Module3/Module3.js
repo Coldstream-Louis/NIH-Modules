@@ -241,7 +241,6 @@ export default function Module3() {
     document.addEventListener("scroll", () => {
       let video = elem.querySelector('#video')
 
-
       // offset from top of the page without needing any parents. gBCR = distance from viewport
       // add scrollY to get position from top of the page. window scroll = top of page + viewport
       let stepbufftop_y = elem.querySelector(".stepBuffTop").getBoundingClientRect().top + window.scrollY
@@ -265,7 +264,7 @@ export default function Module3() {
       
               // set video start and end times
               let start = 0;
-              let end = 3;
+              let end = 4;
       
               // timestamp takes scroll position, subtracts the position of card that you're in (current active card).
               // this is how far you've advanced through the current card
@@ -278,10 +277,9 @@ export default function Module3() {
               // set video time to timestamp
               video.currentTime = timestamp
               console.log("top buff time", timestamp)
-          }
-          else if (window.scrollY < card2_y) {
-            let start = 3;
-            let end = 10;
+          } else if (window.scrollY < card2_y) {
+            let start = 5;
+            let end = 12;
     
             
             let timestamp = (window.scrollY - card1_y) / (card2_y - card1_y) * (end - start) + start
@@ -289,9 +287,8 @@ export default function Module3() {
             console.log("card1 time", timestamp)
 
 
-          }
-          else if (window.scrollY < card3_y) {
-            let start = 10;
+          } else if (window.scrollY < card3_y) {
+            let start = 13;
             let end = 15;
     
             
@@ -300,9 +297,8 @@ export default function Module3() {
 
             console.log("card2 time", timestamp)
 
-          }
-          else if (window.scrollY < card4_y) {
-            let start = 15;
+          } else if (window.scrollY < card4_y) {
+            let start = 16;
             let end = 24;
     
             
@@ -310,20 +306,18 @@ export default function Module3() {
             video.currentTime = timestamp
 
             console.log("card3 time", timestamp)
-          }
-          else if (window.scrollY < card5_y) {
-            let start = 24;
-            let end = 31;
+          } else if (window.scrollY < card5_y) {
+            let start = 25;
+            let end = 28;
     
             
             let timestamp = (window.scrollY - card4_y) / (card5_y - card4_y) * (end - start) + start
             video.currentTime = timestamp
 
             console.log("card4 time", timestamp)
-          }
-          else if (window.scrollY < card6_y) {
-            let start = 31;
-            let end = 39;
+          } else if (window.scrollY < card6_y) {
+            let start = 29;
+            let end = 31;
     
             
             let timestamp = (window.scrollY - card5_y) / (card6_y - card5_y) * (end - start) + start
@@ -331,20 +325,43 @@ export default function Module3() {
 
             console.log("card5 time", timestamp)
       
-          }
-          else if (window.scrollY < card7_y) {
-      
-          }
-          else if (window.scrollY < card8_y) {
-      
-          }
-          else if (window.scrollY < card9_y) {
-      
-          }
-          else if (window.scrollY < card10_y) {
-              // card 9 case
-          }
-          else {
+          } else if (window.scrollY < card7_y) {
+            let start = 32;
+            let end = 36;
+    
+            
+            let timestamp = (window.scrollY - card6_y) / (card7_y - card6_y) * (end - start) + start
+            video.currentTime = timestamp
+
+            console.log("card6 time", timestamp)
+          } else if (window.scrollY < card8_y) {
+            let start = 37;
+            let end = 40;
+    
+            
+            let timestamp = (window.scrollY - card7_y) / (card8_y - card7_y) * (end - start) + start
+            video.currentTime = timestamp
+
+            console.log("card7 time", timestamp)      
+          } else if (window.scrollY < card9_y) {
+            let start = 41;
+            let end = 48;
+    
+            
+            let timestamp = (window.scrollY - card8_y) / (card9_y - card8_y) * (end - start) + start
+            video.currentTime = timestamp
+
+            console.log("card8 time", timestamp)         
+          } else if (window.scrollY < card10_y) {
+            let start = 49;
+            let end = 54;
+    
+            
+            let timestamp = (window.scrollY - card9_y) / (card10_y - card9_y) * (end - start) + start
+            video.currentTime = timestamp
+
+            console.log("card9 time", timestamp)
+          } else {
               // card 10 case (final case)
           }    
         }
